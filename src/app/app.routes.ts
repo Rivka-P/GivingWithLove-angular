@@ -1,11 +1,14 @@
 import { Routes } from '@angular/router';
 import { Volunteering } from './Components/volunteering/volunteering';
 import { Volunteer } from './Components/volunteer/volunteer';
+import { Project } from './Components/project/project';
 
 export const routes: Routes = [ 
     // { path: '', redirectTo: 'v', pathMatch: 'full' },
     { path: 'v', component: Volunteering},
-    { path: 'volunteer', component: Volunteer}
+    { path: 'volunteer', component: Volunteer},
+        { path: 'project', component: Project}
+
 //     { path: '', redirectTo: 'home', pathMatch: 'full' },
 //     { path: 'home', component: HomePage,
 //     children:[

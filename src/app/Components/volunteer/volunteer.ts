@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { VolunteerService } from '../../Services/volunteer-service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { VolunteerDomain } from '../volunteer-domain/volunteer-domain';
 
 @Component({
   selector: 'app-volunteer',
-  imports: [AsyncPipe,ReactiveFormsModule, CommonModule],
+  imports: [AsyncPipe,ReactiveFormsModule, CommonModule,VolunteerDomain],
   templateUrl: './volunteer.html',
   styleUrl: './volunteer.scss'
 })
@@ -25,7 +26,7 @@ addVolunteer(){
     }
     this.volunteerService.addVolunteer(volunteer);
   }
-  
+
 
 }
 }

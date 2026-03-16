@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class VolunteeringModule {
  
-    volunteeringCode!:number
+    volunteeringCode?:number
 
     dateOfVolunteering!:Date 
 
@@ -21,9 +21,9 @@ export class VolunteeringModule {
 
     matcherCode? :number
 
-    projectCode!:number 
+    projectCode?:number 
 
-    subProjectCode!:number
+    subProjectCode?:number
 
     // public virtual Volunteer? MatcherCodeNavigation { get; set; }
 

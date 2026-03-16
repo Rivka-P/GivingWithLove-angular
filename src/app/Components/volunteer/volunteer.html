@@ -8,20 +8,14 @@
 }
 <h1>הכנס פרטי מתנדב חדש</h1>
 <form [formGroup]="vlntrFrm">
-<!-- <select name="" id="">
-    @for(vol of volunteerService.volunteerings$ | async; track vol; let j = $index){
-    <option value="{{vol.VolunteerCode}}">{{vol.VolunteerCode}}</option>}
-</select> -->
+
 <label for="code">code</label>
 <input class="form-control" formControlName="code" type="number" name="code" id="1">
 <label for="name"> name</label>
 <input class="form-control" formControlName="name" type="text" name="name" id="2">
 
- <!-- <select name="code" id="">
-    @for(pos of volunteerService.volunteerings$ | async; track pos; let i = $index){
-    <option value="{{pos.PositionCode}}">{{pos.PositionCode}}</option>}
- </select> -->
- <label for="position">position</label> 
+<label for="position">position</label> 
 <input class="form-control" formControlName="position" type="number" name="position" id="3">
 <button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
 </form>
+<app-volunteer-domain></app-volunteer-domain>

@@ -1,1 +1,6 @@
 <p>project works!</p>
+@for(p of projectService.Projects$ | async; track p; let j = $index)
+{
+      <p> {{p.projectCode}}</p>
+      <p> {{p.projectName}}</p>
+}
