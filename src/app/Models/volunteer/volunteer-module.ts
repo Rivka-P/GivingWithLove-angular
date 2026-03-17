@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { EichudModel } from '../EichudModel';
 
 
 
@@ -14,4 +15,5 @@ export class VolunteerModule {
   volunteerCode!: number
 
   positionCode!: number
+  volunteerCodeNavigation?:EichudModel
 }

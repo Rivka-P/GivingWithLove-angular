@@ -12,9 +12,11 @@
 <input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering" >
 
 <label for="volunteerCode"> volunteerCode</label>
-<select class="form-control" formControlName="volunteerCode"  >
-  @for(volun of volunteerService.volunteers$ | async; track volun; let j = $index){
-  <option >{{volun.volunteerCode}}</option>}
+<select class="form-control" formControlName="volunteerCode"  autocomplete="on">
+  @for(volun of volunteerService.volunteers; track volun; let j = $index){
+  <option  value="{{volun.volunteerCode}}">{{volun.volunteerCodeNavigation?.firstName}}</option>}
+
+
 </select>
 <!-- <input   type="text" name="volunteerCode" > -->
 <label for="poorManCode"> poorManCode</label>

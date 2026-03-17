@@ -1,8 +1,8 @@
 <p>project works!</p>
-@for(p of projectService.Projects$ | async; track p; let j = $index)
+@for(pr of projectService.Projects$ | async; track pr; let j = $index)
 {
-      <p> {{p.projectCode}}</p>
-      <p> {{p.projectName}}</p>
+      <p> {{pr.projectCode}}</p>
+      <p> {{pr.projectName}}</p>
 }
 <form [formGroup]="frm">
 

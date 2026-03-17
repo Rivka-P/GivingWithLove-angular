@@ -26,7 +26,9 @@ export class Position {
     this.positionService.addPosition(p);
   }
   deletePosition(p: PositionModel) {
+   
     this.positionService.deletePosition(p.positionCode);
+     alert("bbbbbbbbbbb")
   }
   updatePosition(p: PositionModel) {
     this.positionService.updatePosition(p);

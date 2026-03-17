@@ -17,7 +17,7 @@ export class Volunteering {
   volunteeringService = inject(VolunteeringService)
   volunteerService = inject(VolunteerService)
   ngOnInit() {
-    this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteeringArr = res })
+    this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteerService.refreshData(); this.volunteeringArr = res })
   }
   vlntrFrm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
