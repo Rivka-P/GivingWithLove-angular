@@ -1,0 +1,116 @@
+<p>eicud works!</p>
+<!-- eichudCode!:number;
+tohar:string="";
+familyName:string="";
+firstName:string="";
+ending:string="";
+fathersName:string="";
+shtibel:string="";
+street:string="";
+house:string="";
+city:string="";
+zipCode:string="";
+housePhone:string="";
+cellPhone:string="";
+shver:string=""; -->
+<table class="donors-table">
+    <thead>
+        <tr>
+            <th>eichudCode</th>
+            <th>tohar</th>
+            <th>familyName</th>
+            <th>firstName</th>
+            <th>ending</th>
+            <th>fathersName</th>
+            <th>ending</th>
+            <th>shtibel</th>
+            <th>street</th>
+            <th>house</th>
+            <th>city</th>
+            <th>zipCode</th>
+            <th>housePhone</th>
+            <th>cellPhone</th>
+            <th>shver</th>
+        </tr>
+    </thead>
+    <tbody> @for(d of eichudService.peopleInTheEichud$ | async;track d.eichudCode;let i=$index){ <tr>
+            <td>{{d.eichudCode}}</td>
+            <td>{{d.tohar}}</td>
+            <td>{{d.familyName}}</td>
+            <td>{{d.firstName}}</td>
+            <td>{{d.ending}}</td>
+            <td>{{d.fathersName}}</td>
+            <td>{{d.ending}}</td>
+            <td>{{d.shtibel}}</td>
+            <td>{{d.street}}</td>
+            <td>{{d.house}}</td>
+            <td>{{d.city}}</td>
+            <td>{{d.zipCode}}</td>
+            <td>{{d.housePhone}}</td>
+            <td>{{d.cellPhone}}</td>
+            <td>{{d.shver}}</td>
+        </tr> }
+    </tbody>
+</table>
+
+<form [formGroup]="frmPerson">
+    <div class="col col-3">
+        <div class="form-group">
+            <div class="label-form">קוד איחוד</div>
+            <input type="number" class="form-control" formControlName="eichudCode" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">תואר</div>
+            <input type="text" class="form-control" formControlName="tohar" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">שם משפחה</div>
+            <input type="text" class="form-control" formControlName="familyName" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">שם פרטי</div>
+            <input type="text" class="form-control" formControlName="firstName" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">סיום</div>
+            <input type="text" class="form-control" formControlName="ending" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">שטיבל</div>
+            <input type="text" class="form-control" formControlName="shtibel" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">רחוב</div>
+            <input type="text" class="form-control" formControlName="street" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">מספר בנין</div>
+            <input type="text" class="form-control" formControlName="house" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">עיר</div>
+            <input type="text" class="form-control" formControlName="city" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">מיקוד</div>
+            <input type="text" class="form-control" formControlName="zipCode" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">מספר טלפון בבית</div>
+            <input type="text" class="form-control" formControlName="shtibel" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">פלאפון</div>
+            <input type="text" class="form-control" formControlName="cellPhone" />
+        </div>
+        <div class="form-group">
+            <div class="label-form">הורי האם</div>
+            <input type="text" class="form-control" formControlName="shver" />
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <button [disabled]="frmPerson.invalid" (click)="save()">שמירה</button>
+            </div>
+        </div>
+    </div>
+</form>

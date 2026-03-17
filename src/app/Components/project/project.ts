@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ProjectModule } from '../../Models/project/project-module';
 import { ProjectService } from '../../Services/project-service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-project',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe,ReactiveFormsModule],
   templateUrl: './project.html',
   styleUrl: './project.scss'
 })
@@ -18,7 +18,7 @@ projectsArr: ProjectModule[] = [];
     this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })
   }
  
-  vlntrFrm = new FormGroup({
+  frm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     projectName: new FormControl<string | null>(null, Validators.required),
     projectManagerCode: new FormControl<number | null>(null),
@@ -26,12 +26,12 @@ projectsArr: ProjectModule[] = [];
       });
 
   addProject() {
-    if (this.vlntrFrm.valid) {
+    if (this.frm.valid) {
       const project = {
         // volunteeringCode: this.vlntrFrm.controls['volunteerCode'].value!,
-        projectName: this.vlntrFrm.value.projectName!,
-        projectManagerCode: this.vlntrFrm.value.projectManagerCode!,
-        domainCode: this.vlntrFrm.value.domainCode!,
+        projectName: this.frm.value.projectName!,
+        projectManagerCode: this.frm.value.projectManagerCode!,
+        domainCode: this.frm.value.domainCode!,
        
       }
       this.projectService.addProject(project);

@@ -1,0 +1,42 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SubProjectModule } from '../Models/sub-project/sub-project-module';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SubProjectService {
+   http = inject(HttpClient );
+BASE_URL: string = 'https://localhost:7016/api/SubProject';
+Projects$: Observable<SubProjectModule[]>;
+Projects:SubProjectModule[]=[];
+  constructor() { 
+    this.Projects$=this.getAllProjects()
+  }
+// --- מתודות CRUD ---
+  getAllProjects(): Observable<SubProjectModule[]> {
+    return this.http.get<SubProjectModule[]>(this.BASE_URL);
+  }
+  getProjectById(id:number): Observable<SubProjectModule[]> {
+    return this.http.get<SubProjectModule[]>(this.BASE_URL +'Get/'+id);
+  }
+  addProject(item: SubProjectModule) {
+    return this.http.post(this.BASE_URL, item).subscribe(() => this.refreshData());
+  }
+  updateProject(item: SubProjectModule){
+    return this.http.put<number>(this.BASE_URL+'Put/'+item.projectCode, item).subscribe(() => this.refreshData());
+  }
+ 
+  deleteProject(name: string): Observable<number> {
+        return this.http.delete<number>(this.BASE_URL+'Delete/'+name);
+  }
+
+  existingProject(g: SubProjectModule) {
+    return this.Projects.findIndex(x => x.projectCode == g.projectCode ) >= 0;
+  }
+   refreshData(){
+    this.getAllProjects().subscribe(x => this.Projects = x);
+    this.Projects$=this.getAllProjects()
+  }
+}
