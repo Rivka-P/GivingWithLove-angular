@@ -1,1 +1,54 @@
 <p>volunteer works!</p>
+
+@for(vol of volunteerService.volunteers$ | async; track vol; let j = $index)
+{
+    {{vol.volunteerCode}}|  
+    {{vol.positionCode}}    
+  
+}
+<h1>הכנס פרטי מתנדב חדש</h1>
+
+    <!-- <div *cdkVirtualFor="let e of filteredList" class="dropdown-item selectable-item"
+         (click)="selectVolunteer(e)">
+      <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+    </div>
+  </cdk-virtual-scroll-viewport> -->
+
+  <!-- בחירת תפקיד -->
+  <!-- <label for="position">תפקיד</label>
+  <select class="form-control mb-3" formControlName="position" id="position">
+    <option *ngFor="let p of listP" [value]="p.positionCode">
+      {{p.positionName}}
+    </option>
+  </select>
+
+  <button class="btn btn-primary" [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+
+</form> -->
+
+
+<form [formGroup]="vlntrFrm" dir="rtl">
+
+<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
+<cdk-virtual-scroll-viewport [itemSize]="40" class="viewport" class="viewport border rounded mb-3" [style.height.px]="calculateViewportHeight()" style="height: 300px;">
+  <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"  class="dropdown-item selectable-item">
+    
+   <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+  </div>
+</cdk-virtual-scroll-viewport>
+  
+ <label for="position">position</label> 
+ <select class="form-control" formControlName="position" type="text" name="position" id="3">
+    @for(p of listP ; track p; let j = $index)
+    {
+    <option value="{{p.positionCode}}"> תפקיד  :{{p.positionName}}  </option>
+}
+</select>
+
+<!-- 
+<input class="form-control" formControlName="position" type="number" name="position" id="3"> -->
+<button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+
+</form>
+<app-volunteer-domain></app-volunteer-domain>
+

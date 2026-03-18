@@ -1,6 +1,29 @@
+
+<h1>הכנס פרטי התנדבות החדש</h1>
 @for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
 {
-    {{vol}}
-  
+   <p> {{vol.volunteeringCode}}</p>
+      <p> {{vol.volunteerCode}}</p>
+
 }
-  <p>yyyyy</p>
+<form [formGroup]="vlntrFrm">
+
+<label for="dateOfVolunteering"> dateOfVolunteering</label>
+<input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering" >
+
+<label for="volunteerCode"> volunteerCode</label>
+<select class="form-control" formControlName="volunteerCode"  >
+  @for(volun of volunteerService.volunteers$ | async; track volun; let j = $index){
+  <option >{{volun.volunteerCode}}</option>}
+</select>
+<!-- <input   type="text" name="volunteerCode" > -->
+<label for="poorManCode"> poorManCode</label>
+<input class="form-control" formControlName="poorManCode" type="text" name="poorManCode" >
+<label for="matcherCode">matcherCode</label> 
+<input class="form-control" formControlName="matcherCode" type="number" name="matcherCode" >
+<label for="projectCode">projectCode</label> 
+<input class="form-control" formControlName="projectCode" type="number" name="projectCode" >
+<label for="subProjectCode">subProjectCode</label> 
+<input class="form-control" formControlName="subProjectCode" type="number" name="subProjectCode" >
+<button [disabled]="vlntrFrm.invalid" (click)="addVolunteering()">הוסף</button>
+</form>

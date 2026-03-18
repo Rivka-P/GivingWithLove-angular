@@ -1,0 +1,54 @@
+.viewport {
+  height: 400px; /* גובה ה-scroll */
+  width: 100%;
+  border: 1px solid #ccc;
+}
+.viewport {
+  background-color: #f9f9f9;
+  overflow: auto;
+}
+
+.selectable-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.selectable-item:hover {
+  background-color: #d9edf7;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.border {
+  border: 1px solid #ccc;
+}
+
+.rounded {
+  border-radius: 4px;
+}
+.volunteer-container {
+  text-align: right;
+  direction: rtl;
+}
+
+.viewport {
+  background-color: #f9f9f9;
+  overflow: auto;
+  direction: rtl; /* חשוב ל-CDK Virtual Scroll */
+}
+
+.selectable-item {
+  padding: 8px;
+  cursor: pointer;
+  text-align: right; /* הטקסט מימין לשמאל */
+}
+
+.selectable-item:hover {
+  background-color: #d9edf7;
+}
