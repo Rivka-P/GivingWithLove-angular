@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 import { VolunteeringService } from '../../Services/volunteering-service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
 import { VolunteerService } from '../../Services/volunteer-service';
+import { EichudService } from '../../Services/eichud-service';
+import { DataView } from 'primeng/dataview';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-volunteering',
@@ -16,8 +19,9 @@ export class Volunteering {
   volunteeringArr: VolunteeringModule[] = [];
   volunteeringService = inject(VolunteeringService)
   volunteerService = inject(VolunteerService)
-  ngOnInit() {
-    this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteerService.refreshData(); this.volunteeringArr = res })
+  ecdService=inject(EichudService)
+   async ngOnInit() {
+   await this.volunteerService.refreshData();this.ecdService.refreshData();
   }
   vlntrFrm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),

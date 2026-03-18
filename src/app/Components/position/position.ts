@@ -2,19 +2,19 @@ import { Component, inject, SimpleChanges } from '@angular/core';
 import { PositionModel } from '../../Models/PositionModel';
 import { PositionService } from '../../Services/position-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-position',
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe,CommonModule],
   templateUrl: './position.html',
   styleUrl: './position.scss'
 })
 export class Position {
-  positionsArr: PositionModel[] = [];
-  positionService = inject(PositionService)
-  p?:PositionModel;
-  frmPosition: FormGroup = new FormGroup({
+    positionsArr: PositionModel[] = [];
+    positionService = inject(PositionService)
+    p?:PositionModel;
+    frmPosition: FormGroup = new FormGroup({
     psitionCode: new FormControl(null),
     positionName: new FormControl(null, Validators.required)
   });
@@ -28,7 +28,7 @@ export class Position {
   deletePosition(p: PositionModel) {
    
     this.positionService.deletePosition(p.positionCode);
-     alert("bbbbbbbbbbb")
+    
   }
   updatePosition(p: PositionModel) {
     this.positionService.updatePosition(p);
@@ -45,7 +45,4 @@ export class Position {
     pos.positionName = this.frmPosition.controls['positionName'].value
     this.addPosition(pos)
   }
-
-
-
 }

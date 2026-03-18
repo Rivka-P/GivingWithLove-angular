@@ -1,4 +1,4 @@
-<p>position works!</p>
+ <!-- <p>position works!</p>
 @for(p of positionService.positions$ | async; track p; let j = $index)
 {
 <div>{{p.positionCode}} :תפקיד מספר</div>
@@ -18,4 +18,70 @@
             </div>
         </div>
     </div>
+</form>  -->
+
+<!-- <p>position works!</p>
+
+<table class="positions-table">
+  <thead>
+    <tr>
+      <th>תפקיד מספר</th>
+      <th>שם תפקיד</th>
+      <th>מחיקה</th>
+    </tr>
+  </thead>
+  <tbody>
+   <tr @for(p of positionService.positions$  | async; track p; let j = $index)>
+{
+<td>{{p.positionCode}} :תפקיד מספר</td>
+<td>{{p.positionName}} :שם תפקיד</td>
+<button class="delete-btn (click)="deletePosition(p)">❌</button>
+</tr>
+}
+   
+    
+  </tbody>
+</table>
+
+<form [formGroup]="frmPosition" class="position-form">
+  <div class="form-group">
+    <label for="positionName" class="label-form">הכנס את שם התפקיד</label>
+    <input id="positionName" type="text" class="frm-control" formControlName="positionName" />
+  </div>
+  
+  <div class="form-group">
+    <button class="save-btn" [disabled]="frmPosition.invalid" (click)="save()">שמירה</button>
+  </div>
+</form> -->
+
+<p>position works!</p>
+
+<table class="positions-table">
+  <thead>
+    <tr>
+      <th>תפקיד מספר</th>
+      <th>שם תפקיד</th>
+      <th>מחיקה</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of positionService.positions$ | async; let j = index">
+      <td>{{ p.positionCode }}</td>
+      <td>{{ p.positionName }}</td>
+      <td>
+        <button class="delete-btn" (click)="deletePosition(p)">❌</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form [formGroup]="frmPosition" class="position-form">
+  <div class="form-group">
+    <label for="positionName" class="label-form">הכנס את שם התפקיד</label>
+    <input id="positionName" type="text" class="frm-control" formControlName="positionName" />
+  </div>
+
+  <div class="form-group">
+    <button class="save-btn" [disabled]="frmPosition.invalid" (click)="save()">שמירה</button>
+  </div>
 </form>

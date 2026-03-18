@@ -15,10 +15,18 @@
   <option >{{volun.volunteerCode}}</option>}
 </select> -->
 <!-- <input   type="text" name="volunteerCode" > -->
-<label for="projectManagerCode"> projectManagerCode</label>
-<input class="form-control" formControlName="projectManagerCode" type="number" name="projectManagerCode" >
-<label for="domainCode">domainCode</label> 
-<input class="form-control" formControlName="domainCode" type="number" name="domainCode" >
+<label for="projectManager">מנהל הפרויקט </label> 
+<select class="form-control" formControlName="projectManager"  autocomplete="on">
+  @for(m of vlntService.volunteers; track m; let j = $index){
+  <option value="{{m.volunteerCode}}">{{m.volunteerCodeNavigation?.firstName}}</option>}
+</select>
+<label for="domainCode">תחום הפרויקט</label> 
+<select class="form-control" formControlName="domainCode"  autocomplete="on">
+  @for(p of projectsArr; track p; let j = $index){
+    @if(p.domainCode==null){
+  <option value="{{p.projectCode}}">{{p.projectName}}</option>}}
+</select>
+<!-- <input class="form-control" formControlName="domainCode" type="number" name="domainCode" > -->
 
 <button [disabled]="frm.invalid" (click)="addProject()">הוסף</button>
 </form>

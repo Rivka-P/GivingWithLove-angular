@@ -1,11 +1,11 @@
 
 <h1>הכנס פרטי התנדבות החדש</h1>
-@for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
+<!-- @for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
 {
    <p> {{vol.volunteeringCode}}</p>
       <p> {{vol.volunteerCode}}</p>
 
-}
+} -->
 <form [formGroup]="vlntrFrm">
 
 <label for="dateOfVolunteering"> dateOfVolunteering</label>
@@ -15,15 +15,18 @@
 <select class="form-control" formControlName="volunteerCode"  autocomplete="on">
   @for(volun of volunteerService.volunteers; track volun; let j = $index){
   <option  value="{{volun.volunteerCode}}">{{volun.volunteerCodeNavigation?.firstName}}</option>}
-
-
 </select>
 <!-- <input   type="text" name="volunteerCode" > -->
 <label for="poorManCode"> poorManCode</label>
-<input class="form-control" formControlName="poorManCode" type="text" name="poorManCode" >
+<select class="form-control" formControlName="poorManCode"  autocomplete="on">
+  @for(p of ecdService.peopleInTheEichud; track p; let j = $index){
+  <option value="{{p.eichudCode}}">{{p.firstName}}</option>}
+</select>
 <label for="matcherCode">matcherCode</label> 
-<input class="form-control" formControlName="matcherCode" type="number" name="matcherCode" >
-<label for="projectCode">projectCode</label> 
+<select class="form-control" formControlName="matcherCode"  autocomplete="on">
+  @for(volun of volunteerService.volunteers; track volun; let j = $index){
+  <option  value="{{volun.volunteerCode}}">{{volun.volunteerCodeNavigation?.firstName}}</option>}
+</select><label for="projectCode">projectCode</label> 
 <input class="form-control" formControlName="projectCode" type="number" name="projectCode" >
 <label for="subProjectCode">subProjectCode</label> 
 <input class="form-control" formControlName="subProjectCode" type="number" name="subProjectCode" >

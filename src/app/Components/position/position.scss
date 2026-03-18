@@ -1,0 +1,223 @@
+/* עיצוב כללי לדף */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cfd4da;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* עיצוב טבלה */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* עיצוב כותרות טבלה */
+th {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* עיצוב תאי טבלה */
+td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* עיצוב שורות טבלה */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* עיצוב כפתור שמירה */
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* כפתור disabled */
+button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* כפתור מחיקה */
+button.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+button.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* עיצוב שורות טבלה */
+.position-item {
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* אנימציה לכפתור מחיקה */
+button.delete-btn {
+    transition: transform 0.2s ease;
+}
+
+button.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+/* עיצוב טופס */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 80%;
+}
+
+/* עיצוב קלטים */
+.frm-control {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* כותרת */
+.label-form {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* כפתור שמירה */
+button.save-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.save-btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+/* עיצוב הטבלה */
+/* עיצוב הטבלה */
+.positions-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  direction: rtl; /* כיוון טקסט מימין לשמאל */
+}
+
+.positions-table th, .positions-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.positions-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.positions-table td {
+  background-color: #f9f9f9;
+}
+
+/* כפתור מחיקה */
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+/* עיצוב הטופס */
+.position-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin: 10px;
+}
+
+.label-form {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.frm-control {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  background-color: #ddd;
+}
+
+.save-btn:hover {
+  background-color: #45a049;
+}
