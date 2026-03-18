@@ -1,0 +1,21 @@
+<p>position works!</p>
+@for(p of positionService.positions$ | async; track p; let j = $index)
+{
+<div>{{p.positionCode}} :תפקיד מספר</div>
+<div>{{p.positionName}} :שם תפקיד</div>
+<button (click)="deletePosition(p)">❌</button>
+}
+
+<form [formGroup]="frmPosition">
+    <div class="col col-3">
+        <div class="form-group">
+            <div class="label-form">הכנס את שם התפקיד</div>
+            <input type="text" class="frm-control" formControlName="positionName" />
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <button [disabled]="frmPosition.invalid" (click)="save()">שמירה</button>
+            </div>
+        </div>
+    </div>
+</form>

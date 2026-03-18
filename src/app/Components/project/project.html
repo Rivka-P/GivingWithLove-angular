@@ -1,0 +1,24 @@
+<p>project works!</p>
+@for(p of projectService.Projects$ | async; track p; let j = $index)
+{
+      <p> {{p.projectCode}}</p>
+      <p> {{p.projectName}}</p>
+}
+<form [formGroup]="frm">
+
+<label for="projectName"> projectName</label>
+<input class="form-control" formControlName="projectName" type="text" name="projectName" >
+
+<!-- <label for="projectManagerCode"> projectManagerCode</label>
+<select class="form-control" formControlName="projectManagerCode"  >
+  @for(volun of volunteerService.volunteers$ | async; track volun; let j = $index){
+  <option >{{volun.volunteerCode}}</option>}
+</select> -->
+<!-- <input   type="text" name="volunteerCode" > -->
+<label for="projectManagerCode"> projectManagerCode</label>
+<input class="form-control" formControlName="projectManagerCode" type="number" name="projectManagerCode" >
+<label for="domainCode">domainCode</label> 
+<input class="form-control" formControlName="domainCode" type="number" name="domainCode" >
+
+<button [disabled]="frm.invalid" (click)="addProject()">הוסף</button>
+</form>

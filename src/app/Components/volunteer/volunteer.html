@@ -1,0 +1,21 @@
+<p>volunteer works!</p>
+
+@for(vol of volunteerService.volunteers$ | async; track vol; let j = $index)
+{
+    {{vol.volunteerCode}}|  
+    {{vol.positionCode}}    
+  
+}
+<h1>הכנס פרטי מתנדב חדש</h1>
+<form [formGroup]="vlntrFrm">
+
+<label for="code">code</label>
+<input class="form-control" formControlName="code" type="number" name="code" id="1">
+<label for="name"> name</label>
+<input class="form-control" formControlName="name" type="text" name="name" id="2">
+
+<label for="position">position</label> 
+<input class="form-control" formControlName="position" type="number" name="position" id="3">
+<button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+</form>
+<app-volunteer-domain></app-volunteer-domain>

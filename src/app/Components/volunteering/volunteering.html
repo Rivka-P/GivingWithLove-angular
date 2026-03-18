@@ -1,0 +1,48 @@
+
+<h1>הכנס פרטי התנדבות החדש</h1>
+@for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
+{
+   <p> {{vol.volunteeringCode}}קוד התנדבות </p>
+      <p> {{vol.volunteerCode}}קוד מתנדב</p>
+
+}
+<form [formGroup]="vlntrFrm">
+
+<label for="dateOfVolunteering"> dateOfVolunteering</label>
+<input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering" >
+
+<label for="volunteerCode"> volunteerCode</label>
+<select class="form-control" formControlName="volunteerCode"  >
+  @for (volun of volunteerArr; track volun; let j = $index) {
+    <option value="{{volun.volunteerCode}}">{{ getVolunteerName(volun.volunteerCode) }}</option>
+  }
+  <!-- @endfor -->
+  <!-- @for(volun of volunteeringArr; track volun; let j = $index){
+  <option value="{{volun.volunteerCode}}">{{volun.volunteerCode}}</option>} -->
+</select>
+<label for="poorManCode"> poorManCode</label>
+<input class="form-control" formControlName="poorManCode" type="text" name="poorManCode" >
+<label for="matcherCode">matcherCode</label> 
+<input class="form-control" formControlName="matcherCode" type="number" name="matcherCode" >
+<label for="projectCode">projectCode</label> 
+
+<select class="form-control" formControlName="projectCode"  (change)="onProjectChange($event)">
+  @for(pro of projectsArr; track pro; let j = $index){
+    @if(projectsArr[j].projectCode!=projectsArr[j].domainCode)
+    {
+      <option value="{{pro.projectCode}}">{{pro.projectName}}</option>
+    }
+    }
+</select>
+
+<label for="subProjectCode">subProjectCode</label> 
+<select class="form-control" formControlName="subProjectCode" >
+  @for(subPro of filteredSubProjects; track subPro; let j = $index){
+
+      <option value="{{subPro.projectCode}}">{{subPro.subProjectName}}</option>
+    }  
+</select>
+
+<!-- <input class="form-control" formControlName="subProjectCode" type="number" name="subProjectCode" > -->
+<button [disabled]="vlntrFrm.invalid" (click)="addVolunteering()">הוסף</button>
+</form>
