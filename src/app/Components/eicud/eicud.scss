@@ -1,0 +1,95 @@
+ /* טבלה */
+.donors-table {
+    width: 100%;
+    border-collapse: collapse; /* קווים אחידים */
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.donors-table th,
+.donors-table td {
+    border: 1px solid #ccc; /* קו אחיד לכל תא */
+    padding: 8px;
+    text-align: center;
+}
+
+.donors-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.donors-table tr:nth-child(even) {
+    background-color: #fafafa; /* צבע שורה לסירוגין */
+}
+
+/* טופס */
+form .form-group {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+form .label-form {
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+form .form-control {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* כפתור */
+form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+form button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+/* פריסה של הטופס */
+.col.col-3 {
+    width: 25%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.donors-table {
+    width: 100%;
+    border-collapse: collapse; /* קווים אחידים */
+    direction: rtl; /* כיוון טקסט מימין לשמאל */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: right; /* טקסט יתחיל מימין */
+}
+
+.donors-table th,
+.donors-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.donors-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.donors-table tr:nth-child(even) {
+    background-color: #fafafa;
+}

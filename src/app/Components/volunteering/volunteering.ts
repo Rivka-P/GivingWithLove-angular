@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 import { VolunteeringService } from '../../Services/volunteering-service';
+<<<<<<< HEAD
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
@@ -12,6 +13,15 @@ import { SubProjectService } from '../../Services/sub-project-service';
 import { lastValueFrom } from 'rxjs';
 import { EichudService } from '../../Services/eichud-service';
 import { EichudModel } from '../../Models/EichudModel';
+=======
+import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
+import { VolunteerService } from '../../Services/volunteer-service';
+import { EichudService } from '../../Services/eichud-service';
+import { DataView } from 'primeng/dataview';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
+>>>>>>> 93a781744fd55843e6664a9d5e302f489ff1febe
 
 @Component({
   selector: 'app-volunteering',
@@ -24,36 +34,39 @@ export class Volunteering {
   projectsArr: ProjectModule[] = [];
   subProjects:SubProjectModule[]=[];
   filteredSubProjects:SubProjectModule[] = []; // מאגר ה-subProjects המותאם לפי projectCode
-  eichudPeople:EichudModel[]=[]
   volunteerArr:VolunteerModule[]=[]//מערך מתנדבים
-  eichudService = inject(EichudService)
   subProjectService = inject(SubProjectService)
   volunteeringService = inject(VolunteeringService)
   projectService=inject(ProjectService)
   volunteerService = inject(VolunteerService)
-  
+  ecdService=inject(EichudService)//איחוד service
   onProjectChange(event: Event) {
     const selectedProjectCode = (event.target as HTMLSelectElement).value;
     this.filteredSubProjects = this.subProjects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
   }
-  getVolunteerName(volunteerCode: number | undefined): string {
-    // alert(volunteerCode)
-    if (volunteerCode === undefined) {
-    return 'שם לא נמצא';
-    }
-    const volunteer = this.eichudPeople.find(v => v.eichudCode === volunteerCode);
-    // alert( volunteer)
-    return volunteer ? (volunteer.familyName+" "+volunteer.firstName) : 'שם לא נמצא';
-  }
+  // getVolunteerName(volunteerCode: number | undefined): string {
+  //   // alert(volunteerCode)
+  //   if (volunteerCode === undefined) {
+  //   return 'שם לא נמצא';
+  //   }
+  //   const volunteer = this.eichudPeople.find(v => v.eichudCode === volunteerCode);
+  //   // alert( volunteer)
+  //   return volunteer ? (volunteer.familyName+" "+volunteer.firstName) : 'שם לא נמצא';
+  // }
 
   async ngOnInit(){
     await this.getVolunteering()// this.volunteeringArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
     this.projectsArr = await  lastValueFrom(this.projectService.getAllProjects());
     this.subProjects = await  lastValueFrom(this.subProjectService.getAllProjects());
     this.volunteerArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
-    this.eichudPeople = await  lastValueFrom(this.eichudService.getAllEichud());
+    // this.eichudPeople = await  lastValueFrom(this.eichudService.getAllEichud());
+    this.volunteerService.refreshData();
+   this.ecdService.refreshData();
+  
     //  alert(this.subProjects.length)
   }
+
+
   vlntrFrm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     dateOfVolunteering: new FormControl<Date | null>(null, Validators.required),
@@ -96,11 +109,5 @@ export class Volunteering {
   //   this.volunteeringService.getVolunteeringById(v.volunteeringCode)
   // }
 
-select(){
-    for(let i=0;i<this.subProjects.length;i++)
-    {
-      // if(this.subProjects[i].subProjectCode!=this.subProjects[i].)
-          alert(this.subProjects[i].subProjectCode)
-    }
-  }
+
 }

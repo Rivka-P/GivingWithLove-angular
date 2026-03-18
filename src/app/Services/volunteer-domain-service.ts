@@ -1,5 +1,5 @@
 import { Directive, inject } from '@angular/core';
-import { VolunteerDomainModule } from '../Models/volunteering/volunteer-domain/volunteer-domain-module';
+import { VolunteerDomainModule } from '../Models/volunteer-domain/volunteer-domain-module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

@@ -1,48 +1,58 @@
-
 <h1>הכנס פרטי התנדבות החדש</h1>
 @for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
 {
-   <p> {{vol.volunteeringCode}}קוד התנדבות </p>
-      <p> {{vol.volunteerCode}}קוד מתנדב</p>
+<p> {{vol.volunteeringCode}}קוד התנדבות </p>
+<p> {{vol.volunteerCode}}קוד מתנדב</p>
 
 }
 <form [formGroup]="vlntrFrm">
 
-<label for="dateOfVolunteering"> dateOfVolunteering</label>
-<input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering" >
+  <label for="dateOfVolunteering"> dateOfVolunteering</label>
+  <input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering">
 
-<label for="volunteerCode"> volunteerCode</label>
-<select class="form-control" formControlName="volunteerCode"  >
+  <label for="volunteerCode"> volunteerCode</label>
+
+  <select class="form-control" formControlName="volunteerCode" autocomplete="on">
+    @for(volun of volunteerService.volunteers; track volun; let j = $index){
+    <option value="{{volun.volunteerCode}}">{{volun.volunteerCodeNavigation?.firstName}}</option>}
+  </select>
+  <!-- <select class="form-control" formControlName="volunteerCode"  >
   @for (volun of volunteerArr; track volun; let j = $index) {
     <option value="{{volun.volunteerCode}}">{{ getVolunteerName(volun.volunteerCode) }}</option>
   }
-  <!-- @endfor -->
-  <!-- @for(volun of volunteeringArr; track volun; let j = $index){
-  <option value="{{volun.volunteerCode}}">{{volun.volunteerCode}}</option>} -->
-</select>
-<label for="poorManCode"> poorManCode</label>
-<input class="form-control" formControlName="poorManCode" type="text" name="poorManCode" >
-<label for="matcherCode">matcherCode</label> 
-<input class="form-control" formControlName="matcherCode" type="number" name="matcherCode" >
-<label for="projectCode">projectCode</label> 
+</select> -->
+   <label for="poorManCode"> poorManCode</label>
+  <select class="form-control" formControlName="poorManCode" autocomplete="on">
+    @for(p of ecdService.peopleInTheEichud; track p; let j = $index){
+    <option value="{{p.eichudCode}}">{{p.firstName}}</option>}
+  </select>
+ <label for="matcherCode">matcherCode</label>
+  <select class="form-control" formControlName="matcherCode" autocomplete="on">
+    @for(volun of volunteerService.volunteers; track volun; let j = $index){
+    <option value="{{volun.volunteerCode}}">{{volun.volunteerCodeNavigation?.firstName}}</option>}
+  <label for="projectCode">projectCode</label>
 
-<select class="form-control" formControlName="projectCode"  (change)="onProjectChange($event)">
-  @for(pro of projectsArr; track pro; let j = $index){
+  <select class="form-control" formControlName="projectCode" (change)="onProjectChange($event)">
+    @for(pro of projectsArr; track pro; let j = $index){
     @if(projectsArr[j].projectCode!=projectsArr[j].domainCode)
     {
-      <option value="{{pro.projectCode}}">{{pro.projectName}}</option>
+    <option value="{{pro.projectCode}}">{{pro.projectName}}</option>
     }
     }
-</select>
+  </select>
+  <label for="subProjectCode">subProjectCode</label>
+  <select class="form-control" formControlName="subProjectCode">
+    @for(subPro of filteredSubProjects; track subPro; let j = $index){
 
-<label for="subProjectCode">subProjectCode</label> 
-<select class="form-control" formControlName="subProjectCode" >
-  @for(subPro of filteredSubProjects; track subPro; let j = $index){
+    <option value="{{subPro.projectCode}}">{{subPro.subProjectName}}</option>
+    }
+  </select>
 
-      <option value="{{subPro.projectCode}}">{{subPro.subProjectName}}</option>
-    }  
-</select>
-
-<!-- <input class="form-control" formControlName="subProjectCode" type="number" name="subProjectCode" > -->
-<button [disabled]="vlntrFrm.invalid" (click)="addVolunteering()">הוסף</button>
+ 
+  
+  <!-- </select><label for="projectCode">projectCode</label>
+  <input class="form-control" formControlName="projectCode" type="number" name="projectCode">
+  <label for="subProjectCode">subProjectCode</label>
+  <input class="form-control" formControlName="subProjectCode" type="number" name="subProjectCode">
+  <button [disabled]="vlntrFrm.invalid" (click)="addVolunteering()">הוסף</button> -->
 </form>
