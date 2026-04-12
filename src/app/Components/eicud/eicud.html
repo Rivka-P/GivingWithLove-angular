@@ -1,38 +1,27 @@
-<p>eicud works!</p>
-<!-- eichudCode!:number;
-tohar:string="";
-familyName:string="";
-firstName:string="";
-ending:string="";
-fathersName:string="";
-shtibel:string="";
-street:string="";
-house:string="";
-city:string="";
-zipCode:string="";
-housePhone:string="";
-cellPhone:string="";
-shver:string=""; -->
+
+
 <table class="donors-table">
     <thead>
         <tr>
-            <th>eichudCode</th>
-            <th>tohar</th>
-            <th>familyName</th>
-            <th>firstName</th>
-            <th>ending</th>
-            <th>fathersName</th>
-            <th>ending</th>
-            <th>shtibel</th>
-            <th>street</th>
-            <th>house</th>
-            <th>city</th>
-            <th>zipCode</th>
-            <th>housePhone</th>
-            <th>cellPhone</th>
-            <th>shver</th>
+            <th>קוד איחוד</th>
+            <th>תואר</th>
+            <th>שם משפחה</th>
+            <th>שם פרטי</th>
+            <th>סיום</th>
+            <th>שם האב</th>
+            <th>סיום</th>
+            <th>שטיבל</th>
+            <th>רחוב</th>
+            <th>מספר בניין</th>
+            <th>עיר</th>
+            <th>מיקוד</th>
+            <th>טלפון בבית</th>
+            <th>פלאפון</th>
+            <th>הורי האם</th>
         </tr>
     </thead>
+    <tbody>
+   
     <tbody> @for(d of eichudService.peopleInTheEichud$ | async;track d.eichudCode;let i=$index){ <tr>
             <td>{{d.eichudCode}}</td>
             <td>{{d.tohar}}</td>
@@ -40,7 +29,6 @@ shver:string=""; -->
             <td>{{d.firstName}}</td>
             <td>{{d.ending}}</td>
             <td>{{d.fathersName}}</td>
-            <td>{{d.ending}}</td>
             <td>{{d.shtibel}}</td>
             <td>{{d.street}}</td>
             <td>{{d.house}}</td>

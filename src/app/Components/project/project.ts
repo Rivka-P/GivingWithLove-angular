@@ -4,6 +4,9 @@ import { ProjectService } from '../../Services/project-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 
+import { VolunteerService } from '../../Services/volunteer-service';
+
+
 @Component({
   selector: 'app-project',
   imports: [AsyncPipe,ReactiveFormsModule],
@@ -11,7 +14,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './project.scss'
 })
 export class Project {
-projectsArr: ProjectModule[] = [];
+
+  projectsArr: ProjectModule[] = [];
+
   projectService = inject(ProjectService)
   // volunteerService = inject(VolunteerService)
   ngOnInit() {

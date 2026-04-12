@@ -1,10 +1,27 @@
 import { Component, inject } from '@angular/core';
 import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 import { VolunteeringService } from '../../Services/volunteering-service';
+
+
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
+
 import { VolunteerService } from '../../Services/volunteer-service';
+
+import { EichudModel } from '../../Models/EichudModel';
+
+
+import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
+
+import { EichudService } from '../../Services/eichud-service';
+import { DataView } from 'primeng/dataview';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
+import { ProjectModule } from '../../Models/project/project-module';
+import { SubProjectModule } from '../../Models/sub-project/sub-project-module';
+import { SubProjectService } from '../../Services/sub-project-service';
+import { ProjectService } from '../../Services/project-service';
+import { lastValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-volunteering',
@@ -13,13 +30,48 @@ import { VolunteerService } from '../../Services/volunteer-service';
   styleUrl: './volunteering.scss'
 })
 export class Volunteering {
-  volunteeringArr: VolunteeringModule[] = [];
+
+  volunteeringArr: VolunteeringModule[] = [];//מערך התנדבויות
+  projectsArr: ProjectModule[] = [];
+  subProjects:SubProjectModule[]=[];
+  filteredSubProjects:SubProjectModule[] = []; // מאגר ה-subProjects המותאם לפי projectCode
+  volunteerArr:VolunteerModule[]=[]//מערך מתנדבים
+  subProjectService = inject(SubProjectService)
   volunteeringService = inject(VolunteeringService)
+  projectService=inject(ProjectService)
   volunteerService = inject(VolunteerService)
-  ngOnInit() {
-    this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteeringArr = res })
+  ecdService=inject(EichudService)//איחוד service
+  onProjectChange(event: Event) {
+    const selectedProjectCode = (event.target as HTMLSelectElement).value;
+    this.filteredSubProjects = this.subProjects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
+  }
+  // getVolunteerName(volunteerCode: number | undefined): string {
+  //   // alert(volunteerCode)
+  //   if (volunteerCode === undefined) {
+  //   return 'שם לא נמצא';
+  //   }
+  //   const volunteer = this.eichudPeople.find(v => v.eichudCode === volunteerCode);
+  //   // alert( volunteer)
+  //   return volunteer ? (volunteer.familyName+" "+volunteer.firstName) : 'שם לא נמצא';
+  // }
+
+  async ngOnInit(){
+    await this.getVolunteering()// this.volunteeringArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
+    this.projectsArr = await  lastValueFrom(this.projectService.getAllProjects());
+    this.subProjects = await  lastValueFrom(this.subProjectService.getAllProjects());
+    this.volunteerArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
+    // this.eichudPeople = await  lastValueFrom(this.eichudService.getAllEichud());
+    this.volunteerService.refreshData();
+   this.ecdService.refreshData();
+  
+    //  alert(this.subProjects.length)
+
   }
   vlntrFrm = new FormGroup({
+ 
+
+
+
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     dateOfVolunteering: new FormControl<Date | null>(null, Validators.required),
     volunteerCode: new FormControl<number | null>(null),
@@ -33,7 +85,8 @@ export class Volunteering {
   addVolunteering() {
     if (this.vlntrFrm.valid) {
       const volunteering = {
-        // volunteeringCode: this.vlntrFrm.controls['volunteerCode'].value!,
+
+
         dateOfVolunteering: this.vlntrFrm.value.dateOfVolunteering!,
         volunteerCode: this.vlntrFrm.value.volunteerCode!,
         poorManCode: this.vlntrFrm.value.poorManCode!,
@@ -57,7 +110,4 @@ export class Volunteering {
     this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteeringArr = res })
 
   }
-  // getVolunteeringById(v: VolunteeringModule) {
-  //   this.volunteeringService.getVolunteeringById(v.volunteeringCode)
-  // }
 }
