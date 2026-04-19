@@ -5,6 +5,8 @@ import { SubProjectService } from '../../Services/sub-project-service';
 import { ProjectService } from '../../Services/project-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteeringService } from '../../Services/volunteering-service';
+import { VolunteerService } from '../../Services/volunteer-service';
+import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 
 @Component({
   selector: 'app-data-display',
@@ -24,26 +26,78 @@ filteredSubProjects: SubProjectModule[] = [];
   router=inject(Router)
   flag:boolean=false
   volunteeringSrv=inject(VolunteeringService)
+  volunteeringArr:VolunteeringModule[]=[]
+  vm:any=undefined
+  volunteerSrv=inject(VolunteerService)
+  estimatedTime:number=0;
+  estimatedCost:number=0;
+  subProject?: SubProjectModule;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.projectCode = this.route.snapshot.paramMap.get('id');
-    this.projectName = this.route.snapshot.paramMap.get('name');
-    this.ProjectService.getAllProjects().subscribe(x => {
-      this.Projects = x
-      this.filteredProjects = this.Projects.filter(sp => sp.domainCode?.toString() === this.projectCode);})
+  this.projectCode = this.route.snapshot.paramMap.get('id');
+  this.projectName = this.route.snapshot.paramMap.get('name');
 
-    this.subProjectService.getAllProjects().subscribe(x => {
-      this.subProjects = x
-      for(let sp of this.filteredProjects){
-        this.filteredSubProjects = this.subProjects.filter(x => x.projectCode === sp.projectCode)
+  this.ProjectService.getAllProjects().subscribe(projects => {
+    this.Projects = projects;
+
+    this.filteredProjects = this.Projects.filter(
+      sp => sp.domainCode?.toString() === this.projectCode
+    );
+
+    this.subProjectService.getAllProjects().subscribe(subs => {
+      this.subProjects = subs;
+
+      this.filteredSubProjects = this.subProjects.filter(sp =>
+        this.filteredProjects.some(fp => fp.projectCode === sp.projectCode)
+      );
+this.volunteerSrv.refreshData();
+      this.volunteeringSrv.getAllVolunteerings().subscribe(vols => {
+        this.volunteeringArr = vols;
+        this.calcCost();
+        this.calcTime();
+      });
+    });
+  });
+}
+   
+ calcCost = () => {
+  this.estimatedCost = 0;
+
+  for (let index = 0; index < this.volunteeringArr.length; index++) {
+    const vm = this.volunteeringArr[index]?.subProjectCode;
+
+    if (vm !== undefined) {
+      const project = this.subProjects.find(
+        x => x.subProjectCode === vm
+      );
+
+      if (project) {
+        this.estimatedCost += Number(project.estimatedCost);
       }
-      ;})}
-    goToVolunteering(p:any){
-    this.volunteeringSrv.setSelectedProject(Number(this.projectCode));
+    }
+  }
 
-    this.volunteeringSrv.setSelectedSubProject(p.subProjectCode);
-    this.router.navigate(['/v']);
+  console.log(this.estimatedCost);
+}
+calcTime = () => {
+  this.estimatedTime = 0;
 
-  }}
+  for (let index = 0; index < this.volunteeringArr.length; index++) {
+    const vm = this.volunteeringArr[index]?.subProjectCode;
 
+    if (vm !== undefined) {
+      const project = this.subProjects.find(
+        x => x.subProjectCode === vm
+      );
+
+      if (project) {
+        this.estimatedTime += Number(project.estimatedTime);
+      }
+    }
+  }
+this.estimatedTime = this.estimatedTime / 60
+  console.log(this.estimatedTime);
+}
+}

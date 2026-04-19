@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { VolunteeringModule } from '../Models/volunteering/volunteering/volunteering-module';
 import { Observable } from 'rxjs';
+import { SubProjectService } from './sub-project-service';
+import { SubProjectModule } from '../Models/sub-project/sub-project-module';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ export class VolunteeringService {
 
 BASE_URL: string =' https://localhost:7016/api/Volunteering';
 volunteerings$: Observable<VolunteeringModule[]>;
+subProjectsrv=inject(SubProjectService)
 volunteerings:VolunteeringModule[]=[];
 dateOfVolunteeringInS!:Date 
 
@@ -23,7 +26,7 @@ dateOfVolunteeringInS!:Date
     projectCodeInS?:number 
 
     subProjectCodeInS?:number
-setSelectedVolunteer(volunteerCode: number) {
+  setSelectedVolunteer(volunteerCode: number) {
     this.volunteerCodeInS = volunteerCode;
   }
   setSelectedPoorMan(poorManCode: number) {
@@ -67,4 +70,19 @@ setSelectedVolunteer(volunteerCode: number) {
    await this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
     this.volunteerings$=this.getAllVolunteerings()
   }
-}
+    calcCost(){
+      
+    let sum=0;
+    this.refreshData()
+    for (let index = 0; index < 18;) {
+    if(this.volunteerings[index].subProjectCode == undefined)
+      index++
+    else
+        {
+          sum+=Number(this.subProjectsrv.Projects.find(x => x.projectCode == this.volunteerings[index].subProjectCode )?.estimatedCost);
+               index++
+ 
+    }}
+return sum
+  
+}}

@@ -22,10 +22,31 @@
   <h2 style="text-align:center">Product Card</h2>
 
 <div class="card">
-  <img src="../w3images/jeans3.png" alt="Denim Jeans" style="width:100%">
+  <!-- <img src="../w3images/jeans3.png" alt="Denim Jeans" style="width:100%"> -->
   <h1> מספר המתנדבים</h1>
-  <p class="price">$19.99</p>
+  <p class="price">{{volunteerSrv.volunteers.length}}</p>
   <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
   <p><button>Add to Cart</button></p>
 </div>
+<div class="card">
+  <!-- <img src="../w3images/jeans3.png" alt="Denim Jeans" style="width:100%"> -->
+  <h1> מספר ההתנדבויות</h1>
+  <p class="price">{{volunteeringArr.length}}</p>
+  <p></p>
+  <p><button>Add to Cart</button></p>
+</div>
+<div class="card">
+  <!-- <img src="../w3images/jeans3.png" alt="Denim Jeans" style="width:100%"> -->
+    <h1>  שווי ההתנדבויות בשקלים</h1>
+
+  <p class="price" >שקלים{{estimatedCost}}</p>
+  <p></p>
+  <p><button >Add to Cart</button></p>
+</div>
+<div class="card">
+  <!-- <img src="../w3images/jeans3.png" alt="Denim Jeans" style="width:100%"> -->
+  <h1>  שעות ההתנדבויות</h1>
+  <p class="price" >{{estimatedTime}}</p>
+  <p></p>
+  <p><button >Add to Cart</button></p>
 </div>
