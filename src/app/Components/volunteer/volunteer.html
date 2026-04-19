@@ -1,21 +1,29 @@
 <p>volunteer works!</p>
-
 @for(vol of volunteerService.volunteers$ | async; track vol; let j = $index)
 {
     {{vol.volunteerCode}}|  
-    {{vol.positionCode}}    
+    {{vol.positionCode}} 
   
 }
 <h1>הכנס פרטי מתנדב חדש</h1>
-<form [formGroup]="vlntrFrm">
-
-<label for="code">code</label>
-<input class="form-control" formControlName="code" type="number" name="code" id="1">
-<label for="name"> name</label>
-<input class="form-control" formControlName="name" type="text" name="name" id="2">
-
-<label for="position">position</label> 
-<input class="form-control" formControlName="position" type="number" name="position" id="3">
+<form [formGroup]="vlntrFrm" dir="rtl">
+<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
+<cdk-virtual-scroll-viewport [itemSize]="40" class="viewport" class="viewport border rounded mb-3" [style.height.px]="calculateViewportHeight()" style="height: 300px;">
+  <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"  class="dropdown-item selectable-item">
+    
+   <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+  </div>
+</cdk-virtual-scroll-viewport>
+  
+ <label for="position">position</label> 
+ <select class="form-control" formControlName="position" type="text" name="position" id="3">
+    @for(p of listP ; track p; let j = $index)
+    {
+    <option value="{{p.positionCode}}"> תפקיד  :{{p.positionName}}  </option>
+}
+</select>
 <button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+
 </form>
 <app-volunteer-domain></app-volunteer-domain>
+

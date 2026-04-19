@@ -11,6 +11,7 @@ export class VolunteerService {
   http = inject(HttpClient);
   volunteers$: Observable<VolunteerModule[]>;
   volunteers:VolunteerModule[]=[];
+  userPosition?:string;//מה התפקיד של המשתמש הנוכחי
     constructor() { 
       this.volunteers$=this.getAllVolunteers()
     }

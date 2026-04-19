@@ -1,8 +1,10 @@
-import { Directive, inject } from '@angular/core';
+import { Directive, inject, Injectable } from '@angular/core';
 import { VolunteerDomainModule } from '../Models/volunteer-domain/volunteer-domain-module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+@Injectable({
+  providedIn: 'root'
+})
 @Directive({
   selector: '[appVolunteerDomainService]'
 })

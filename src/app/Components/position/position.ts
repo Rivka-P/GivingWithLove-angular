@@ -6,9 +6,9 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-position',
-  imports: [ReactiveFormsModule, AsyncPipe,CommonModule],
+  imports: [ReactiveFormsModule, AsyncPipe, CommonModule],
   templateUrl: './position.html',
-  styleUrl: './position.scss'
+  styleUrls: ['./position.scss']
 })
 export class Position {
     positionsArr: PositionModel[] = [];
@@ -25,9 +25,8 @@ export class Position {
   addPosition(p: PositionModel) {
     this.positionService.addPosition(p);
   }
-  deletePosition(p: PositionModel) {
-   
-    this.positionService.deletePosition(p.positionCode);
+   deletePosition(p: number) {
+    this.positionService.deletePosition(p);``
     
   }
   updatePosition(p: PositionModel) {

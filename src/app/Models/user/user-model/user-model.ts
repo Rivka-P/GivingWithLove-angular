@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EichudModel } from '../EichudModel';
-
-
 
 
 @NgModule({
@@ -12,9 +9,8 @@ import { EichudModel } from '../EichudModel';
     CommonModule
   ]
 })
-export class VolunteerModule {
-  volunteerCode!: number
-  positionCode!: number
-  volunteerCodeNavigation?:EichudModel
-
+export class UserModel { 
+  userName!: string
+  password!: number
+  position?:number
 }

@@ -12,6 +12,33 @@ export class VolunteeringService {
 BASE_URL: string =' https://localhost:7016/api/Volunteering';
 volunteerings$: Observable<VolunteeringModule[]>;
 volunteerings:VolunteeringModule[]=[];
+dateOfVolunteeringInS!:Date 
+
+    volunteerCodeInS?:number 
+
+    poorManCodeInS?:number
+
+    matcherCodeInS? :number
+
+    projectCodeInS?:number 
+
+    subProjectCodeInS?:number
+setSelectedVolunteer(volunteerCode: number) {
+    this.volunteerCodeInS = volunteerCode;
+  }
+  setSelectedPoorMan(poorManCode: number) {
+    this.poorManCodeInS = poorManCode;
+  }
+  setSelectedMatcher(matcherCode: number) {
+    this.matcherCodeInS = matcherCode;
+  }
+  setSelectedProject(projectCode: number) {
+    this.projectCodeInS = projectCode;
+  }
+  setSelectedSubProject(subProjectCode: number) {
+    this.subProjectCodeInS = subProjectCode;
+  }
+
   constructor() { 
     this.volunteerings$=this.getAllVolunteerings()
   }
@@ -36,8 +63,8 @@ volunteerings:VolunteeringModule[]=[];
   existingVolunteering(g: VolunteeringModule) {
     return this.volunteerings.findIndex(x => x.volunteeringCode == g.volunteeringCode ) >= 0;
   }
-   refreshData(){
-    this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
+  async refreshData (){
+   await this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
     this.volunteerings$=this.getAllVolunteerings()
   }
 }

@@ -1,19 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { SubProjectService } from '../../Services/sub-project-service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SubProjectModule } from '../../Models/sub-project/sub-project-module';
 import { ProjectModule } from '../../Models/project/project-module';
+import { SubProjectService } from '../../Services/sub-project-service';
 import { ProjectService } from '../../Services/project-service';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteeringService } from '../../Services/volunteering-service';
+
 @Component({
-  selector: 'app-sub-project',
-  imports: [CommonModule,RouterModule],
-  templateUrl: './sub-project.html',
-  styleUrl: './sub-project.scss'
+  selector: 'app-data-display',
+  imports: [],
+  templateUrl: './data-display.html',
+  styleUrl: './data-display.scss',
 })
-export class SubProject {
-  filteredSubProjects: SubProjectModule[] = [];
+export class DataDisplay {
+filteredSubProjects: SubProjectModule[] = [];
   filteredProjects: ProjectModule[] = [];
   Projects: ProjectModule[] = [];
   subProjects: SubProjectModule[] = [];

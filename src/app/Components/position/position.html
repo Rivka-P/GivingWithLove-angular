@@ -61,16 +61,16 @@
     <tr>
       <th>תפקיד מספר</th>
       <th>שם תפקיד</th>
-      <th>מחיקה</th>
+      <!-- <th>מחיקה</th> -->
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let p of positionService.positions$ | async; let j = index">
       <td>{{ p.positionCode }}</td>
       <td>{{ p.positionName }}</td>
-      <td>
-        <button class="delete-btn" (click)="deletePosition(p)">❌</button>
-      </td>
+      <!-- <td>
+        <button class="delete-btn" (click)="deletePosition(p.positionCode)">❌</button>
+      </td> -->
     </tr>
   </tbody>
 </table>

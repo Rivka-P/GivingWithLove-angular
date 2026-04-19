@@ -1,0 +1,35 @@
+<p>log-in works!</p>
+<form [formGroup]="lgFrm" style="max-width:500px;margin:auto">
+    @if(error==false){
+         <div >שגיאה בשם משתמש או בסיסמא</div>
+    }
+   
+  <h2>Log In Form</h2>
+  <div class="input-container">
+    <i class="fa fa-user icon"></i>
+    <input
+      formControlName="userName"
+      class="form-control input-field"
+      type="text"
+      placeholder="Username"
+      name="usrnm">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+    <input
+      formControlName="password"
+      class="form-control input-field"
+      type="password"
+      placeholder="Password"
+      name="psw">
+  </div>
+
+  <button
+    type="button"
+    [disabled]="lgFrm.invalid"
+    class="btn"
+    (click)="enter()">
+    enter
+  </button>
+</form>

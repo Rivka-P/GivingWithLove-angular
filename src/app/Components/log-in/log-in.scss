@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+/* מסך מלא תקין */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #ff1493 0%, #0d1a6b 100%);
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+:host {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* עיצוב טופס */
+form {
+  width: 500px;
+  max-width: 90vw;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* כותרת */
+form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0d1a6b;
+}
+
+/* שדות */
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(255, 20, 147, 0.10);
+}
+
+.icon {
+  padding: 12px;
+  background: #ff1493;
+  color: #fff;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ff1493;
+  border-left: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.input-field:focus {
+  border-color: #0d1a6b;
+}
+
+/* כפתור */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff1493 0%, #0d1a6b 100%);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* רספונסיביות */
+@media (max-width: 600px) {
+  form {
+    padding: 20px;
+  }
+
+  .input-field {
+    font-size: 0.95rem;
+  }
+}
