@@ -1,6 +1,6 @@
-import { Component, inject, OnChanges } from '@angular/core';
-import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 import { VolunteeringService } from '../../Services/volunteering-service';
+import { EichudModel } from '../../Models/EichudModel';
+
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
@@ -14,6 +14,8 @@ import { SubProjectService } from '../../Services/sub-project-service';
 import { SubProjectModule } from '../../Models/sub-project/sub-project-module';
 import { lastValueFrom } from 'rxjs';
 import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
+import { Component, inject } from '@angular/core';
+import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
 
 @Component({
   selector: 'app-volunteering',
@@ -22,16 +24,45 @@ import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
   styleUrl: './volunteering.scss'
 })
 export class Volunteering {
-  projectService = inject(ProjectService)
+  projectService = inject (ProjectService)
   projectsArr: ProjectModule[] = [];
   subProjectService = inject(SubProjectService)
   subProjects: SubProjectModule[] = [];
   filteredSubProjects: SubProjectModule[] = []; // מאגר ה-subProjects המותאם לפי projectCode
   // poorManService = inject(EichudService)
   volunteeringArr: VolunteeringModule[] = [];
+  volunteerArr:VolunteerModule[]=[]//מערך מתנדבים
   volunteeringService = inject(VolunteeringService)
   volunteerService = inject(VolunteerService)
   ecdService = inject(EichudService)
+
+  // onProjectChange(event: Event) {
+  //   const selectedProjectCode = (event.target as HTMLSelectElement).value;
+  //   this.filteredSubProjects = this.subProjects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
+  // }
+  // getVolunteerName(volunteerCode: number | undefined): string {
+  //   // alert(volunteerCode)
+  //   if (volunteerCode === undefined) {
+  //   return 'שם לא נמצא';
+  //   }
+  //   const volunteer = this.eichudPeople.find(v => v.eichudCode === volunteerCode);
+  //   // alert( volunteer)
+  //   return volunteer ? (volunteer.familyName+" "+volunteer.firstName) : 'שם לא נמצא';
+  // }
+
+  // async ngOnInit(){
+  //   await this.getVolunteering()// this.volunteeringArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
+  //   this.projectsArr = await  lastValueFrom(this.projectService.getAllProjects());
+  //   this.subProjects = await  lastValueFrom(this.subProjectService.getAllProjects());
+  //   this.volunteerArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
+  //   // this.eichudPeople = await  lastValueFrom(this.eichudService.getAllEichud());
+  //   this.volunteerService.refreshData();
+  //  this.ecdService.refreshData();
+  
+  //   //  alert(this.subProjects.length)
+  // }
+
+
   vlntrFrm = new FormGroup({
     dateOfVolunteering: new FormControl<string | null>(null, Validators.required),
 
@@ -96,7 +127,6 @@ export class Volunteering {
   addVolunteering() {
     if (this.vlntrFrm.valid) {
       const volunteering = {
-        // volunteeringCode: this.vlntrFrm.controls['volunteerCode'].value!,
         dateOfVolunteering: this.vlntrFrm.value.dateOfVolunteering!,
         volunteerCode: this.vlntrFrm.value.volunteerCode!,
         poorManCode: this.vlntrFrm.value.poorManCode!,
@@ -120,5 +150,5 @@ export class Volunteering {
     this.volunteeringService.getAllVolunteerings().subscribe(res => { this.volunteeringArr = res })
 
   }
- 
+
 }

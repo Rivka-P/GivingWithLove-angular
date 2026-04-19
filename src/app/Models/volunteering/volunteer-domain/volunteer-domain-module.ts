@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class VolunteerDomainModule { 
-volunteerDomainsCode?:number
+volunteerDomainsCode!:number
 
 volunteerCode !:number
 

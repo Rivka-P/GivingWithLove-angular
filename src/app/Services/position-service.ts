@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { PositionModel } from '../Models/PositionModel';
+// import { PositionModel } from 'd:/RivkyPinter/GWL_Project/GivingWithLove-angular/src/app/Models/PositionModel';
 import { Observable } from 'rxjs';
+import { PositionModel } from '../Models/PositionModel';
 
 @Injectable({
   providedIn: 'root'

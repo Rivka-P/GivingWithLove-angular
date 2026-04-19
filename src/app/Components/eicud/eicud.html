@@ -1,18 +1,5 @@
-<p>eicud works!</p>
-<!-- eichudCode!:number;
-tohar:string="";
-familyName:string="";
-firstName:string="";
-ending:string="";
-fathersName:string="";
-shtibel:string="";
-street:string="";
-house:string="";
-city:string="";
-zipCode:string="";
-housePhone:string="";
-cellPhone:string="";
-shver:string=""; -->
+
+
 <table class="donors-table">
     <thead>
         <tr>
@@ -34,27 +21,7 @@ shver:string=""; -->
         </tr>
     </thead>
     <tbody>
-        <!-- דוגמה לשורה -->
-        <!-- <tr>
-            <td>123</td>
-            <td>מר</td>
-            <td>כהן</td>
-            <td>ישראל</td>
-            <td>סיום א'</td>
-            <td>אברהם</td>
-            <td>סיום א'</td>
-            <td>שחר</td>
-            <td>רחוב הדוגמה</td>
-            <td>10</td>
-            <td>תל אביב</td>
-            <td>12345</td>
-            <td>03-1234567</td>
-            <td>050-1234567</td>
-            <td>רבקה</td>
-        </tr> -->
-    <!-- </tbody>
-</table> -->
-
+   
     <tbody> @for(d of eichudService.peopleInTheEichud$ | async;track d.eichudCode;let i=$index){ <tr>
             <td>{{d.eichudCode}}</td>
             <td>{{d.tohar}}</td>
@@ -62,7 +29,6 @@ shver:string=""; -->
             <td>{{d.firstName}}</td>
             <td>{{d.ending}}</td>
             <td>{{d.fathersName}}</td>
-            <td>{{d.ending}}</td>
             <td>{{d.shtibel}}</td>
             <td>{{d.street}}</td>
             <td>{{d.house}}</td>

@@ -12,18 +12,17 @@ import { VolunteerService } from '../../Services/volunteer-service';
   styleUrl: './project.scss'
 })
 export class Project {
-projectsArr: ProjectModule[] = [];
+  projectsArr: ProjectModule[] = [];
   projectService = inject(ProjectService)
-  vlntService=inject(VolunteerService)
   // volunteerService = inject(VolunteerService)
   ngOnInit() {
-    this.projectService.getAllProjects().subscribe( res => {this.vlntService.refreshData(); this.projectsArr = res })
+    this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })
   }
  
   frm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     projectName: new FormControl<string | null>(null, Validators.required),
-    projectManager: new FormControl<number | null>(null),
+    projectManagerCode: new FormControl<number | null>(null),
     domainCode: new FormControl<number | null>(null)
       });
 
@@ -32,7 +31,7 @@ projectsArr: ProjectModule[] = [];
       const project = {
         // volunteeringCode: this.vlntrFrm.controls['volunteerCode'].value!,
         projectName: this.frm.value.projectName!,
-        projectManagerCode: this.frm.value.projectManager!,
+        projectManagerCode: this.frm.value.projectManagerCode!,
         domainCode: this.frm.value.domainCode!,
        
       }
@@ -49,7 +48,6 @@ projectsArr: ProjectModule[] = [];
   }
   getProject() {
     this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })
-
   }
 
 }

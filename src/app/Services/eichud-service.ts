@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import {EichudModel}from 'd:/RivkyPinter/GWL_Project/GivingWithLove-angular/src/app/Models/EichudModel'
+// import {EichudModel}from 'd:/RivkyPinter/GWL_Project/GivingWithLove-angular/src/app/Models/EichudModel'
 import { Observable } from 'rxjs';
+import { EichudModel } from '../Models/EichudModel';
 @Injectable({
   providedIn: 'root'
 })

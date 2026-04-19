@@ -2,7 +2,12 @@ import { Component, inject, SimpleChanges } from '@angular/core';
 import { PositionModel } from '../../Models/PositionModel';
 import { PositionService } from '../../Services/position-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+
+// @Component({
+//   selector: 'app-position',
+//   imports: [ReactiveFormsModule, AsyncPipe],
+import {  CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-position',
@@ -44,4 +49,7 @@ export class Position {
     pos.positionName = this.frmPosition.controls['positionName'].value
     this.addPosition(pos)
   }
+
+
+
 }

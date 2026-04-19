@@ -5,6 +5,13 @@
       <p> {{pr.projectName}}</p>
 }-->
 <form [formGroup]="frm"> 
+<p>project works!</p>
+@for(p of projectService.Projects$ | async; track p; let j = $index)
+{
+      <p> {{p.projectCode}}</p>
+      <p> {{p.projectName}}</p>
+}
+<form [formGroup]="frm">
 
 <label for="projectName"> projectName</label>
 <input class="form-control" formControlName="projectName" type="text" name="projectName" >
