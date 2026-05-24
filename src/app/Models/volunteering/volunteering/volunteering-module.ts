@@ -23,7 +23,7 @@ export class VolunteeringModule {
 
     projectCode?:number 
 
-    subProjectCode?:number
+    subProjectCode?:number}
 
     // public virtual Volunteer? MatcherCodeNavigation { get; set; }
 
@@ -34,6 +34,6 @@ export class VolunteeringModule {
     // public virtual SubProject SubProjectCodeNavigation { get; set; } = null!;
 
     // public virtual Volunteer? VolunteerCodeNavigation { get; set; }
-}
+
 
 

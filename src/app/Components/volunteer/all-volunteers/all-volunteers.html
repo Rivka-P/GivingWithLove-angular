@@ -1,0 +1,51 @@
+<p>all-volunteers works!</p>
+
+<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
+<table class="donors-table">
+    <thead>
+        <tr>
+          
+            <th>קוד איחוד</th>
+            <th>שם</th>
+            <th>תפקיד</th>
+            <th>שם האב</th>
+            <th>שטיבל</th>
+            <th>רחוב</th>
+            <th>מספר בניין</th>
+            <th>עיר</th>
+            <th>מיקוד</th>
+            <th>טלפון בבית</th>
+            <th>פלאפון</th>
+            <th>הורי האם</th>
+            <th>להוספת התנדבות</th>
+            <th>לפרטי מתנדב</th>
+            <th>להשהית מתנדב</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <tbody>
+        <tr *ngFor="let d of filteredList; let j = index">
+            <td>{{d.volunteerCode}}</td>
+     
+            <td>{{d.volunteerCodeNavigation?.tohar }} {{d.volunteerCodeNavigation?.firstName}}
+                {{d.volunteerCodeNavigation?.familyName }} {{d.volunteerCodeNavigation?.ending}} </td>
+            <td>{{d.positionName}}</td>
+            <td>{{d.volunteerCodeNavigation?.fathersName}}</td>
+            <td>{{d.volunteerCodeNavigation?.shtibel}}</td>
+            <td>{{d.volunteerCodeNavigation?.street}}</td>
+            <td>{{d.volunteerCodeNavigation?.house}}</td>
+            <td>{{d.volunteerCodeNavigation?.city}}</td>
+            <td>{{d.volunteerCodeNavigation?.zipCode}}</td>
+            <td>{{d.volunteerCodeNavigation?.housePhone}}</td>
+            <td>{{d.volunteerCodeNavigation?.cellPhone}}</td>
+            <td>{{d.volunteerCodeNavigation?.shver}}</td>
+            <td><button (click)="goToVolunteering(d)">להוספת התנדבות</button></td>
+            <td><button (click)="goToVolunteerDetails(d)">לפרטי מתנדב</button></td>
+            <td><button>השהיה</button></td>
+
+
+        </tr>
+    </tbody>
+</table>
+       <router-outlet></router-outlet>

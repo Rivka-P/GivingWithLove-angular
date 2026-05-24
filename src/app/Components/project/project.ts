@@ -14,7 +14,7 @@ import { VolunteerService } from '../../Services/volunteer-service';
   styleUrl: './project.scss'
 })
 export class Project {
-
+vlntService: VolunteerService = inject(VolunteerService);
   projectsArr: ProjectModule[] = [];
 
   projectService = inject(ProjectService)

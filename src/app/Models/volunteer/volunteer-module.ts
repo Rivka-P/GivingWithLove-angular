@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EichudModel } from '../EichudModel';
+// import { VolunteerDomain } from '../../Components/volunteer-domain/volunteer-domain';
+import { VolunteerDomainModule } from '../volunteer-domain/volunteer-domain-module';
 
 
 
@@ -15,9 +17,9 @@ import { EichudModel } from '../EichudModel';
 export class VolunteerModule {
 
   volunteerCode!: number
-
-
   positionCode!: number
-  volunteerCodeNavigation?:EichudModel
+  positionName?: string
+  volunteerCodeNavigation?: EichudModel
+  volunteerDomains?: VolunteerDomainModule[];
 
 }

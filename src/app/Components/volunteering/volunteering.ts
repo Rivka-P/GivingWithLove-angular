@@ -25,7 +25,7 @@ import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-volunteering',
-  imports: [AsyncPipe, ReactiveFormsModule, CommonModule],
+  imports: [ ReactiveFormsModule, CommonModule],
   templateUrl: './volunteering.html',
   styleUrl: './volunteering.scss'
 })
@@ -68,18 +68,13 @@ export class Volunteering {
 
   }
   vlntrFrm = new FormGroup({
- 
-
-
-
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     dateOfVolunteering: new FormControl<Date | null>(null, Validators.required),
-    volunteerCode: new FormControl<number | null>(null),
-    poorManCode: new FormControl<number | null>(null),
-    matcherCode: new FormControl<number | null>(null),
-    projectCode: new FormControl<number | null>(null),
-    subProjectCode: new FormControl<number | null>(null)
-
+    volunteerCode: new FormControl<number | null>(this.volunteeringService.volunteerCodeInS ? this.volunteeringService.volunteerCodeInS : null, Validators.required ),
+    poorManCode: new FormControl<number | null>(this.volunteeringService.poorManCodeInS ? this.volunteeringService.poorManCodeInS : null, Validators.required),
+    matcherCode: new FormControl<number | null>(this.volunteeringService.matcherCodeInS ? this.volunteeringService.matcherCodeInS : null, Validators.required),
+    projectCode: new FormControl<number | null>(this.volunteeringService.projectCodeInS ? this.volunteeringService.projectCodeInS : null, Validators.required),
+    subProjectCode: new FormControl<number | null>(this.volunteeringService.subProjectCodeInS ? this.volunteeringService.subProjectCodeInS : null, Validators.required)
   });
 
   addVolunteering() {

@@ -1,29 +1,3 @@
-/* טבלה */
-.donors-table {
-    width: 100%;
-    border-collapse: collapse; /* קווים אחידים */
-    margin-bottom: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-}
-
-.donors-table th,
-.donors-table td {
-    border: 1px solid #ccc; /* קו אחיד לכל תא */
-    padding: 8px;
-    text-align: center;
-}
-
-.donors-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.donors-table tr:nth-child(even) {
-    background-color: #fafafa; /* צבע שורה לסירוגין */
-}
-
-
 .viewport {
   height: 400px; /* גובה ה-scroll */
   width: 100%;
@@ -83,7 +57,7 @@ form {
     max-width: 500px; /* רוחב מרבי לטופס */
     margin: 20px auto;
     padding: 15px;
-    // border: 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fafafa;
     font-family: Arial, sans-serif;

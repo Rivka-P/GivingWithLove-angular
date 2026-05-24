@@ -6,16 +6,59 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class VolunteeringService {
   http = inject(HttpClient );
 
 BASE_URL: string =' https://localhost:7016/api/Volunteering';
 volunteerings$: Observable<VolunteeringModule[]>;
 volunteerings:VolunteeringModule[]=[];
-  constructor() { 
-    this.volunteerings$=this.getAllVolunteerings()
+
+    dateOfVolunteeringInS!:Date 
+
+    volunteerCodeInS?:number 
+
+    poorManCodeInS?:number
+
+    matcherCodeInS? :number
+
+    projectCodeInS?:number 
+
+    subProjectCodeInS?:number
+  
+  setSelectedVolunteer(volunteerCode: number) {
+    this.volunteerCodeInS = volunteerCode;
   }
-// --- מתודות CRUD ---
+  setSelectedPoorMan(poorManCode: number) {
+    this.poorManCodeInS = poorManCode;
+  }
+  setSelectedMatcher(matcherCode: number) {
+    this.matcherCodeInS = matcherCode;
+  }
+  setSelectedProject(projectCode: number) {
+    this.projectCodeInS = projectCode;
+  }
+  setSelectedSubProject(subProjectCode: number) {
+    this.subProjectCodeInS = subProjectCode;
+  }
+   constructor() {   
+        // שמירת ה-Observable
+        this.volunteerings$ = this.getAllVolunteerings();
+
+        // הרשמה ל-Observable כדי לקבל את המערך בפועל
+        this.volunteerings$.subscribe({
+          next: (data: VolunteeringModule[]) => {
+            this.volunteerings = data;
+          },
+          error: (err) => {
+            console.error('Error fetching Volunteering data:', err);
+          }
+        });
+      }
+ 
+
+ 
+  // --- מתודות CRUD ---
   getAllVolunteerings(): Observable<VolunteeringModule[]> {
     return this.http.get<VolunteeringModule[]>(this.BASE_URL);
   }

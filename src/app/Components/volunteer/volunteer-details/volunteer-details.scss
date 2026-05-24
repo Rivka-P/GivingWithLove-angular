@@ -1,0 +1,48 @@
+.volunteer-details {
+  padding: 20px;
+}
+
+.volunteer-info p {
+  margin: 5px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+
+
+
+.volunteer-details {
+  padding: 20px;
+  max-height: 80vh; // מגביל את גובה הפופ-אפ
+  overflow-y: auto; // מאפשר גלילה אם התוכן ארוך
+}
+
+.volunteer-info {
+  margin-bottom: 20px;
+  p {
+    margin: 4px 0;
+  }
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+}
+
+p-chart {
+  margin-bottom: 20px;
+}

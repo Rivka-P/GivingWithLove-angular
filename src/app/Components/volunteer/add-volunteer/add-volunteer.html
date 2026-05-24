@@ -1,0 +1,46 @@
+<p>add-volunteer works!</p>
+<div *ngIf="isLoading">טוען נתונים...</div>
+<!-- <form *ngIf=\"!isLoading\" ...> -->
+<form  *ngIf="!isLoading" [formGroup]="vlntrFrm" dir="rtl">
+<label for="">שם המתנדב</label>
+<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
+<cdk-virtual-scroll-viewport [itemSize]="40" class="viewport" class="viewport border rounded mb-3" [style.height.px]="calculateViewportHeight()" style="height: 300px;">
+  <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"  class="dropdown-item selectable-item">
+    
+   <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+  </div>
+</cdk-virtual-scroll-viewport>
+  
+ <label for="position">position</label> 
+ <select class="form-control" formControlName="position" type="text" name="position" id="3">
+    @for(p of listP ; track p; let j = $index)
+    {
+    <option value="{{p.positionCode}}"> תפקיד  :{{p.positionName}}  </option>
+}
+</select>
+<div>
+    <app-volunteer-domain></app-volunteer-domain></div>
+<tr *ngFor="let d of this.volunteerDomainService.domains; let j = index">
+    <app-volunteer-domain></app-volunteer-domain>
+    
+<!-- <form [formGroup]="vlntrDmnFrm" dir="rtl">
+<div class="volunteer-domains-section">
+  <label > תחום ההתנדבות:</label>
+   
+  <select class="form-control" formControlName="domain" type="text" name="domain" id="1"  autocomplete="on">
+    <tr *ngFor="let p of listProject; let j = index">
+    <option value="{{p.projectCode}}">{{p.projectName}}</option></tr>
+  </select>
+</div>
+</form> -->
+
+</tr>
+<!-- <button (click)="addDomain()">הוסף תחום התנדבות למתנדב זה</button> -->
+<br>
+<!-- 
+<input class="form-control" formControlName="position" type="number" name="position" id="3"> -->
+<button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+
+</form>
+
+
