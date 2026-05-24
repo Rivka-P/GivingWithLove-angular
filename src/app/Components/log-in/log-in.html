@@ -4,7 +4,7 @@
          <div >שגיאה בשם משתמש או בסיסמא</div>
     }
    
-  <h2>Log In Form</h2>
+  <h2>טופס כניסה</h2>
   <div class="input-container">
     <i class="fa fa-user icon"></i>
     <input
@@ -20,7 +20,7 @@
     <input
       formControlName="password"
       class="form-control input-field"
-      type="password"
+      type="text"
       placeholder="Password"
       name="psw">
   </div>
@@ -30,6 +30,6 @@
     [disabled]="lgFrm.invalid"
     class="btn"
     (click)="enter()">
-    enter
+    המשך  
   </button>
 </form>

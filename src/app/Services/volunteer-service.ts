@@ -2,13 +2,16 @@ import { inject, Injectable } from '@angular/core';
 import { VolunteerModule } from '../Models/volunteer/volunteer-module';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { EichudModel } from '../Models/EichudModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VolunteerService {
-  BASE_URL: string =' https://localhost:7016/api/Volunteer';
+  BASE_URL: string ='https://localhost:7016/api/Volunteer';
   http = inject(HttpClient);
+  currentUser?:VolunteerModule
+  isVolunteerLoggedIn:boolean = false
   volunteers$: Observable<VolunteerModule[]>;
   volunteers:VolunteerModule[]=[];
   userPosition?:string;//מה התפקיד של המשתמש הנוכחי
@@ -18,8 +21,8 @@ export class VolunteerService {
   getAllVolunteers(): Observable<VolunteerModule[]> {
     return this.http.get<VolunteerModule[]>(this.BASE_URL);
   }
-  getVolunteerById(id:number): Observable<VolunteerModule[]> {
-    return this.http.get<VolunteerModule[]>(this.BASE_URL+id);
+  getVolunteerById(id:number): Observable<VolunteerModule> {
+    return this.http.get<VolunteerModule>(this.BASE_URL+id);
   } 
 
   addVolunteer(item: VolunteerModule) {
@@ -36,6 +39,10 @@ export class VolunteerService {
     this.volunteers$=this.getAllVolunteers()
   }
 
-
+setCurrentUser(password:number){
+    this.currentUser = this.volunteers.find(x => x.volunteerCode == password)
+    this.isVolunteerLoggedIn = true
+   
+  }
 
 }

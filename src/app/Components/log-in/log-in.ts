@@ -9,6 +9,10 @@ import { EichudService } from '../../Services/eichud-service';
 import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
 import { EichudModel } from '../../Models/EichudModel';
 import { VolunteeringService } from '../../Services/volunteering-service';
+import { forkJoin } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+
+
 @Component({
   selector: 'app-log-in',
   imports: [ReactiveFormsModule],
@@ -20,7 +24,6 @@ export class LogIn {
   error: boolean = true
   volunteerSrv: VolunteerService = inject(VolunteerService)
   volunteeringSrv: VolunteeringService = inject(VolunteeringService)
-
   volunteerArr:VolunteerModule[]=[]
   user?:VolunteerModule;
   positoinSrv: PositionService = inject(PositionService)
@@ -28,17 +31,12 @@ export class LogIn {
   eichudArr:EichudModel[]=[]
   person?:EichudModel
   lgFrm: FormGroup = new FormGroup({
-    userName: new FormControl("אנונימי", [Validators.required]),
-    password: new FormControl(0, [Validators.required]),
-    position: new FormControl("זמני", [Validators.required])
+  userName: new FormControl("אנונימי", [Validators.required]),
+  password: new FormControl(0, [Validators.required]),
+  position: new FormControl("זמני", [Validators.required])
   })
- async ngOnInit(){
-   await this.volunteerSrv.getAllVolunteers().subscribe(res =>{
-      this.volunteerArr=res
-    })
-   await this.eichudSrv.getAllEichud().subscribe(res =>{
-      this.eichudArr=res
-    })
+  ngOnInit(){
+
   }
   enter() {
     let u = new UserModel()
@@ -46,23 +44,24 @@ export class LogIn {
     u.userName = this.lgFrm.controls['userName'].value;
     u.password = this.lgFrm.controls['password'].value;
 
-      this.user = this.volunteerArr.find(x => x.volunteerCode == u.password)
-       this.person = this.eichudArr.find(x =>x.eichudCode == u.password)
+      this.user = this.volunteerSrv.volunteers.find(x => x.volunteerCodeNavigation?.eichudCode === u.password)
+      this.person = this.eichudSrv.peopleInTheEichud.find(x =>x.eichudCode == u.password)
 
-    if (this.user?.volunteerCode != Number(u.password)) {
-      this.error = false
-    }
-    else if (((this.person?.familyName)?.trim() + " " + (this.person?.firstName)?.trim()) != u.userName) {
+      if (((this.person?.familyName)?.trim() + " " + (this.person?.firstName)?.trim()) != u.userName) {
       this.error = false
     }
     else {
+     if(this.user == undefined)
+        this.volunteerSrv.currentUser = undefined
+     else{
       u.position = this.user.positionCode
       let nameOfPosition = this.positoinSrv.positions.find(x => x.positionCode == u.position)?.positionName
       this.volunteerSrv.userPosition = nameOfPosition
+      this.volunteerSrv.setCurrentUser(u.password)
       this.lgFrm.controls['userName'].setValue(null);
       this.lgFrm.controls['password'].setValue(null);
       this.volunteeringSrv.setSelectedMatcher(Number(u.password))
       this.router.navigate(['/home'])
-    }
+    }}
   }
 }

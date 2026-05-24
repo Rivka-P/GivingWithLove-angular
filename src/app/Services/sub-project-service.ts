@@ -20,7 +20,7 @@ Projects:SubProjectModule[]=[];
     return this.http.get<SubProjectModule[]>(this.BASE_URL);
   }
   getProjectById(id:number): Observable<SubProjectModule[]> {
-    return this.http.get<SubProjectModule[]>(this.BASE_URL +'/Get/'+id);
+    return this.http.get<SubProjectModule[]>(this.BASE_URL +id);
   }
   // addProject(item: SubProjectModule) {
   //   return this.http.post(this.BASE_URL, item).subscribe(() => this.refreshData());

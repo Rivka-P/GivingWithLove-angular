@@ -11,7 +11,7 @@ import { SubProjectModule } from '../Models/sub-project/sub-project-module';
 export class VolunteeringService {
   http = inject(HttpClient );
 
-BASE_URL: string =' https://localhost:7016/api/Volunteering';
+BASE_URL: string ='https://localhost:7016/api/Volunteering';
 volunteerings$: Observable<VolunteeringModule[]>;
 subProjectsrv=inject(SubProjectService)
 volunteerings:VolunteeringModule[]=[];
@@ -74,7 +74,7 @@ dateOfVolunteeringInS!:Date
       
     let sum=0;
     this.refreshData()
-    for (let index = 0; index < 18;) {
+    for (let index = 0; index < this.volunteerings.length;) {
     if(this.volunteerings[index].subProjectCode == undefined)
       index++
     else

@@ -16,6 +16,7 @@ import { lastValueFrom } from 'rxjs';
 import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
 import { Component, inject } from '@angular/core';
 import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
+import { NO_ERRORS_SCHEMA, SECURITY_SCHEMA } from '@angular/compiler';
 
 @Component({
   selector: 'app-volunteering',
@@ -24,44 +25,17 @@ import { VolunteeringModule } from '../../Models/volunteering/volunteering/volun
   styleUrl: './volunteering.scss'
 })
 export class Volunteering {
-  projectService = inject (ProjectService)
+  projectService = inject(ProjectService)
   projectsArr: ProjectModule[] = [];
   subProjectService = inject(SubProjectService)
   subProjects: SubProjectModule[] = [];
   filteredSubProjects: SubProjectModule[] = []; // מאגר ה-subProjects המותאם לפי projectCode
   // poorManService = inject(EichudService)
   volunteeringArr: VolunteeringModule[] = [];
-  volunteerArr:VolunteerModule[]=[]//מערך מתנדבים
+  volunteerArr: VolunteerModule[] = []//מערך מתנדבים
   volunteeringService = inject(VolunteeringService)
   volunteerService = inject(VolunteerService)
   ecdService = inject(EichudService)
-
-  // onProjectChange(event: Event) {
-  //   const selectedProjectCode = (event.target as HTMLSelectElement).value;
-  //   this.filteredSubProjects = this.subProjects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
-  // }
-  // getVolunteerName(volunteerCode: number | undefined): string {
-  //   // alert(volunteerCode)
-  //   if (volunteerCode === undefined) {
-  //   return 'שם לא נמצא';
-  //   }
-  //   const volunteer = this.eichudPeople.find(v => v.eichudCode === volunteerCode);
-  //   // alert( volunteer)
-  //   return volunteer ? (volunteer.familyName+" "+volunteer.firstName) : 'שם לא נמצא';
-  // }
-
-  // async ngOnInit(){
-  //   await this.getVolunteering()// this.volunteeringArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
-  //   this.projectsArr = await  lastValueFrom(this.projectService.getAllProjects());
-  //   this.subProjects = await  lastValueFrom(this.subProjectService.getAllProjects());
-  //   this.volunteerArr = await  lastValueFrom(this.volunteerService.getAllVolunteers());
-  //   // this.eichudPeople = await  lastValueFrom(this.eichudService.getAllEichud());
-  //   this.volunteerService.refreshData();
-  //  this.ecdService.refreshData();
-  
-  //   //  alert(this.subProjects.length)
-  // }
-
 
   vlntrFrm = new FormGroup({
     dateOfVolunteering: new FormControl<string | null>(null, Validators.required),
@@ -69,11 +43,11 @@ export class Volunteering {
     volunteerCode: new FormControl<number | null>(this.volunteeringService.volunteerCodeInS ? this.volunteeringService.volunteerCodeInS : null, Validators.required),
     poorManCode: new FormControl<number | null>(this.volunteeringService.poorManCodeInS ? this.volunteeringService.poorManCodeInS : null, Validators.required),
     matcherCode: new FormControl<number | null>(this.volunteeringService.matcherCodeInS ? this.volunteeringService.matcherCodeInS : null, Validators.required),
-    projectCode: new FormControl<number | null>(this.volunteeringService.projectCodeInS ? this.volunteeringService.projectCodeInS : null, Validators.required),
-    subProjectCode: new FormControl<number | null>(this.volunteeringService.subProjectCodeInS ? this.volunteeringService.subProjectCodeInS : null, Validators.required)
+    projectCode: new FormControl<number | null>(this.volunteeringService.projectCodeInS ? this.volunteeringService.projectCodeInS : null),
+    subProjectCode: new FormControl<number | null>(this.volunteeringService.subProjectCodeInS ? this.volunteeringService.subProjectCodeInS : null)
 
   });
-   async ngOnInit() {
+  async ngOnInit() {
     const today = new Date();
 
     const formatted =
@@ -84,31 +58,19 @@ export class Volunteering {
       String(today.getDate()).padStart(2, '0');
 
     this.vlntrFrm.patchValue({
-      dateOfVolunteering: formatted
+      dateOfVolunteering: formatted,
+      volunteerCode: this.volunteeringService.volunteerCodeInS ,
+      poorManCode: this.volunteeringService.poorManCodeInS ,
+      matcherCode: this.volunteeringService.matcherCodeInS ,
+      projectCode: this.volunteeringService.projectCodeInS ,
+      subProjectCode: this.volunteeringService.subProjectCodeInS 
     });
-    this.vlntrFrm = new FormGroup({
-    dateOfVolunteering: new FormControl<string | null>(null, Validators.required),
+    this.filteredSubProjects =  this.subProjectService.Projects.filter(subPro => subPro.projectCode === Number(this.volunteeringService.projectCodeInS))
 
-    volunteerCode: new FormControl<number | null>(this.volunteeringService.volunteerCodeInS ? this.volunteeringService.volunteerCodeInS : null, Validators.required),
-    poorManCode: new FormControl<number | null>(this.volunteeringService.poorManCodeInS ? this.volunteeringService.poorManCodeInS : null, Validators.required),
-    matcherCode: new FormControl<number | null>(this.volunteeringService.matcherCodeInS ? this.volunteeringService.matcherCodeInS : null, Validators.required),
-    projectCode: new FormControl<number | null>(this.volunteeringService.projectCodeInS ? this.volunteeringService.projectCodeInS : 0, Validators.required),
-    subProjectCode: new FormControl<number | null>(this.volunteeringService.subProjectCodeInS ? this.volunteeringService.subProjectCodeInS : null, Validators.required)
-
-  });
-  // await this.volunteerService.refreshData()
-   
-  //  await this.ecdService.refreshData()
-  //  await this.subProjectService.refreshData()
-  //  await this.projectService.refreshData()
-    // this.volunteerService.refreshData()
-
-  await  this.volunteerService.getAllVolunteers().subscribe(res => { this.volunteerService.volunteers=res}) ;
-
-    // await this.volunteeringService.getAllVolunteerings().subscribe(res => {  this.volunteeringArr = res; this.volunteerService.refreshData()})
-   await  this.projectService.getAllProjects().subscribe(res => {this.projectsArr = res ; this.projectService.projects=res})  ;
-       await  this.subProjectService.getAllProjects().subscribe(res => {this.subProjects = res; this.subProjectService.Projects=res}) ;
-   await  this.ecdService.getAllEichud().subscribe(res => { this.ecdService.peopleInTheEichud=res}) ;
+    await this.volunteerService.getAllVolunteers().subscribe(res => { this.volunteerService.volunteers = res });
+    await this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res; this.projectService.projects = res });
+    await this.subProjectService.getAllProjects().subscribe(res => { this.subProjects = res; this.subProjectService.Projects = res });
+    await this.ecdService.getAllEichud().subscribe(res => { this.ecdService.peopleInTheEichud = res });  
 
   }
 
@@ -116,14 +78,11 @@ export class Volunteering {
 
   onProjectChange(event: Event) {
     const selectedProjectCode = (event.target as HTMLSelectElement).value;
-    console.log(selectedProjectCode);
-    
-    this.filteredSubProjects = this.subProjectService.Projects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
-    console.log(this.filteredSubProjects);
-    
-  }
 
-  
+    this.filteredSubProjects = this.subProjectService.Projects.filter(subPro => subPro.projectCode === Number(selectedProjectCode));
+
+  }
+ 
   addVolunteering() {
     if (this.vlntrFrm.valid) {
       const volunteering = {

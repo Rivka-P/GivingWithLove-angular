@@ -2,11 +2,12 @@
 
 <label >תחום הפרויקט</label> 
   @for(p of projectsArr; track p; let j = $index){
-    @if(p.domainCode==p.projectCode){
-        <a [routerLink]="['sub', p.projectCode , p.projectName]" routerLinkActive="active-link">
+    @if(p.domainCode == p.projectCode){
+        <a [routerLink]="['sub', p.projectCode , p.projectName]" >
   {{p.projectName}}
 </a>
-  }} 
+  }
+} 
   <a routerLink="project"  routerLinkActive="active-link">להוספת תחום</a>
 <router-outlet></router-outlet>
 <!-- <button [disabled]="frm.invalid" (click)="addProject()">הוסף</button>

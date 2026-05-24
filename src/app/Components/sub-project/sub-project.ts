@@ -39,10 +39,9 @@ export class SubProject {
         this.filteredSubProjects = this.subProjects.filter(x => x.projectCode === sp.projectCode)
       }
       ;})}
-    goToVolunteering(p:any){
-    this.volunteeringSrv.setSelectedProject(Number(this.projectCode));
-
-    this.volunteeringSrv.setSelectedSubProject(p.subProjectCode);
+   async goToVolunteering(p:any){
+   await this.volunteeringSrv.setSelectedProject(Number(p.projectCode));
+   await this.volunteeringSrv.setSelectedSubProject(p.subProjectCode);
     this.router.navigate(['/v']);
 
   }}

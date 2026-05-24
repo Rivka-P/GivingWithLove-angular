@@ -118,7 +118,11 @@ addVolunteer(){
       volunteerCode: this.vlntrFrm.value.name!,
       positionCode: this.vlntrFrm.value.position!
     }
+    console.log(this.volunteerService.volunteers.length);
+    
     this.volunteerService.addVolunteer(volunteer);
+        console.log(this.volunteerService.volunteers.length);
+
   }
 
 
