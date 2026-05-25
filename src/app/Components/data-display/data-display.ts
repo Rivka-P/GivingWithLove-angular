@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteeringService } from '../../Services/volunteering-service';
 import { VolunteerService } from '../../Services/volunteer-service';
 import { VolunteeringModule } from '../../Models/volunteering/volunteering/volunteering-module';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-data-display',
@@ -35,32 +36,31 @@ filteredSubProjects: SubProjectModule[] = [];
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
-  this.projectCode = this.route.snapshot.paramMap.get('id');
-  this.projectName = this.route.snapshot.paramMap.get('name');
+  async ngOnInit() {
+    this.projectCode = this.route.snapshot.paramMap.get('id');
+    this.projectName = this.route.snapshot.paramMap.get('name');
 
-  this.ProjectService.getAllProjects().subscribe(projects => {
-    this.Projects = projects;
-
+    this.Projects = await lastValueFrom(this.ProjectService.getAllProjects());
+    console.log('Projects:', this.Projects);
     this.filteredProjects = this.Projects.filter(
       sp => sp.domainCode?.toString() === this.projectCode
     );
+    console.log('filteredProjects:', this.filteredProjects);
 
-    this.subProjectService.getAllProjects().subscribe(subs => {
-      this.subProjects = subs;
+    this.subProjects = await lastValueFrom(this.subProjectService.getAllProjects());
+    console.log('subProjects:', this.subProjects);
+    this.filteredSubProjects = this.subProjects.filter(sp =>
+      this.filteredProjects.some(fp => fp.projectCode === sp.projectCode)
+    );
+    console.log('filteredSubProjects:', this.filteredSubProjects);
 
-      this.filteredSubProjects = this.subProjects.filter(sp =>
-        this.filteredProjects.some(fp => fp.projectCode === sp.projectCode)
-      );
-this.volunteerSrv.refreshData();
-      this.volunteeringSrv.getAllVolunteerings().subscribe(vols => {
-        this.volunteeringArr = vols;
-        this.calcCost();
-        this.calcTime();
-      });
-    });
-  });
-}
+    await this.volunteerSrv.refreshData();
+    console.log('volunteerSrv.refreshData finished');
+    this.volunteeringArr = await lastValueFrom(this.volunteeringSrv.volunteerings$);
+    console.log('volunteeringArr:', this.volunteeringArr);
+    this.calcCost();
+    this.calcTime();
+  }
    
  calcCost = () => {
   this.estimatedCost = 0;

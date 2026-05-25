@@ -9,10 +9,10 @@ import { ProjectModule } from '../Models/project/project-module';
 export class ProjectService {
   http = inject(HttpClient );
 BASE_URL: string = 'https://localhost:7016/api/Project';
-Projects$: Observable<ProjectModule[]>;
+Projects$!: Observable<ProjectModule[]>;
 projects:ProjectModule[]=[];
   constructor() { 
-    this.Projects$=this.getAllProjects()
+  this.refreshData()
   }
 // --- מתודות CRUD ---
   getAllProjects(): Observable<ProjectModule[]> {
@@ -36,8 +36,8 @@ projects:ProjectModule[]=[];
     return this.projects.findIndex(x => x.projectCode == g.projectCode ) >= 0;
   }
    refreshData(){
-    this.getAllProjects().subscribe(x => this.projects = x);
-    this.Projects$ = this.getAllProjects()
+        this.Projects$ = this.getAllProjects()
+       this.Projects$.subscribe(x => this.projects = x);
   }
 
 }

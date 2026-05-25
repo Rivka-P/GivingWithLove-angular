@@ -6,6 +6,8 @@ import { ProjectModule } from '../../Models/project/project-module';
 import { ProjectService } from '../../Services/project-service';
 import { CommonModule } from '@angular/common';
 import { VolunteeringService } from '../../Services/volunteering-service';
+import { lastValueFrom } from 'rxjs';
+
 @Component({
   selector: 'app-sub-project',
   imports: [CommonModule,RouterModule],
@@ -26,22 +28,24 @@ export class SubProject {
   volunteeringSrv=inject(VolunteeringService)
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.projectCode = this.route.snapshot.paramMap.get('id');
     this.projectName = this.route.snapshot.paramMap.get('name');
-    this.ProjectService.getAllProjects().subscribe(x => {
-      this.Projects = x
-      this.filteredProjects = this.Projects.filter(sp => sp.domainCode?.toString() === this.projectCode);})
 
-    this.subProjectService.getAllProjects().subscribe(x => {
-      this.subProjects = x
-      for(let sp of this.filteredProjects){
-        this.filteredSubProjects = this.subProjects.filter(x => x.projectCode === sp.projectCode)
-      }
-      ;})}
+    // טען את כל הפרויקטים
+    this.Projects = await lastValueFrom(this.ProjectService.getAllProjects());
+    this.filteredProjects = this.Projects.filter(sp => sp.domainCode?.toString() === this.projectCode);
+
+    // טען את כל תתי-הפרויקטים
+    this.subProjects = await lastValueFrom(this.subProjectService.getAllProjects());
+    this.filteredSubProjects = [];
+    for (let sp of this.filteredProjects) {
+      this.filteredSubProjects.push(...this.subProjects.filter(x => x.projectCode === sp.projectCode));
+    }
+  }
    async goToVolunteering(p:any){
    await this.volunteeringSrv.setSelectedProject(Number(p.projectCode));
-   await this.volunteeringSrv.setSelectedSubProject(p.subProjectCode);
+   await this.volunteeringSrv.setSelectedSubProject(Number(p.subProjectCode));
     this.router.navigate(['/v']);
 
   }}

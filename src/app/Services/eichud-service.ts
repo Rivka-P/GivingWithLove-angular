@@ -16,6 +16,8 @@ peopleInTheEichud:EichudModel[]=[];
 peopleInTheEichud$!:Observable<EichudModel[]>;
 
 
+
+
 // --- מתודות CRUD ---
   getAllEichud(): Observable<EichudModel[]> {
     return this.http.get<EichudModel[]>(this.BASE_URL);

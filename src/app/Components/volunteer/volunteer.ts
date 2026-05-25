@@ -39,6 +39,47 @@ addVolunteer() {
   allVolunteer() {
    console.log("kkkk");
        this.router.navigate(['/volunteer/allvolunteers']);
-  }
-}
+  }}
+//   onSearchChange(searchValue: string) {
+//   const search = searchValue.toLowerCase().trim();
+//   if (!search) {
+//     this.filteredList = [...this.listE]; // מציג את כל המתנדבים
+//     return;
+//   }
+//   this.filteredList = this.listE.filter(e =>
+//     (`${e.familyName} ${e.firstName} ${e.shtibel} ${e.shver} ${e.firstName +' '+ e.familyName}`)
+//       .toLowerCase()
+//       .includes(search)
+//   );
+// }
+
+// addVolunteer(){
+//   if(this.vlntrFrm.valid){
+//     const volunteer = {
+//       volunteerCode: this.vlntrFrm.value.name!,
+//       positionCode: this.vlntrFrm.value.position!
+//     }
+//     console.log(this.volunteerService.volunteers.length);
+//         this.volunteerService.addVolunteer(volunteer);
+//         console.log(this.volunteerService.volunteers.length);
+//   }
+// }
+// selectVolunteer(vol: EichudModel) {
+//   // מעדכן את ה-FormControl של המתנדב
+//   this.vlntrFrm.patchValue({ name: vol.eichudCode });
+//   // מעדכן גם את תיבת החיפוש כדי להראות למשתמש מה נבחר
+//   this.searchControl.setValue(`${vol.familyName} ${vol.firstName}`, { emitEvent: false });
+// }
+// calculateViewportHeight(): number {
+//   const itemHeight = 40; // אותו itemSize
+//   const maxHeight = 300; // גובה מקסימלי של התיבה
+//   const minHeight = 40;  // גובה מינימלי אם יש רק פריט אחד
+
+//   // מספר פריטים בפועל
+//   const itemCount = this.filteredList.length;
+
+//   // הגובה: פריטים * גובה פריט, מוגבל למקסימום ולמינימום
+//   return Math.min(maxHeight, Math.max(minHeight, itemCount * itemHeight));
+// }
+// }
 

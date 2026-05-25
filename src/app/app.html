@@ -176,20 +176,21 @@
 
   <div class="col">
     <nav>
-    <!-- @if(volunteerSrv.isVolunteerLoggedIn ){  -->
-      <a routerLink="home" routerLinkActive="active-link">דף הבית </a>
-      <a routerLink="v" routerLinkActive="active-link"> להוספת התנדבות </a>
-      <a routerLink="volunteer" routerLinkActive="active-link"> להוספת מתנדב </a>
+    @if(volunteerSrv.isVolunteerLoggedIn ){ 
+      <a routerLink="home" routerLinkActive="active-link">דף הבית</a>
+      <a routerLink="v" routerLinkActive="active-link"> 
+        להוספת התנדבות</a>
+      <a routerLink="volunteer" routerLinkActive="active-link">להוספת מתנדב</a>
       <a routerLink="domain" routerLinkActive="active-link"> לפרויקטים </a>
       <a routerLink="eichud" routerLinkActive="active-link">כל אנשי האיחוד</a>
       <a routerLink="position" routerLinkActive="active-link">כל התפקידים</a>
-      <a routerLink="data" routerLinkActive="active-link">פילוח נתונים </a>
-     <a routerLink="login" routerLinkActive="active-link" >כניסה   </a>
-    <!-- }
-@else { -->
-        <a routerLink="data" routerLinkActive="active-link">פילוח נתונים </a>
-        <a routerLink="login" routerLinkActive="active-link" >כניסה   </a>
-<!-- } -->
+      <a routerLink="data" routerLinkActive="active-link">פילוח נתונים</a>
+     <a routerLink="login" routerLinkActive="active-link" >כניסה</a>
+     }
+@else {
+         <a routerLink="data" routerLinkActive="active-link">פילוח נתונים</a>
+        <a routerLink="login" routerLinkActive="active-link" >כניסה</a> 
+}
     </nav>
       <router-outlet></router-outlet>
 

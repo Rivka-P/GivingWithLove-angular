@@ -9,7 +9,7 @@ import { EichudService } from '../../Services/eichud-service';
 import { VolunteerModule } from '../../Models/volunteer/volunteer-module';
 import { EichudModel } from '../../Models/EichudModel';
 import { VolunteeringService } from '../../Services/volunteering-service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, lastValueFrom } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 
 
@@ -35,9 +35,17 @@ export class LogIn {
   password: new FormControl(0, [Validators.required]),
   position: new FormControl("זמני", [Validators.required])
   })
-  ngOnInit(){
+async ngOnInit() {
+  // טען את כל המתנדבים
+  this.volunteerSrv.volunteers = await lastValueFrom(this.volunteerSrv.getAllVolunteers());
 
-  }
+  // טען את כל אנשי האיחוד
+  this.eichudSrv.peopleInTheEichud = await lastValueFrom(this.eichudSrv.getAllEichud());
+
+  // טען את כל התפקידים
+  this.positoinSrv.positions = await lastValueFrom(this.positoinSrv.getAllPositions());
+}
+  
   enter() {
     let u = new UserModel()
     console.log(this.volunteerSrv.volunteers);

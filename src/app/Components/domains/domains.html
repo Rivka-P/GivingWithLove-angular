@@ -1,14 +1,11 @@
  <p>domains works!</p>
-
 <label >תחום הפרויקט</label> 
   @for(p of projectsArr; track p; let j = $index){
-    @if(p.domainCode == p.projectCode){
-        <a [routerLink]="['sub', p.projectCode , p.projectName]" >
+@if(p.domainCode != null && p.projectCode != null && p.domainCode.toString().trim() === p.projectCode.toString().trim()){
+          <a [routerLink]="['sub', p.projectCode , p.projectName]" >
   {{p.projectName}}
 </a>
   }
 } 
   <a routerLink="project"  routerLinkActive="active-link">להוספת תחום</a>
 <router-outlet></router-outlet>
-<!-- <button [disabled]="frm.invalid" (click)="addProject()">הוסף</button>
-</form> -->

@@ -19,16 +19,15 @@ projectsArr: ProjectModule[] = [];
   vlntService=inject(VolunteerService)
   // volunteerService = inject(VolunteerService)
   ngOnInit() {
-    this.projectService.getAllProjects().subscribe( res => {this.vlntService.refreshData(); this.projectsArr = res })
+    this.projectService.getAllProjects().subscribe( res => {this.vlntService.refreshData();
+       this.projectsArr = res })
   }
- 
-  frm = new FormGroup({
+   frm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     projectName: new FormControl<string | null>(null, Validators.required),
     projectManager: new FormControl<number | null>(null),
     domainCode: new FormControl<number | null>(null)
       });
-
   addProject() {
     if (this.frm.valid) {
       const project = {
@@ -47,11 +46,9 @@ projectsArr: ProjectModule[] = [];
   }
   updateProject(p: ProjectModule) {
     this.projectService.updateProject(p);
-
   }
+
   getProject() {
     this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })
-
   }
-
 }

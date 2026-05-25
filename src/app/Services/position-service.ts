@@ -15,6 +15,7 @@ positions:PositionModel[]=[];
 positions$:Observable<PositionModel[]>;
 constructor() { 
     this.positions$=this.getAllPositions()
+    this.positions$.subscribe(x => this.positions = x);
   }
   getAllPositions(): Observable<PositionModel[]> {
     return this.http.get<PositionModel[]>(this.BASE_URL);

@@ -13,7 +13,7 @@ Projects$: Observable<SubProjectModule[]>= this.getAllProjects();
 Projects:SubProjectModule[]=[];
   constructor() { 
     this.Projects$=this.getAllProjects()
-    this.refreshData()
+    this.Projects$.subscribe(x => this.Projects = x);
   }
 // --- מתודות CRUD ---
   getAllProjects(): Observable<SubProjectModule[]> {

@@ -36,7 +36,7 @@
       {{ p.firstName }}
     </option>
   </select>
-{{volunteeringService.matcherCodeInS}}
+<!-- {{volunteeringService.matcherCodeInS}} -->
 
   <label for="matcherCode">קוד מתאם</label>
   <select class="form-control" formControlName="matcherCode" autocomplete="on">
@@ -45,8 +45,12 @@
       {{ volun.volunteerCodeNavigation?.firstName }}
     </option>
   </select>
+<<<<<<< HEAD
 {{volunteeringService.projectCodeInS}}
 
+=======
+<!-- {{volunteeringService.projectCodeInS}} -->
+>>>>>>> e37c338 (Rivkys angular async)
   <select class="form-control" formControlName="projectCode" (change)="onProjectChange($event)">
   <ng-container *ngFor="let pro of projectsArr; track pro">
     <option *ngIf="pro.projectCode !== pro.domainCode" [value]="pro.projectCode" >
@@ -54,7 +58,7 @@
     </option>
   </ng-container>
 </select>
-{{volunteeringService.subProjectCodeInS}}
+<!-- {{volunteeringService.subProjectCodeInS}} -->
 
   <label for="subProjectCode">קוד תת פרויקט</label>
   <select class="form-control" formControlName="subProjectCode" autocomplete="on" >

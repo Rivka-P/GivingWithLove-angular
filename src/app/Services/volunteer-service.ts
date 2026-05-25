@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { VolunteerModule } from '../Models/volunteer/volunteer-module';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { VolunteerDomainModule } from '../Models/volunteering/volunteer-domain/volunteer-domain-module';
@@ -18,16 +18,13 @@ export class VolunteerService {
   isVolunteerLoggedIn:boolean = false
   volunteers$!: Observable<VolunteerModule[]>;
   volunteers:VolunteerModule[]=[];
-
-    volunteerCodeInS?:number 
-  setSelectedVolunteer(volunteerCode: number) {
-    this.volunteerCodeInS = volunteerCode;
-  }
-  // volunterrDomain:
-
+  loading$ = new BehaviorSubject<boolean>(false);
   userPosition?:string;//מה התפקיד של המשתמש הנוכחי
+    constructor() { 
+      this.volunteers$=this.getAllVolunteers()
+      this.volunteers$.subscribe(x => this.volunteers = x);
 
-
+    }
   getAllVolunteers(): Observable<VolunteerModule[]> {
     return this.http.get<VolunteerModule[]>(this.BASE_URL);
   }
@@ -49,10 +46,15 @@ getVolunteerById(id: number): Observable<VolunteerModule> {
   deleteVolunteer(id: number): Observable<number> {
     return this.http.delete<number>(this.BASE_URL+id);
   }   
-  refreshData(){
-    this.getAllVolunteers().subscribe(x => this.volunteers = x);
-    this.volunteers$=this.getAllVolunteers()
-  }
+ refreshData() {
+  this.loading$.next(true);
+
+  this.getAllVolunteers().subscribe(x => {
+    this.volunteers = x;
+    this.volunteers$ = new BehaviorSubject(x).asObservable(); // או פשוט שימוש ישיר
+    this.loading$.next(false);
+  });
+}
 
 
 setCurrentUser(password:number){

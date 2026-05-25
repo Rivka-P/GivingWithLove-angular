@@ -13,7 +13,11 @@ export class VolunteeringService {
   http = inject(HttpClient );
 
 BASE_URL: string ='https://localhost:7016/api/Volunteering';
+<<<<<<< HEAD
 volunteerings$!: Observable<VolunteeringModule[]>;
+=======
+volunteerings$!: Observable<VolunteeringModule[]> ;
+>>>>>>> e37c338 (Rivkys angular async)
 subProjectsrv=inject(SubProjectService)
 volunteerings:VolunteeringModule[]=[];
 dateOfVolunteeringInS!:Date 
@@ -44,13 +48,11 @@ dateOfVolunteeringInS!:Date
   }
 
 
- 
-  // --- מתודות CRUD ---
   getAllVolunteerings(): Observable<VolunteeringModule[]> {
     return this.http.get<VolunteeringModule[]>(this.BASE_URL);
   }
   getVolunteeringById(id:number): Observable<VolunteeringModule[]> {
-    return this.http.get<VolunteeringModule[]>(this.BASE_URL+id);
+    return this.http.get<VolunteeringModule[]>(this.BASE_URL+'/'+id);
   }
   addVolunteering(item: VolunteeringModule) {
     return this.http.post(this.BASE_URL, item).subscribe(() => this.refreshData());
@@ -60,29 +62,41 @@ dateOfVolunteeringInS!:Date
   }
  
   deleteVolunteering(id: number): Observable<number> {
-    return this.http.delete<number>(this.BASE_URL+id);
+    return this.http.delete<number>(this.BASE_URL+'/'+id);
   }
 
   existingVolunteering(g: VolunteeringModule) {
     return this.volunteerings.findIndex(x => x.volunteeringCode == g.volunteeringCode ) >= 0;
   }
-  async refreshData (){
-   await this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
-    this.volunteerings$=this.getAllVolunteerings()
-  }
-    calcCost(){
-      
-    let sum=0;
-    this.refreshData()
-    for (let index = 0; index < this.volunteerings.length;) {
-    if(this.volunteerings[index].subProjectCode == undefined)
-      index++
-    else
-        {
-          sum+=Number(this.subProjectsrv.Projects.find(x => x.projectCode == this.volunteerings[index].subProjectCode )?.estimatedCost);
-               index++
- 
-    }}
-return sum
-  
-}}
+  refreshData() {
+  this.getAllVolunteerings().subscribe(x => {
+    this.volunteerings = x;
+  });
+}
+  calcCost(): Observable<number> {
+  return new Observable<number>(observer => {
+
+    this.getAllVolunteerings().subscribe(x => {
+
+      this.volunteerings = x;
+
+      let sum = 0;
+
+      for (let index = 0; index < this.volunteerings.length; index++) {
+
+        if (this.volunteerings[index].subProjectCode != undefined) {
+
+          sum += Number(
+            this.subProjectsrv.Projects.find(
+              p => p.projectCode == this.volunteerings[index].subProjectCode
+            )?.estimatedCost || 0
+          );
+        }
+      }
+
+      observer.next(sum);
+      observer.complete();
+    });
+  });
+}
+}
