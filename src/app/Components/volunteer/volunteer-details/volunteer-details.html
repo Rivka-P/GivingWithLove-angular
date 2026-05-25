@@ -163,7 +163,9 @@
 <!-- [@fadeIn] -->
 <h1>פרטי מתנדב</h1>
 <div class="volunteer-details"   >
-
+   <button mat-icon-button (click)="close()" style="float: right;">
+  <mat-icon>close</mat-icon>
+    </button>
   <div class="volunteer-info">
     <p><strong>קוד מתנדב:</strong> {{volunteer.volunteerCode}}</p>
     <p><strong>תפקיד:</strong> {{volunteer.positionName}}</p>
@@ -187,13 +189,32 @@
       </tr>
     </tbody>
   </table>  
+
+
   <h3>פילוח לפי תחומים</h3>
+<div class="chart-container">
+  <p-chart
+    type="pie"
+    [data]="pieChartDataForPrime"
+    [options]="pieChartOptions">
+  </p-chart>
+</div>
+
+<h3>גרף פעילות חודשי</h3>
+<div class="chart-container">
+  <p-chart
+    type="bar"
+    [data]="barChartDataForPrime"
+    [options]="barChartOptionsForPrime">
+  </p-chart>
+</div>
+  <!-- <h3>פילוח לפי תחומים</h3>
   <div style="display: block;">
     <p-chart type="pie" [data]="pieChartDataForPrime" [options]="pieChartOptions"></p-chart>
   </div>
   <h3>גרף פעילות חודשי</h3>
 <div style="display: block;">
-  <p-chart type="bar" [data]="barChartDataForPrime" [options]="barChartOptionsForPrime"></p-chart>
+  <p-chart type="bar" [data]="barChartDataForPrime" [options]="barChartOptionsForPrime"></p-chart> -->
 </div>
 
   <!-- <h3>גרף פעילות חודשי</h3>
@@ -217,6 +238,19 @@
     </canvas>
   </div> 
 </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

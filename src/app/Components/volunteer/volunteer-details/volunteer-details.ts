@@ -28,7 +28,12 @@ import { I } from '@angular/cdk/keycodes';
   styleUrls: ['./volunteer-details.scss']
 })
 export class VolunteerDetails implements OnInit {
-  dialogRef!: MatDialogRef<VolunteerDetails>;
+  // dialogRef!: MatDialogRef<VolunteerDetails>;
+  constructor(
+  private volunteerService: VolunteerService,
+  private volunteeringService: VolunteeringService,
+  public dialogRef: MatDialogRef<VolunteerDetails>
+) {}
   
 data=inject(MAT_DIALOG_DATA) as { volunteerCode: string };
   // constructor(
@@ -48,6 +53,7 @@ data=inject(MAT_DIALOG_DATA) as { volunteerCode: string };
 
 
   close() {
+    console.log("CLOSE DI");  
     this.dialogRef.close();
   }
 
@@ -63,10 +69,10 @@ public barChartDataForPrime: any;
   };
 
 
-  constructor(
-    private volunteerService: VolunteerService,
-    private volunteeringService: VolunteeringService
-  ) {}
+  // constructor(
+  //   private volunteerService: VolunteerService,
+  //   private volunteeringService: VolunteeringService
+  // ) {}
 
  async ngOnInit() {
 const volunteerCode = this.data.volunteerCode; // משתמשים בנתונים שהתקבלו
@@ -131,6 +137,10 @@ else{
   }
 
   processPieChart() {
+
+    
+    console.log(this.dialogRef);
+    
     const domainMap: { [key: string]: number } = {};
 
 
@@ -148,7 +158,18 @@ else{
       datasets: [
         {
           data: Object.values(domainMap),
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#9CCC65', '#FF7043']
+         backgroundColor: [
+  '#00e5ff',
+  '#00bcd4',
+  '#26c6da',
+  '#4dd0e1',
+  '#80deea',
+  '#0097a7',
+  '#4fc3f7'
+],
+borderColor: '#071a22',
+borderWidth: 2,
+hoverOffset: 12
         }
       ]
     };
@@ -175,6 +196,7 @@ else{
   
 }
 }
+
 
 // import { Component, OnInit } from '@angular/core';
 // import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';

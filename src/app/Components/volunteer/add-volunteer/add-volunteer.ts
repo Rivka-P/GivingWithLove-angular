@@ -6,7 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 // import { VolunteerDomain } from '../../volunteer-domain/volunteer-domain';
 import { EichudService } from '../../../Services/eichud-service';
 import { EichudModel } from '../../../Models/EichudModel';
-import { catchError, forkJoin, lastValueFrom, of } from 'rxjs';
+import { forkJoin, lastValueFrom } from 'rxjs';
 import { PositionService } from '../../../Services/position-service';
 import { PositionModel } from '../../../Models/PositionModel';
 import { FormBuilder } from '@angular/forms';
@@ -23,7 +23,7 @@ import { T } from '@angular/cdk/keycodes';
 // domainList
 @Component({
   selector: 'app-add-volunteer',
-  imports: [ ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule, VolunteerDomain],
+  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule, VolunteerDomain,],
   templateUrl: './add-volunteer.html',
   styleUrls: ['./add-volunteer.scss']
 })
@@ -63,84 +63,32 @@ export class AddVolunteer {
   form: FormGroup = this.formBuilder.group({
     searchText: ['']
   });
-  isLoading = false;
+  isLoading = true;
 
   async ngOnInit() {
-//     const cleanDomains = this.volunteerDomainService.domains
-//       .map(domain => domain)
-//       .filter((domain, idx, arr) => domain && arr.indexOf(domain) === idx);
-//     this.isLoading = true;
-// this.positionService.getAllPositions().subscribe({
-//   next: res => {
-//     console.log('positions OK', res);
-//     this.listP = res;
-//   },
-//   error: err => console.error('positions ERROR', err)
-// });
-// this.eichudService.getAllEichud().subscribe({
-//   next: res => {
-//     console.log('eichud OK', res);
-//     this.listE = res;
-//   },
-//   error: err => console.error('eichud ERROR', err)
-// });
-// forkJoin({
-//   eichudList: this.eichudService.getAllEichud().pipe(catchError(() => of([]))),
-//   positionList: this.positionService.getAllPositions().pipe(catchError(() => of([])))
-// })
-
-    // forkJoin({
-    //   eichudList: this.eichudService.getAllEichud(),
-    //   positionList: this.positionService.getAllPositions()
-    //   // projectList: this.projectService.getAllProjects()
-    // }).subscribe({
-    //   next: ({ eichudList, positionList }) => {
-    //     this.listE = eichudList;
-    //     this.listP = positionList;
-    //     // this.listProject = projectList;
-    //     this.filteredList = [...this.listE];
-    //     this.isLoading = false;
-    //   },
-    //   error: (err) => {
-    //     alert('שגיאה בטעינת נתונים');
-    //     this.isLoading = false;
-    //   }
-    // });
-    // this.searchControl.valueChanges.subscribe(value => {
-    //   this.applyFilter(value);
-    // });
+    this.isLoading = true;
+    forkJoin({
+      eichudList: this.eichudService.getAllEichud(),
+      positionList: this.positionService.getAllPositions(),
+      projectList: this.projectService.getAllProjects()
+    }).subscribe({
+      next: ({ eichudList, positionList, projectList }) => {
+        this.listE = eichudList;
+        this.listP = positionList;
+        this.listProject = projectList;
+        this.filteredList = [...this.listE];
+        this.isLoading = false;
+      },
+      error: (err) => {
+        alert('שגיאה בטעינת נתונים');
+        this.isLoading = false;
+      }
+    });
 
 
-    // this.volunteerService.refreshData()
-    if(this.eichudService.peopleInTheEichud.length !== 0){
-      this.listE = this.eichudService.peopleInTheEichud;
-      this.filteredList = [...this.listE];
-    }
-     else {
-      console.log("הנתונים של האיחוד ריקים, יש לבדוק את מקור הנתונים");
-    }
-
-    this.listP = this.positionService.positions;
+    this.volunteerService.refreshData()
 
   }
-//     async ngOnInit() {
-//      const cleanDomains = this.volunteerDomainService.domains
-//       .map(domain => domain)
-//       .filter((domain, idx, arr) => domain && arr.indexOf(domain) === idx);
-// this.domainList=cleanDomains
-// this.listE = this.eichudService.peopleInTheEichud;
-//     // this.listE = await lastValueFrom(this.eichudService.getAllEichud());
-//     this.listP = await lastValueFrom(this.positionService.getAllPositions());
-//     this.filteredList = [...this.listE];
-//     this.searchControl.valueChanges.subscribe(value => {
-//       this.applyFilter(value);
-//     });
-
-
-//     this.volunteerService.refreshData()
-
-//   }
-
 
 
   addVolunteer() {

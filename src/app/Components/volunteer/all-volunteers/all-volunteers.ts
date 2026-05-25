@@ -15,10 +15,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';
 import { VolunteerDetails } from '../volunteer-details/volunteer-details';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-volunteer',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule,MatIconModule],
   templateUrl: './all-volunteers.html',
   styleUrl: './all-volunteers.scss'
 })
@@ -36,7 +37,7 @@ export class AllVolunteers {
  router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
 
-  
+  isD:boolean=false;
   vlntrFrm: FormGroup = this.formBuilder.group({
     name: [null, Validators.required],
     position: [null, Validators.required]
@@ -80,7 +81,7 @@ goToVolunteerDetails(d: any) {
         console.error('Invalid volunteer data', d);
         return;
     }
-
+this.isD=true
     console.log(d.volunteerCode);
     this.volunteerService.setSelectedVolunteer(d.volunteerCode);
 this.dialog.open(VolunteerDetails, {
@@ -88,6 +89,7 @@ this.dialog.open(VolunteerDetails, {
       height: '600px',
       data: { volunteerCode: d.volunteerCode } // שולח את קוד המתנדב
     });
+
   // קריאה לפונקציה
   // console.log(d.volunteerCode);
   //  this.volunteerService.setSelectedVolunteer(d.volunteerCode);

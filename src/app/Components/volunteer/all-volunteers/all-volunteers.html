@@ -1,5 +1,8 @@
 <p>all-volunteers works!</p>
 
+   <button  *ngIf="isD" mat-icon-button style="float: right; color:rgb(160, 10, 10);border: none;background-color: aliceblue;">
+  <mat-icon>close</mat-icon>
+    </button>
 <input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
 <table class="donors-table">
     <thead>

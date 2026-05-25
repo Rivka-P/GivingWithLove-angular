@@ -11,7 +11,7 @@ import { ProjectModule } from '../../Models/project/project-module';
 
 @Component({
   selector: 'app-volunteer-domain',
-  imports: [ ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule],
+  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule],
   templateUrl: './volunteer-domain.html',
   styleUrl: './volunteer-domain.scss'
 })
