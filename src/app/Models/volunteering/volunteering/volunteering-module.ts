@@ -13,7 +13,7 @@ export class VolunteeringModule {
  
     volunteeringCode?:number
 
-    dateOfVolunteering!:Date 
+    dateOfVolunteering!:string 
 
     volunteerCode?:number 
 

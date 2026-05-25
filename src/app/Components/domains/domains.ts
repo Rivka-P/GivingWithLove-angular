@@ -1,33 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { ProjectModule } from '../../Models/project/project-module';
 import { ProjectService } from '../../Services/project-service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-
 import { VolunteerService } from '../../Services/volunteer-service';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { Project } from '../project/project';
+import { SubProject } from '../sub-project/sub-project';
 
 @Component({
-  selector: 'app-project',
-  imports: [AsyncPipe,ReactiveFormsModule],
-  templateUrl: './project.html',
-  styleUrl: './project.scss'
+  selector: 'app-domains',
+  imports: [RouterOutlet,RouterModule,Project,SubProject],
+  templateUrl: './domains.html',
+  styleUrl: './domains.scss',
 })
-export class Project {
-vlntService: VolunteerService = inject(VolunteerService);
-  projectsArr: ProjectModule[] = [];
-
+export class Domains {
+projectsArr: ProjectModule[] = [];
   projectService = inject(ProjectService)
-  vlntService = inject(VolunteerService)
+  vlntService=inject(VolunteerService)
   // volunteerService = inject(VolunteerService)
   ngOnInit() {
-    this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })
+    this.projectService.getAllProjects().subscribe( res => {this.vlntService.refreshData(); this.projectsArr = res })
   }
  
   frm = new FormGroup({
     // volunteeringCode: new FormControl<number | null>(null, Validators.required),
     projectName: new FormControl<string | null>(null, Validators.required),
-    projectManagerCode: new FormControl<number | null>(null),
+    projectManager: new FormControl<number | null>(null),
     domainCode: new FormControl<number | null>(null)
       });
 
@@ -36,7 +34,7 @@ vlntService: VolunteerService = inject(VolunteerService);
       const project = {
         // volunteeringCode: this.vlntrFrm.controls['volunteerCode'].value!,
         projectName: this.frm.value.projectName!,
-        projectManagerCode: this.frm.value.projectManagerCode!,
+        projectManagerCode: this.frm.value.projectManager!,
         domainCode: this.frm.value.domainCode!,
        
       }

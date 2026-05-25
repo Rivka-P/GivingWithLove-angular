@@ -10,7 +10,7 @@ export class ProjectService {
   http = inject(HttpClient );
 BASE_URL: string = 'https://localhost:7016/api/Project';
 Projects$: Observable<ProjectModule[]>;
-Projects:ProjectModule[]=[];
+projects:ProjectModule[]=[];
   constructor() { 
     this.Projects$=this.getAllProjects()
   }
@@ -19,7 +19,7 @@ Projects:ProjectModule[]=[];
     return this.http.get<ProjectModule[]>(this.BASE_URL);
   }
   getProjectById(id:number): Observable<ProjectModule[]> {
-    return this.http.get<ProjectModule[]>(this.BASE_URL +'Get/'+id);
+    return this.http.get<ProjectModule[]>(this.BASE_URL +'/Get/'+id);
   }
   addProject(item: ProjectModule) {
     return this.http.post(this.BASE_URL, item).subscribe(() => this.refreshData());
@@ -33,11 +33,11 @@ Projects:ProjectModule[]=[];
   }
 
   existingProject(g: ProjectModule) {
-    return this.Projects.findIndex(x => x.projectCode == g.projectCode ) >= 0;
+    return this.projects.findIndex(x => x.projectCode == g.projectCode ) >= 0;
   }
    refreshData(){
-    this.getAllProjects().subscribe(x => this.Projects = x);
-    this.Projects$=this.getAllProjects()
+    this.getAllProjects().subscribe(x => this.projects = x);
+    this.Projects$ = this.getAllProjects()
   }
 
 }

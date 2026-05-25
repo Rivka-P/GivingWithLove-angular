@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { VolunteeringModule } from '../Models/volunteering/volunteering/volunteering-module';
 import { Observable } from 'rxjs';
+import { SubProjectService } from './sub-project-service';
+import { SubProjectModule } from '../Models/sub-project/sub-project-module';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,11 @@ import { Observable } from 'rxjs';
 export class VolunteeringService {
   http = inject(HttpClient );
 
-BASE_URL: string =' https://localhost:7016/api/Volunteering';
-volunteerings$: Observable<VolunteeringModule[]>;
+BASE_URL: string ='https://localhost:7016/api/Volunteering';
+volunteerings$!: Observable<VolunteeringModule[]>;
+subProjectsrv=inject(SubProjectService)
 volunteerings:VolunteeringModule[]=[];
-
-    dateOfVolunteeringInS!:Date 
-
+dateOfVolunteeringInS!:Date 
     volunteerCodeInS?:number 
 
     poorManCodeInS?:number
@@ -25,7 +26,7 @@ volunteerings:VolunteeringModule[]=[];
     projectCodeInS?:number 
 
     subProjectCodeInS?:number
-  
+
   setSelectedVolunteer(volunteerCode: number) {
     this.volunteerCodeInS = volunteerCode;
   }
@@ -41,21 +42,7 @@ volunteerings:VolunteeringModule[]=[];
   setSelectedSubProject(subProjectCode: number) {
     this.subProjectCodeInS = subProjectCode;
   }
-   constructor() {   
-        // שמירת ה-Observable
-        this.volunteerings$ = this.getAllVolunteerings();
 
-        // הרשמה ל-Observable כדי לקבל את המערך בפועל
-        this.volunteerings$.subscribe({
-          next: (data: VolunteeringModule[]) => {
-            this.volunteerings = data;
-          },
-          error: (err) => {
-            console.error('Error fetching Volunteering data:', err);
-          }
-        });
-      }
- 
 
  
   // --- מתודות CRUD ---
@@ -79,8 +66,23 @@ volunteerings:VolunteeringModule[]=[];
   existingVolunteering(g: VolunteeringModule) {
     return this.volunteerings.findIndex(x => x.volunteeringCode == g.volunteeringCode ) >= 0;
   }
-   refreshData(){
-    this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
+  async refreshData (){
+   await this.getAllVolunteerings().subscribe(x => this.volunteerings = x);
     this.volunteerings$=this.getAllVolunteerings()
   }
-}
+    calcCost(){
+      
+    let sum=0;
+    this.refreshData()
+    for (let index = 0; index < this.volunteerings.length;) {
+    if(this.volunteerings[index].subProjectCode == undefined)
+      index++
+    else
+        {
+          sum+=Number(this.subProjectsrv.Projects.find(x => x.projectCode == this.volunteerings[index].subProjectCode )?.estimatedCost);
+               index++
+ 
+    }}
+return sum
+  
+}}

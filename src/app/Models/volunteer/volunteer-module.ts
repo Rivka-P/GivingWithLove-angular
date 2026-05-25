@@ -8,6 +8,7 @@ import { VolunteerDomainModule } from '../volunteer-domain/volunteer-domain-modu
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -15,11 +16,11 @@ import { VolunteerDomainModule } from '../volunteer-domain/volunteer-domain-modu
   ]
 })
 export class VolunteerModule {
-
   volunteerCode!: number
   positionCode!: number
   positionName?: string
   volunteerCodeNavigation?: EichudModel
   volunteerDomains?: VolunteerDomainModule[];
+
 
 }

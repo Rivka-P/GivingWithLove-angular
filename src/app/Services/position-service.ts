@@ -10,13 +10,12 @@ import { PositionModel } from '../Models/PositionModel';
 })
 export class PositionService {
   http = inject(HttpClient);
-BASE_URL: string = 'https://localhost:7016/api/Position';
+BASE_URL: string = 'https://localhost:7016/api/Position/';
 positions:PositionModel[]=[];
 positions$:Observable<PositionModel[]>;
 constructor() { 
     this.positions$=this.getAllPositions()
   }
-// --- מתודות CRUD ---
   getAllPositions(): Observable<PositionModel[]> {
     return this.http.get<PositionModel[]>(this.BASE_URL);
   }
@@ -30,8 +29,8 @@ constructor() {
     return this.http.put<number>(this.BASE_URL+item.positionCode, item).subscribe(() => this.refreshData());
   }
  
-  deletePosition(id:number): Observable<number> {
-    return this.http.delete<number>(this.BASE_URL+id);
+  deletePosition(id:number) {
+    return this.http.delete<number>(this.BASE_URL+id).subscribe(() => this.refreshData())
   }
    refreshData(){
     this.getAllPositions().subscribe(x => this.positions = x);

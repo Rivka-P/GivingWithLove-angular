@@ -15,7 +15,7 @@ import {  CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, AsyncPipe,CommonModule],
 
   templateUrl: './position.html',
-  styleUrl: './position.scss'
+  styleUrls: ['./position.scss']
 })
 export class Position {
 
@@ -36,11 +36,17 @@ export class Position {
   addPosition(p: PositionModel) {
     this.positionService.addPosition(p);
   }
-  deletePosition(p: PositionModel) {
+
+  // deletePosition(p: PositionModel) {
 
    
-    this.positionService.deletePosition(p.positionCode);
+  //   this.positionService.deletePosition(p.positionCode);}
  
+
+   deletePosition(p: number) {
+    this.positionService.deletePosition(p);``
+    
+
   }
   updatePosition(p: PositionModel) {
     this.positionService.updatePosition(p);

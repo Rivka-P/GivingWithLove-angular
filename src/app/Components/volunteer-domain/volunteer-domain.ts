@@ -1,3 +1,4 @@
+
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../../Services/project-service';
 import { lastValueFrom } from 'rxjs';
@@ -16,6 +17,7 @@ import { ProjectModule } from '../../Models/project/project-module';
   styleUrl: './volunteer-domain.scss'
 })
 export class VolunteerDomain {
+
   projectService = inject(ProjectService);
   volunteerDomainService = inject(VolunteerDomainService);
 
@@ -56,4 +58,5 @@ export class VolunteerDomain {
     else
       alert("מלאו קודם תחום התנדבות")
   }
+
 }

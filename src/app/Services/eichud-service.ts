@@ -2,35 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {EichudModel}from '../Models/EichudModel';
 import { Observable, of, tap } from 'rxjs';
+// import {EichudModel}from 'd:/RivkyPinter/GWL_Project/GivingWithLove-angular/src/app/Models/EichudModel'
+import { UserModel } from '../Models/user/user-model/user-model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class EichudService {
   http = inject(HttpClient);
 BASE_URL: string = 'https://localhost:7016/api/Eichud';
-peopleInTheEichud:EichudModel[]=[];
-peopleInTheEichud$:Observable<EichudModel[]>;
-// constructor(){
-//    this.peopleInTheEichud$=this.getAllEichud()
-//    this.peopleInTheEichud = this.getAllEichud() as unknown as EichudModel[];
-// }
-  constructor() {
-    // שמירת ה-Observable
-    this.peopleInTheEichud$ = this.getAllEichud();
-    if (!this.peopleInTheEichud$) {
-      console.warn('Warning: The Observable for Eichud data is empty. Please check the API endpoint and data source.');
-    }
 
-    // הרשמה ל-Observable כדי לקבל את המערך בפועל
-    this.peopleInTheEichud$.subscribe({
-      next: (data: EichudModel[]) => {
-        this.peopleInTheEichud = data;
-      },
-      error: (err) => {
-        console.error('Error fetching Eichud data:', err);
-      }
-    });
-  }
+peopleInTheEichud:EichudModel[]=[];
+peopleInTheEichud$!:Observable<EichudModel[]>;
+
 
 // --- מתודות CRUD ---
   getAllEichud(): Observable<EichudModel[]> {
@@ -54,13 +38,5 @@ peopleInTheEichud$:Observable<EichudModel[]>;
     this.getAllEichud().subscribe(x => this.peopleInTheEichud = x);
      this.peopleInTheEichud$=this.getAllEichud()
   }
-  
-//  refreshData() {
-//   return this.getAllEichud().pipe(
-//     tap(x => {
-//       this.peopleInTheEichud = x;
-//       this.peopleInTheEichud$ = of(x);
-//     })
-//   );
-// }
+
 }
