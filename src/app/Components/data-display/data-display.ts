@@ -27,7 +27,6 @@ filteredSubProjects: SubProjectModule[] = [];
   router=inject(Router)
   flag:boolean=false
   volunteeringSrv=inject(VolunteeringService)
-  volunteeringArr:VolunteeringModule[]=[]
   vm:any=undefined
   volunteerSrv=inject(VolunteerService)
   estimatedTime:number=0;
@@ -56,8 +55,7 @@ filteredSubProjects: SubProjectModule[] = [];
 
     await this.volunteerSrv.refreshData();
     console.log('volunteerSrv.refreshData finished');
-    this.volunteeringArr = await lastValueFrom(this.volunteeringSrv.volunteerings$);
-    console.log('volunteeringArr:', this.volunteeringArr);
+    await lastValueFrom(this.volunteeringSrv.getAllVolunteerings());
     this.calcCost();
     this.calcTime();
   }
@@ -65,8 +63,8 @@ filteredSubProjects: SubProjectModule[] = [];
  calcCost = () => {
   this.estimatedCost = 0;
 
-  for (let index = 0; index < this.volunteeringArr.length; index++) {
-    const vm = this.volunteeringArr[index]?.subProjectCode;
+  for (let index = 0; index < this.volunteeringSrv.volunteerings.length; index++) {
+    const vm =this.volunteeringSrv.volunteerings[index]?.subProjectCode;
 
     if (vm !== undefined) {
       const project = this.subProjects.find(
@@ -84,8 +82,8 @@ filteredSubProjects: SubProjectModule[] = [];
 calcTime = () => {
   this.estimatedTime = 0;
 
-  for (let index = 0; index < this.volunteeringArr.length; index++) {
-    const vm = this.volunteeringArr[index]?.subProjectCode;
+  for (let index = 0; index <this.volunteeringSrv.volunteerings.length; index++) {
+    const vm = this.volunteeringSrv.volunteerings[index]?.subProjectCode;
 
     if (vm !== undefined) {
       const project = this.subProjects.find(

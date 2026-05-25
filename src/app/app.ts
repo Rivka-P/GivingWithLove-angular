@@ -5,7 +5,7 @@ import { V } from '@angular/cdk/keycodes';
 import { VolunteerService } from './Services/volunteer-service';
 import { VolunteerModule } from './Models/volunteer/volunteer-module';
 import { ProjectService } from './Services/project-service';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,RouterModule],

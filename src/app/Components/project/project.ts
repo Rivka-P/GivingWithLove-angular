@@ -18,7 +18,6 @@ vlntService: VolunteerService = inject(VolunteerService);
   projectsArr: ProjectModule[] = [];
 
   projectService = inject(ProjectService)
-  vlntService = inject(VolunteerService)
   // volunteerService = inject(VolunteerService)
   ngOnInit() {
     this.projectService.getAllProjects().subscribe(res => { this.projectsArr = res })

@@ -67,27 +67,22 @@ export class AddVolunteer {
 
   async ngOnInit() {
     this.isLoading = true;
-    forkJoin({
-      eichudList: this.eichudService.getAllEichud(),
-      positionList: this.positionService.getAllPositions(),
-      projectList: this.projectService.getAllProjects()
-    }).subscribe({
-      next: ({ eichudList, positionList, projectList }) => {
-        this.listE = eichudList;
-        this.listP = positionList;
-        this.listProject = projectList;
-        this.filteredList = [...this.listE];
-        this.isLoading = false;
-      },
-      error: (err) => {
-        alert('שגיאה בטעינת נתונים');
-        this.isLoading = false;
-      }
-    });
-
-
-    this.volunteerService.refreshData()
-
+    try {
+      const [eichudList, positionList, projectList] = await Promise.all([
+        lastValueFrom(this.eichudService.getAllEichud()),
+        lastValueFrom(this.positionService.getAllPositions()),
+        lastValueFrom(this.projectService.getAllProjects())
+      ]);
+      this.listE = eichudList;
+      this.listP = positionList;
+      this.listProject = projectList;
+      this.filteredList = [...this.listE];
+      this.isLoading = false;
+    } catch (err) {
+      alert((err && typeof err === 'object' && 'message' in err) ? (err as any).message : 'שגיאה בטעינת הנתונים');
+      this.isLoading = false;
+    }
+    await this.volunteerService.refreshData();
   }
 
 

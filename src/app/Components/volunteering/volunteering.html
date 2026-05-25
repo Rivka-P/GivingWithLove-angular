@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 <h1>הכנס פרטי התנדבות החדש</h1>
 <!-- @for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
@@ -12,13 +11,11 @@
 
 
   <label for="dateOfVolunteering"> dateOfVolunteering</label>
-=======
 
 <h1>הכנס פרטי התנדבות חדש</h1>
 <form [formGroup]="vlntrFrm">
 
   <label for="dateOfVolunteering">תאריך התנדבות</label>
->>>>>>> bfc63a53c2ea9160ba244ed14888be802bfcf60b
   <input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering">
 
   <label for="volunteerCode">קוד מתנדב</label>
@@ -45,12 +42,9 @@
       {{ volun.volunteerCodeNavigation?.firstName }}
     </option>
   </select>
-<<<<<<< HEAD
 {{volunteeringService.projectCodeInS}}
 
-=======
 <!-- {{volunteeringService.projectCodeInS}} -->
->>>>>>> e37c338 (Rivkys angular async)
   <select class="form-control" formControlName="projectCode" (change)="onProjectChange($event)">
   <ng-container *ngFor="let pro of projectsArr; track pro">
     <option *ngIf="pro.projectCode !== pro.domainCode" [value]="pro.projectCode" >

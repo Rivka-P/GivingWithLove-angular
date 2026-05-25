@@ -1,13 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { VolunteerService } from '../../../Services/volunteer-service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import {  CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VolunteerDomain } from '../../volunteer-domain/volunteer-domain';
 import { EichudService } from '../../../Services/eichud-service';
 import { EichudModel } from '../../../Models/EichudModel';
 import { lastValueFrom } from 'rxjs';
 import { PositionService } from '../../../Services/position-service';
-import { PositionModel } from '../../../Models/PositionModel';
 import { FormBuilder } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { VolunteeringService } from '../../../Services/volunteering-service';
@@ -16,12 +14,19 @@ import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';
 import { VolunteerDetails } from '../volunteer-details/volunteer-details';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-volunteer',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule,MatIconModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    ScrollingModule,
+    RouterModule,
+    MatIconModule
+  ],
   templateUrl: './all-volunteers.html',
-  styleUrl: './all-volunteers.scss'
+  styleUrls: ['./all-volunteers.scss']
 })
 export class AllVolunteers {
   dialog = inject(MatDialog);

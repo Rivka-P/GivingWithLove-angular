@@ -15,7 +15,9 @@ BASE_URL: string = 'https://localhost:7016/api/Eichud';
 peopleInTheEichud:EichudModel[]=[];
 peopleInTheEichud$!:Observable<EichudModel[]>;
 
-
+constructor(){
+  this.refreshData()
+}
 
 
 // --- מתודות CRUD ---

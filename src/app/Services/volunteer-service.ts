@@ -3,11 +3,6 @@ import { VolunteerModule } from '../Models/volunteer/volunteer-module';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { VolunteerDomainModule } from '../Models/volunteering/volunteer-domain/volunteer-domain-module';
-
-import { EichudModel } from '../Models/EichudModel';
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +13,17 @@ export class VolunteerService {
   isVolunteerLoggedIn:boolean = false
   volunteers$!: Observable<VolunteerModule[]>;
   volunteers:VolunteerModule[]=[];
-  loading$ = new BehaviorSubject<boolean>(false);
+
+    volunteerCodeInS?:number 
+  setSelectedVolunteer(volunteerCode: number) {
+    this.volunteerCodeInS = volunteerCode;
+  }
+  // volunterrDomain:
+
   userPosition?:string;//מה התפקיד של המשתמש הנוכחי
+
+
+  loading$ = new BehaviorSubject<boolean>(false);
     constructor() { 
       this.volunteers$=this.getAllVolunteers()
       this.volunteers$.subscribe(x => this.volunteers = x);

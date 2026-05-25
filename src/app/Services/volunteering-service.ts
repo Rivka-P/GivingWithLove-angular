@@ -13,11 +13,7 @@ export class VolunteeringService {
   http = inject(HttpClient );
 
 BASE_URL: string ='https://localhost:7016/api/Volunteering';
-<<<<<<< HEAD
 volunteerings$!: Observable<VolunteeringModule[]>;
-=======
-volunteerings$!: Observable<VolunteeringModule[]> ;
->>>>>>> e37c338 (Rivkys angular async)
 subProjectsrv=inject(SubProjectService)
 volunteerings:VolunteeringModule[]=[];
 dateOfVolunteeringInS!:Date 
@@ -31,6 +27,9 @@ dateOfVolunteeringInS!:Date
 
     subProjectCodeInS?:number
 
+    constructor() {
+    this.refreshData()
+  }
   setSelectedVolunteer(volunteerCode: number) {
     this.volunteerCodeInS = volunteerCode;
   }
@@ -72,6 +71,7 @@ dateOfVolunteeringInS!:Date
   this.getAllVolunteerings().subscribe(x => {
     this.volunteerings = x;
   });
+    this.volunteerings$ = this.getAllVolunteerings();
 }
   calcCost(): Observable<number> {
   return new Observable<number>(observer => {
