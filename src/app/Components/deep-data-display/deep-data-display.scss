@@ -1,0 +1,110 @@
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  padding: 30px 16px;
+
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+
+  direction: rtl;
+
+  overflow-x: hidden;
+}
+
+/* ===== NEW: קונטיינר מרכזי אמיתי ===== */
+.page > * {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* ===== כותרת ===== */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ===== תתי פרויקטים ===== */
+.sub-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+  max-width: 100%;
+}
+
+/* ===== NEW: יישור מרכזי אמיתי של הרשימה ===== */
+.sub-links {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== כרטיסים ===== */
+.cards-container {
+  width: 100%;
+  max-width: 1000px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 16px;
+
+  /* NEW */
+  margin: 0 auto;
+}
+
+/* ===== NEW: כרטיסים לא יימתחו יותר מדי במסכים גדולים ===== */
+.card {
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  transition: all 0.25s ease;
+
+  text-align: center;
+
+  max-width: 100%;
+}
+
+/* ===== אנימציה ===== */
+.page, .card, .sub-project {
+  animation: fadeIn 0.35s ease-in-out;
+}
+
+/* ===== NEW: התאמה למסכים קטנים ===== */
+@media (max-width: 600px) {
+  .page {
+    padding: 16px 10px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+/* ===== הגנות פריסה ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}

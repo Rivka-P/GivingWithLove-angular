@@ -1,5 +1,4 @@
-
-import { Component, inject, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Output, EventEmitter, Input } from '@angular/core';
 import { ProjectService } from '../../Services/project-service';
 import { lastValueFrom } from 'rxjs';
 import { VolunteerDomainService } from '../../Services/volunteer-domain-service';
@@ -10,14 +9,18 @@ import { RouterModule } from '@angular/router';
 import { VolunteerDomainModule } from '../../Models/volunteer-domain/volunteer-domain-module';
 import { ProjectModule } from '../../Models/project/project-module';
 
+
 @Component({
+  
   selector: 'app-volunteer-domain',
+    standalone: true,
   imports: [AsyncPipe, ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule],
   templateUrl: './volunteer-domain.html',
   styleUrl: './volunteer-domain.scss'
 })
 export class VolunteerDomain {
-
+  @Input() domain!: number;
+  @Input()hhh!:number;
   projectService = inject(ProjectService);
   volunteerDomainService = inject(VolunteerDomainService);
 
@@ -36,6 +39,10 @@ export class VolunteerDomain {
   }
 
   async ngOnInit() {
+    if(this.hhh==1)
+    this.vlntrDmnFrm.patchValue({
+    domain:this.domain
+  });
 
     this.listProject = await lastValueFrom(this.projectService.getAllProjects());
     //  this.listP = await  lastValueFrom(this.positionService.getAllPositions());
@@ -58,5 +65,7 @@ export class VolunteerDomain {
     else
       alert("מלאו קודם תחום התנדבות")
   }
-
 }
+
+
+

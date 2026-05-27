@@ -1,19 +1,48 @@
-<div *ngFor="let project of filteredProjects">
-  <h2>{{ project.projectName }}</h2>
-  <p>קוד פרויקט: {{ project.projectCode }}</p>
-  @if(subProjects && subProjects.length > 0)
-  {
-  <div>
-    <h3>תתי-פרויקטים:</h3>
-    <div>
-      <div *ngFor="let subProject of subProjects">
-        @if(subProject.projectCode === project.projectCode){
-        <ng-container>
-          <p>{{subProject.subProjectName }}</p>
-          <button (click)="goToVolunteering(subProject)"></button>
-        </ng-container>}
+<div class="page">
+
+  <div class="title">פרויקטים ותתי פרויקטים</div>
+
+  <div class="projects-container">
+
+    <div class="project-card"
+         *ngFor="let project of filteredProjects">
+
+      <div class="project-header">
+        <h2>{{ project.projectName }}</h2>
+        <span class="code">קוד: {{ project.projectCode }}</span>
       </div>
+
+      @if(subProjects && subProjects.length > 0) {
+        <div class="sub-section">
+
+          <h3>תתי-פרויקטים</h3>
+
+          <div class="sub-list">
+
+            <div class="sub-item"
+                 *ngFor="let subProject of subProjects">
+
+              @if(subProject.projectCode === project.projectCode) {
+
+                <span class="sub-name">
+                  {{ subProject.subProjectName }}
+                </span>
+
+                <button class="btn"
+                        (click)="goToVolunteering(subProject)">
+                  מעבר להתנדבות
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+        </div>
+      }
+
     </div>
+
   </div>
-  }
+
 </div>

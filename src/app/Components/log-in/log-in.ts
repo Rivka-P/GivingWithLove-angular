@@ -32,7 +32,7 @@ export class LogIn {
   person?:EichudModel
   lgFrm: FormGroup = new FormGroup({
   userName: new FormControl("אנונימי", [Validators.required]),
-  password: new FormControl(0, [Validators.required]),
+  password: new FormControl(1, [Validators.required]),
   position: new FormControl("זמני", [Validators.required])
   })
 async ngOnInit() {

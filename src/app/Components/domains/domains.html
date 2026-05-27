@@ -1,11 +1,25 @@
- <p>domains works!</p>
-<label >תחום הפרויקט</label> 
-  @for(p of projectsArr; track p; let j = $index){
-@if(p.domainCode != null && p.projectCode != null && p.domainCode.toString().trim() === p.projectCode.toString().trim()){
-          <a [routerLink]="['sub', p.projectCode , p.projectName]" >
-  {{p.projectName}}
-</a>
-  }
-} 
-  <a routerLink="project"  routerLinkActive="active-link">להוספת תחום</a>
-<router-outlet></router-outlet>
+<div class="domains-container">
+
+  <label class="title">תחום הפרויקט</label>
+
+  <div class="projects-list">
+    @for(p of projectsArr; track p; let j = $index){
+      @if(p.domainCode == null){
+        <a
+          class="project-link"
+          [routerLink]="['sub', p.projectCode , p.projectName]">
+          {{p.projectName}}
+        </a>
+      }
+    }
+  </div>
+
+  <a
+    class="add-btn"
+    routerLink="project"
+    routerLinkActive="active-link">
+    להוספת תחום
+  </a>
+
+  <router-outlet></router-outlet>
+</div>

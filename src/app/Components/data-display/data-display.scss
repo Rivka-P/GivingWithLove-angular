@@ -1,28 +1,284 @@
+.page {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* KPI */
+.kpi {
+  display: flex;
+  gap: 12px;
+}
+
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.price {
-  color: grey;
-  font-size: 22px;
+.num {
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
   cursor: pointer;
-  width: 100%;
-  font-size: 18px;
 }
 
-.card button:hover {
-  opacity: 0.7;
+.btn.export {
+  background: #42A5F5;
+  color: white;
+  border: none;
+}
+
+.btn.small {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  background: #f1f1f1;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.chart-box {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi {
+    flex-wrap: wrap;
+  }
+}
+.page {
+  padding: 20px;
+
+  direction: rtl;
+  text-align: right;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  font-family: Arial, sans-serif;
+
+  overflow-x: hidden; /* 🚫 חסימת גלילה לרוחב */
+  box-sizing: border-box;
+}
+
+/* כותרת */
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f3b57;
+}
+
+/* KPI */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;   /* ✅ קריטי */
+  gap: 12px;
+}
+
+.card {
+  flex: 1 1 180px;   /* במקום min-width קשיח */
+  background: #fff;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  transition: 0.25s ease;
+
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* טקסט */
+.card h2 {
+  font-size: 13px;
+  color: #5b6b7a;
+}
+
+.value,
+.num {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f3b57;
+}
+
+/* כפתורים */
+.btn {
+  padding: 8px 12px;
+
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  background: #f1f7ff;
+  transform: translateY(-2px);
+}
+
+/* פילטרים */
+.filters {
+  display: flex;
+  flex-wrap: wrap;   /* ✅ */
+  gap: 10px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;   /* ✅ */
+  gap: 8px;
+}
+
+.chip {
+  background: #fff;
+  border: 1px solid #d6e6f5;
+
+  padding: 6px 10px;
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  word-break: break-word; /* 🚫 מונע גלישה */
+}
+
+/* פרויקטים */
+.projects-section {
+  background: #fff;
+  padding: 16px;
+
+  border-radius: 14px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  overflow-x: hidden; /* 🚫 */
+}
+
+.project {
+  margin-bottom: 12px;
+
+  word-break: break-word; /* 🚫 */
+}
+
+.mid-project {
+  color: #3b82f6;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.sub-projects {
+  display: flex;
+  flex-wrap: wrap; /* ✅ במקום שורה אחת */
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.sub-project {
+  font-size: 12px;
+
+  background: #f7fbff;
+  border: 1px solid #e3eef8;
+
+  padding: 4px 8px;
+  border-radius: 8px;
+
+  word-break: break-word;
+}
+
+/* GRID – הכי חשוב */
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* גרפים */
+.chart-box {
+  background: white;
+  padding: 14px;
+  border-radius: 14px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  min-width: 0; /* 🚫 מונע overflow */
+}
+
+/* רספונסיביות */
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

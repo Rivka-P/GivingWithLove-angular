@@ -1,54 +1,103 @@
-<p>all-volunteers works!</p>
+<div class="page">
 
-   <button  *ngIf="isD" mat-icon-button style="float: right; color:rgb(160, 10, 10);border: none;background-color: aliceblue;">
-  <mat-icon>close</mat-icon>
+  <div class="header">
+    <div class="title">רשימת מתנדבים</div>
+
+    <button *ngIf="isD"
+            class="close-btn"
+            mat-icon-button>
+      <mat-icon>close</mat-icon>
     </button>
-<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
-<table class="donors-table">
-    <thead>
+  </div>
+
+  <!-- חיפוש -->
+  <div class="search-box">
+    <input type="text"
+           class="input"
+           [formControl]="searchControl"
+           placeholder="חפש מתנדב...">
+  </div>
+
+  <!-- טבלה -->
+  <div class="table-wrapper">
+
+    <table class="donors-table">
+
+      <thead>
         <tr>
-          
-            <th>קוד איחוד</th>
-            <th>שם</th>
-            <th>תפקיד</th>
-            <th>שם האב</th>
-            <th>שטיבל</th>
-            <th>רחוב</th>
-            <th>מספר בניין</th>
-            <th>עיר</th>
-            <th>מיקוד</th>
-            <th>טלפון בבית</th>
-            <th>פלאפון</th>
-            <th>הורי האם</th>
-            <th>להוספת התנדבות</th>
-            <th>לפרטי מתנדב</th>
-            <th>להשהית מתנדב</th>
-        </tr>
-    </thead>
-    <tbody>
+          <th>קוד איחוד</th>
+          <th>שם</th>
+          <th>תפקיד</th>
+          <th>שם האב</th>
+          <th>שטיבל</th>
+          <th>רחוב</th>
+          <th>מספר בניין</th>
+          <th>עיר</th>
+          <th>מיקוד</th>
+          <th>טלפון בית</th>
+          <th>פלאפון</th>
+          <th>הורי האם</th>
+          <th>התנדבות</th>
+          <th>פרטים</th>
+          <th>השהיה</th>
+          <th>לעריכת פרטי מתנדב או הוספת תחומי התנדבות</th>
 
-    <tbody>
+
+        </tr>
+      </thead>
+
+      <tbody>
         <tr *ngFor="let d of filteredList; let j = index">
-            <td>{{d.volunteerCode}}</td>
-     
-            <td>{{d.volunteerCodeNavigation?.tohar }} {{d.volunteerCodeNavigation?.firstName}}
-                {{d.volunteerCodeNavigation?.familyName }} {{d.volunteerCodeNavigation?.ending}} </td>
-            <td>{{d.positionCode}}</td>
-            <td>{{d.volunteerCodeNavigation?.fathersName}}</td>
-            <td>{{d.volunteerCodeNavigation?.shtibel}}</td>
-            <td>{{d.volunteerCodeNavigation?.street}}</td>
-            <td>{{d.volunteerCodeNavigation?.house}}</td>
-            <td>{{d.volunteerCodeNavigation?.city}}</td>
-            <td>{{d.volunteerCodeNavigation?.zipCode}}</td>
-            <td>{{d.volunteerCodeNavigation?.housePhone}}</td>
-            <td>{{d.volunteerCodeNavigation?.cellPhone}}</td>
-            <td>{{d.volunteerCodeNavigation?.shver}}</td>
-            <td><button (click)="goToVolunteering(d)">להוספת התנדבות</button></td>
-            <td><button (click)="goToVolunteerDetails(d)">לפרטי מתנדב</button></td>
-            <td><button>השהיה</button></td>
 
+          <td>{{d.volunteerCode}}</td>
+
+          <td>
+            {{d.volunteerCodeNavigation?.tohar}}
+            {{d.volunteerCodeNavigation?.firstName}}
+            {{d.volunteerCodeNavigation?.familyName}}
+            {{d.volunteerCodeNavigation?.ending}}
+          </td>
+
+          <td>{{d.positionName}}</td>
+          <td>{{d.volunteerCodeNavigation?.fathersName}}</td>
+          <td>{{d.volunteerCodeNavigation?.shtibel}}</td>
+          <td>{{d.volunteerCodeNavigation?.street}}</td>
+          <td>{{d.volunteerCodeNavigation?.house}}</td>
+          <td>{{d.volunteerCodeNavigation?.city}}</td>
+          <td>{{d.volunteerCodeNavigation?.zipCode}}</td>
+          <td>{{d.volunteerCodeNavigation?.housePhone}}</td>
+          <td>{{d.volunteerCodeNavigation?.cellPhone}}</td>
+          <td>{{d.volunteerCodeNavigation?.shver}}</td>
+
+          <td>
+            <button class="btn small" (click)="goToVolunteering(d)">
+              הוספת התנדבות
+            </button>
+          </td>
+
+          <td>
+            <button class="btn small secondary"
+                    (click)="goToVolunteerDetails(d)">
+              פרטים
+            </button>
+          </td>
+
+          <td>
+            <button class="btn small danger">
+              השהיה
+            </button>
+          </td>
+            <td>
+                <button class="btn small danger" (click)="goToEditVolunteer(d)">לעריכת פרטי מתנדב או הוספת תחומי התנדבות</button>
+            </td>
 
         </tr>
-    </tbody>
-</table>
-       <router-outlet></router-outlet>
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

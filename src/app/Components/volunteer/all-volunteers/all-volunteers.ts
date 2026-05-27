@@ -1,11 +1,13 @@
-import { Component, inject } from '@angular/core';
+// import { Component, inject } from '@angular/core';
 import { VolunteerService } from '../../../Services/volunteer-service';
-import {  CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { VolunteerDomain } from '../../volunteer-domain/volunteer-domain';
 import { EichudService } from '../../../Services/eichud-service';
 import { EichudModel } from '../../../Models/EichudModel';
 import { lastValueFrom } from 'rxjs';
 import { PositionService } from '../../../Services/position-service';
+import { PositionModel } from '../../../Models/PositionModel';
 import { FormBuilder } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { VolunteeringService } from '../../../Services/volunteering-service';
@@ -14,19 +16,13 @@ import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';
 import { VolunteerDetails } from '../volunteer-details/volunteer-details';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
+import { Component, inject } from '@angular/core';
 @Component({
   selector: 'app-volunteer',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    ScrollingModule,
-    RouterModule,
-    MatIconModule
-  ],
+  imports: [ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule,MatIconModule],
   templateUrl: './all-volunteers.html',
-  styleUrls: ['./all-volunteers.scss']
+  styleUrl: './all-volunteers.scss'
 })
 export class AllVolunteers {
   dialog = inject(MatDialog);
@@ -78,7 +74,10 @@ this.volunteeringService.setSelectedVolunteer(d.volunteerCodeNavigation?.eichudC
   this.router.navigate(['/v']);
 }
 
-
+goToEditVolunteer(d:any){
+  this.volunteerService.setSelectedVolunteer2(d)
+  this.router.navigate(['/volunteer/addvolunteer/edit', d.volunteerCode]);
+}
 
 
 goToVolunteerDetails(d: any) {
@@ -89,6 +88,7 @@ goToVolunteerDetails(d: any) {
 this.isD=true
     console.log(d.volunteerCode);
     this.volunteerService.setSelectedVolunteer(d.volunteerCode);
+    this.volunteerService.setSelectedVolunteer2(d)
 this.dialog.open(VolunteerDetails, {
       width: '800px',   // גודל הפופאפ
       height: '600px',
@@ -111,7 +111,7 @@ this.dialog.open(VolunteerDetails, {
     }
 
     this.filteredList = this.listV.filter(e =>
-      (`${e.volunteerCodeNavigation?.familyName} ${e.volunteerCodeNavigation?.firstName} ${e.volunteerCodeNavigation?.shtibel} ${e.volunteerCodeNavigation?.shver}`)
+      (`${e.volunteerCodeNavigation?.familyName} ${e.volunteerCodeNavigation?.firstName} ${e.volunteerCodeNavigation?.shtibel} ${e.volunteerCodeNavigation?.shver}${e.positionName}`)
         .toLowerCase()
         .includes(search)
     );

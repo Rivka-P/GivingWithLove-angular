@@ -1,35 +1,39 @@
-<p>log-in works!</p>
-<form [formGroup]="lgFrm" style="max-width:500px;margin:auto">
-    @if(error==false){
-         <div >שגיאה בשם משתמש או בסיסמא</div>
+<div class="login-page">
+
+  <form [formGroup]="lgFrm" class="login-card">
+
+    <h2 class="login-title">טופס כניסה</h2>
+
+    @if(error == false){
+      <div class="error-box">שגיאה בשם משתמש או בסיסמא</div>
     }
-   
-  <h2>טופס כניסה</h2>
-  <div class="input-container">
-    <i class="fa fa-user icon"></i>
-    <input
-      formControlName="userName"
-      class="form-control input-field"
-      type="text"
-      placeholder="Username"
-      name="usrnm">
-  </div>
 
-  <div class="input-container">
-    <i class="fa fa-key icon"></i>
-    <input
-      formControlName="password"
-      class="form-control input-field"
-      type="text"
-      placeholder="Password"
-      name="psw">
-  </div>
+    <div class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input
+        formControlName="userName"
+        class="input-field"
+        type="text"
+        placeholder="Username">
+    </div>
 
-  <button
-    type="button"
-    [disabled]="lgFrm.invalid"
-    class="btn"
-    (click)="enter()">
-    המשך  
-  </button>
-</form>
+    <div class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input
+        formControlName="password"
+        class="input-field"
+        type="password"
+        placeholder="Password">
+    </div>
+
+    <button
+      type="button"
+      [disabled]="lgFrm.invalid"
+      class="btn"
+      (click)="enter()">
+      המשך
+    </button>
+
+  </form>
+
+</div>

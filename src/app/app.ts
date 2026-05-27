@@ -17,6 +17,10 @@ export class App {
   volunteerSrv=inject(VolunteerService)
   ecdSrv=inject(EichudService)
   prjctSrv=inject(ProjectService)
+  isCollapsed = false;
+  toggleSidebar() {
+  this.isCollapsed = !this.isCollapsed;
+}
 //    ngOnInit(){
 //     if(this.volunteerSrv.volunteers.length==0)
 //       this.volunteerSrv.refreshData()

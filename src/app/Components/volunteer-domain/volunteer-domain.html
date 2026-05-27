@@ -1,9 +1,29 @@
-
 <!-- <p>volunteer-domain works!</p> -->
 <!-- <h3>מהם תחומי ההתנדבות המרכזיים של מתנדב זה:</h3> -->
 
 
 
+
+ <form [formGroup]="vlntrDmnFrm" dir="rtl">
+<div class="volunteer-domains-section">
+  <label for="domain"> תחום ההתנדבות:</label>
+<!-- <select class="form-control" formControlName="position">
+  <option *ngFor="let p of listP" [value]="p.positionCode">
+    {{ p.positionName }}
+  </option>
+</select> -->
+  <select class="form-control" formControlName="domain"  name="domain" id="1"  >
+    <option *ngFor="let p of listProject" [value]="p.projectCode">
+    {{p.projectName}}</option>
+  </select>
+</div>
+</form> 
+  <button type="button" (click)="addDomain()" >➕ להוספת תחום</button>
+
+
+
+
+<!-- 
 
  <form [formGroup]="vlntrDmnFrm" dir="rtl">
 <div class="volunteer-domains-section">
@@ -15,27 +35,5 @@
   </select>
 </div>
 </form> 
-  <button type="button" (click)="addDomain()" > ➕</button>
-
-
-
-  <!-- <div *ngFor="let domain of volunteerDomains; let i = index" class="domain-input-row">
-    <input type="text" [(ngModel)]="volunteerDomains[i]" placeholder="שם תחום" />
-    <button type="button" (click)="addDomain()" *ngIf="i === volunteerDomains.length - 1">+</button>
-  </div> -->
-
-
-
- <!-- <button type="button" (click)="addDomain()" *ngIf="i === volunteerDomains.length - 1">+</button> -->
-
- <!-- <form [formGroup]="vlntrDmnFrm" dir="rtl">
-  <div class="volunteer-domains-section">
-    <label>תחום ההתנדבות:</label>
-    <div *ngFor="let domain of volunteerDomains; let i = index" class="domain-input-row">
-      <input type="text"  (ngModelChange)="onDomainChange()" placeholder="שם תחום" />
-      <button type="button" (click)="addDomain()" >+</button>
-    </div>
-  </div>
-</form> -->
-<!-- *ngIf="i === volunteerDomains.length - 1" -->
+  <button type="button" (click)="addDomain()" > ➕</button> -->
 
