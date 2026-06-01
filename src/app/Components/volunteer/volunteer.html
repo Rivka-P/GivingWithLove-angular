@@ -1,77 +1,21 @@
+<div class="page">
 
+  <div class="title">ניהול מתנדבים</div>
 
-<p>volunteer works!</p>
+  <div class="actions">
 
-<p>all-volunteers works!</p>
-<!-- <input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
-<table class="donors-table">
-    <thead>
-        <tr>
-            <th>קוד איחוד</th>           
-            <th>שם</th>
-            <th>שם האב</th>
-            <th>שטיבל</th>
-            <th>רחוב</th>
-            <th>מספר בניין</th>
-            <th>עיר</th>
-            <th>מיקוד</th>
-            <th>טלפון בבית</th>
-            <th>פלאפון</th>
-            <th>הורי האם</th>
-            <th>להוספת התנדבות</th>
-            <th>לפרטי מתנדב</th>
-            <th>להשהית מתנדב</th>
-        </tr>
-    </thead>
-    <tbody>
-   
-    <tbody> @for(d of filteredList; track d; let j = $index){ <tr>
-            <td>{{d.eichudCode}}</td>
-            <td>{{d.tohar }} {{d.firstName}} {{d.familyName }}  {{d.ending}} </td>
-        
-            <td>{{d.fathersName}}</td>
-            <td>{{d.shtibel}}</td>
-            <td>{{d.street}}</td>
-            <td>{{d.house}}</td>
-            <td>{{d.city}}</td>
-            <td>{{d.zipCode}}</td>
-            <td>{{d.housePhone}}</td>
-            <td>{{d.cellPhone}}</td>
-            <td>{{d.shver}}</td>
-            <td><button (click)="goToVolunteering(d)">להוספת התנדבות</button></td>
-            <td><button>לפרטי מתנדב</button></td>
-            <td><button>השהיה</button></td>
+    <button class="btn primary"
+            (click)="addVolunteer()">
+      רישום מתנדב ➕
+    </button>
 
+    <button class="btn secondary"
+            (click)="allVolunteer()">
+      כל המתנדבים
+    </button>
 
-        </tr> }
-    </tbody>
-</table> -->
-
- <button (click)="addVolunteer()">רישום מתנדב➕</button>
- <button (click)="allVolunteer()">כל המתנדבים</button>
-      <router-outlet></router-outlet>
-<!--<form [formGroup]="vlntrFrm" dir="rtl">
-
-<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
-<cdk-virtual-scroll-viewport [itemSize]="40" class="viewport" class="viewport border rounded mb-3" [style.height.px]="calculateViewportHeight()" style="height: 300px;">
-  <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"  class="dropdown-item selectable-item">
-    
-   <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
   </div>
-</cdk-virtual-scroll-viewport>
-  
- <label for="position">position</label> 
- <select class="form-control" formControlName="position" type="text" name="position" id="3">
-    @for(p of listP ; track p; let j = $index)
-    {
-    <option value="{{p.positionCode}}"> תפקיד  :{{p.positionName}}  </option>
-}
-</select>
 
-<input class="form-control" formControlName="position" type="number" name="position" id="3"> -->
-<!-- 
-<button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+  <router-outlet></router-outlet>
 
-</form>
-<app-volunteer-domain></app-volunteer-domain> -->
-
+</div>

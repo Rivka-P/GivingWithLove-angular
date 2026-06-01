@@ -1,24 +1,157 @@
-form {
-   max-width: 500px;
-   margin: 20px auto;
-   padding: 15px;
-   border: 1px solid #ddd;
-   border-radius: 5px;
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-.form-control {
-   width: 100%;
-   margin-bottom: 10px;
+/* כותרת */
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f3b57;
+
+  margin-bottom: 16px;
 }
 
-button {
-   background-color: #28a745;
-   color: white;
-   padding: 10px 20px;
-   border: none;
-   border-radius: 5px;
+/* רשימת פרויקטים */
+.list-card {
+  width: 100%;
+  max-width: 600px;
+
+  background: #fff;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  padding: 12px;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-button:disabled {
-   background-color: #ccc;
+.project-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  background: #f7fbff;
+  border: 1px solid #e3eef8;
+
+  transition: 0.2s ease;
+}
+
+.project-row:hover {
+  transform: translateY(-2px);
+  background: #eef6ff;
+}
+
+.code {
+  font-weight: 600;
+  color: #1f3b57;
+}
+
+.name {
+  color: #2c3e50;
+}
+
+/* טופס */
+.form-card {
+  width: 100%;
+  max-width: 420px;
+
+  background: #fff;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  animation: fadeIn 0.35s ease-in-out;
+}
+
+/* שדות */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1f3b57;
+}
+
+.input {
+  padding: 10px 12px;
+
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+
+  outline: none;
+
+  transition: 0.2s ease;
+  background: #fff;
+}
+
+.input:focus {
+  border-color: #64b5f6;
+  box-shadow: 0 0 0 3px rgba(100,181,246,0.2);
+}
+
+/* כפתור */
+.btn {
+  padding: 10px 14px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: #60a5fa;
+  color: #fff;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  background: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.btn:disabled {
+  background: #bcd3f5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* אנימציה */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

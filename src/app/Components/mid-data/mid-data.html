@@ -1,0 +1,45 @@
+<div class="page">
+
+  <div class="header">
+    <div class="title">{{ project.projectName }}</div>
+    <div class="subtitle">
+      {{ project.inverseDomainCodeNavigation?.length }} תתי פרויקטים
+    </div>
+  </div>
+
+  @if(project.inverseDomainCodeNavigation){
+    <div class="sub-links">
+      @for (q of project.inverseDomainCodeNavigation; track q) {
+        <a [routerLink]="['/deepDataDisplay', q.projectCode]" class="sub-project">
+          {{ q.projectName }}
+        </a>
+      }
+    </div>
+  }
+
+  <!-- כרטיסים -->
+  <div class="cards-container">
+
+    <div class="card">
+      <h2>מספר מתנדבים</h2>
+      <div class="value">{{ volunteerDomainArrPerBigProject.length }}</div>
+    </div>
+
+    <div class="card">
+      <h2>מספר התנדבויות</h2>
+      <div class="value">{{ volunteeringArrToProject.length }}</div>
+    </div>
+
+    <div class="card">
+      <h2>שווי התנדבויות</h2>
+      <div class="value">₪ {{ estimatedCost }}</div>
+    </div>
+
+    <div class="card">
+      <h2>שעות התנדבות</h2>
+      <div class="value">{{ estimatedTime }}</div>
+    </div>
+
+  </div>
+
+</div>

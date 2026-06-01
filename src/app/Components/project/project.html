@@ -1,41 +1,89 @@
-<!-- <p>project works!</p>
-@for(pr of projectService.Projects$ | async; track pr; let j = $index)
-{
-      <p> {{pr.projectCode}}</p>
-      <p> {{pr.projectName}}</p>
-}-->
-<form [formGroup]="frm"> 
-<p>project works!</p>
-@for(p of projectService.Projects$ | async; track p; let j = $index)
-{
-      <p> {{p.projectCode}}</p>
-      <p> {{p.projectName}}</p>
-}
-<form [formGroup]="frm">
+<div class="page">
 
-<label for="projectName"> projectName</label>
-<input class="form-control" formControlName="projectName" type="text" name="projectName" >
+  <div class="title">ניהול פרויקטים</div>
 
-<!-- <label for="projectManagerCode"> projectManagerCode</label>
-<select class="form-control" formControlName="projectManagerCode"  >
-  @for(volun of volunteerService.volunteers$ | async; track volun; let j = $index){
-  <option >{{volun.volunteerCode}}</option>}
-</select> -->
-<!-- <input   type="text" name="volunteerCode" > -->
+  <!-- רשימת פרויקטים -->
+  <div class="list-card">
+    @for(p of projectService.Projects$ | async; track p; let j = $index) {
+      <div class="project-row">
+        <span class="code">{{ p.projectCode }}</span>
+        <span class="name">{{ p.projectName }}</span>
+      </div>
+    }
+  </div>
 
-<label for="projectManager">מנהל הפרויקט </label> 
-<select class="form-control" formControlName="projectManager"  autocomplete="on">
-  @for(m of vlntService.volunteers; track m; let j = $index){
-  <option value="{{m.volunteerCode}}">{{m.volunteerCodeNavigation?.firstName}}</option>}
-</select>
-<label for="domainCode">תחום הפרויקט</label> 
-<select class="form-control" formControlName="domainCode"  autocomplete="on">
-  @for(p of projectsArr; track p; let j = $index){
-    @if(p.domainCode==null){
-  <option value="{{p.projectCode}}">{{p.projectName}}</option>}}
-</select>
-<!-- <input class="form-control" formControlName="domainCode" type="number" name="domainCode" > -->
+  <!-- טופס ראשי או תת-פרויקט -->
 
+  <!-- main project form -->
+  @if(showMainForm) {
+  <form [formGroup]="frm" class="form-card">
+    <div>{{type}}</div>
+    <div class="form-group">
+      <label>שם פרויקט</label>
+      <input class="input" formControlName="projectName" type="text">
+    </div>
 
-<button [disabled]="frm.invalid" (click)="addProject()">הוסף</button>
-</form>
+    <div class="form-group">
+      <label>מנהל הפרויקט</label>
+      <select class="input" formControlName="projectManager">
+        @for(m of vlntService.volunteers; track m; let j = $index){
+          <option value="{{m.volunteerCode}}">
+            {{m.volunteerCodeNavigation?.firstName}}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>תחום הפרויקט</label>
+      <select class="input" formControlName="domainCode">
+        @for(p of projectsArr; track p; let j = $index){
+          @if(p.domainCode == null){
+            <option value="{{p.projectCode}}">
+              {{p.projectName}}
+            </option>
+          }
+        }
+        <option value="null">תחום ראשי</option>
+      </select>
+    </div>
+
+    <button class="btn" [disabled]="frm.invalid" (click)="addProject()">
+      הוסף
+    </button>
+
+  </form>
+  }
+
+  <!-- sub-project form replaces main form when showSubProjectForm is true -->
+  @if(showSubProjectForm) {
+  <form [formGroup]="subProjectfrm" class="form-card">
+    <div class="form-group">
+      <label>פרויקט הורה</label>
+      <input class="input" formControlName="projectCode" type="hidden">
+      <div class="input readonly">{{ createdProjectName }}</div>
+    </div>
+
+    <div class="form-group">
+      <label>שם תת-פרויקט</label>
+      <input class="input" formControlName="subProjectName" type="text">
+    </div>
+
+    <div class="form-group">
+      <label>זמן משוער (שעות)</label>
+      <input class="input" formControlName="estimatedTime" type="number">
+    </div>
+
+    <div class="form-group">
+      <label>עלות משוערת</label>
+      <input class="input" formControlName="estimatedCost" type="number">
+    </div>
+
+    <div class="form-actions">
+      <button class="btn" [disabled]="subProjectfrm.invalid" (click)="addSubProject()">שמור תת-פרויקט</button>
+      <button class="btn btn-secondary" (click)="cancelSubProject()">ביטול</button>
+    </div>
+  </form>
+  }
+
+</div>

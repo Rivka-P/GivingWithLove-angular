@@ -21,7 +21,6 @@
     ]
   },
   "private": true,
-
   "dependencies": {
     "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.2.0",
@@ -31,6 +30,7 @@
     "@angular/material": "^20.2.14",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "@hebcal/core": "^6.5.2",
     "bootstrap": "^5.3.8",
     "chart.js": "^3.9.1",
     "ng2-charts": "^9.0.0",

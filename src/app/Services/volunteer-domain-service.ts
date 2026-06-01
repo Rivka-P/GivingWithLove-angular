@@ -1,6 +1,7 @@
-import { Directive, inject, Injectable } from '@angular/core';
+// import { Directive, inject, Injectable } from '@angular/core';
 import { VolunteerDomainModule } from '../Models/volunteer-domain/volunteer-domain-module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Directive, inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ volunteerDomains:VolunteerDomainModule[]=[];
   constructor() { 
     this.volunteerDomains$=this.getAllVolunteerDomain()
   }
+  setDomains(domains: number[]) {
+  this.domains = [...domains];
+}
 // --- מתודות CRUD ---
 addVolunteerDomain(item: VolunteerDomainModule) {
   return this.http.post(this.BASE_URL, item);
@@ -52,4 +56,3 @@ addVolunteerDomain(item: VolunteerDomainModule) {
 
 
 }
-

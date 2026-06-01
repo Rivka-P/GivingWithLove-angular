@@ -5,7 +5,7 @@ import { V } from '@angular/cdk/keycodes';
 import { VolunteerService } from './Services/volunteer-service';
 import { VolunteerModule } from './Models/volunteer/volunteer-module';
 import { ProjectService } from './Services/project-service';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,RouterModule],
@@ -17,6 +17,10 @@ export class App {
   volunteerSrv=inject(VolunteerService)
   ecdSrv=inject(EichudService)
   prjctSrv=inject(ProjectService)
+  isCollapsed = false;
+  toggleSidebar() {
+  this.isCollapsed = !this.isCollapsed;
+}
 //    ngOnInit(){
 //     if(this.volunteerSrv.volunteers.length==0)
 //       this.volunteerSrv.refreshData()

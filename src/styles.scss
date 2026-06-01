@@ -1,39 +1,471 @@
+// /* =========================
+//    GLOBAL RESET
+// ========================= */
+// * {
+//   box-sizing: border-box;
+// }
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
+// html, body {
+//   margin: 0;
+//   padding: 0;
+//   height: 100%;
+//   overflow-x: hidden;
+//   font-family: Arial, sans-serif;
+//   direction: rtl;
+//   background: #e6f4ff;
+// }
 
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+// /* =========================
+//    APP LAYOUT (יותר מרווח כללי)
+// ========================= */
+// .app-shell {
+//   display: flex;
+//   min-height: 100vh;
+//   width: 100%;
+
+//   /* הרחבה למסכים גדולים */
+//   max-width: 1800px;
+//   margin: 0 auto;
+// }
+
+// /* =========================
+//    SIDEBAR (רק הרחבה קלה)
+// ========================= */
+// .sidebar {
+//   width: 260px;   /* היה 240 */
+//   min-height: 100vh;
+
+//   background: #ffffff;
+//   border-left: 1px solid #d7e8f5;
+
+//   display: flex;
+//   flex-direction: column;
+
+//   padding: 14px;
+
+//   position: sticky;
+//   top: 0;
+
+//   transition: width 0.3s ease, transform 0.3s ease;
+
+//   box-shadow: -2px 0 18px rgba(0, 0, 0, 0.06);
+//   z-index: 10;
+// }
+
+// /* collapsed */
+// .sidebar.collapsed {
+//   width: 80px; /* טיפה יותר נוח */
+// }
+
+// /* logo */
+// .logo {
+//   font-weight: 700;
+//   font-size: 15px;
+
+//   color: #1f3b57;
+
+//   margin-bottom: 14px;
+//   text-align: center;
+// }
+
+// /* toggle button */
+// .toggle-btn {
+//   border: 1px solid #cfd8dc;
+//   background: #f5f9ff;
+
+//   padding: 7px;
+
+//   border-radius: 8px;
+
+//   cursor: pointer;
+
+//   margin-bottom: 12px;
+
+//   transition: 0.2s ease;
+// }
+
+// /* nav */
+// .sidebar .nav {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+// }
+
+// /* links */
+// .sidebar a {
+//   display: block;
+
+//   padding: 12px 14px;
+
+//   border-radius: 10px;
+
+//   text-decoration: none;
+
+//   color: #2c3e50;
+
+//   font-size: 14.5px;
+
+//   transition: 0.25s ease;
+
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
+// .sidebar a:hover {
+//   background: #f0f7ff;
+//   transform: translateX(-2px);
+// }
+
+// /* active */
+// .active-link {
+//   background: #90caf9 !important;
+//   color: #0d47a1 !important;
+//   font-weight: 600;
+// }
+
+// /* =========================
+//    MAIN
+// ========================= */
+// .main {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+
+//   min-width: 0;
+// }
+
+// /* topbar (יותר גבוה = יותר “מערכתי”) */
+// .topbar {
+//   height: 62px;
+
+//   display: flex;
+//   align-items: center;
+
+//   padding: 0 22px;
+
+//   background: #ffffff;
+
+//   border-bottom: 1px solid #d7e8f5;
+
+//   font-weight: 600;
+//   font-size: 16px;
+
+//   color: #1f3b57;
+
+//   position: sticky;
+//   top: 0;
+//   z-index: 5;
+// }
+
+// /* =========================
+//    CONTENT (החלק הכי חשוב – הרחבה)
+// ========================= */
+// .content {
+//   flex: 1;
+
+//   padding: 28px; /* יותר מרווח */
+
+//   background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   gap: 18px;
+
+//   min-width: 0;
+// }
+
+// /* אזור מרכזי רחב יותר */
+// .content > * {
+//   width: 100%;
+//   max-width: 1500px; /* הרחבה אמיתית */
+// }
+
+// /* =========================
+//    RESPONSIVE FIX
+// ========================= */
+// @media (max-width: 900px) {
+//   .sidebar {
+//     position: fixed;
+//     right: 0;
+//     height: 100%;
+//     z-index: 999;
+//   }
+
+//   .main {
+//     margin-right: 0;
+//   }
+// }
+
+// /* =========================
+//    ULTRA WIDE SCREENS
+// ========================= */
+// @media (min-width: 1600px) {
+//   .content > * {
+//     max-width: 1700px;
+//   }
+
+//   .sidebar {
+//     width: 280px;
+//   }
+// }
+/* =========================
+   GLOBAL
+========================= */
+* {
+  box-sizing: border-box;
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background: #e6f4ff;
 }
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* =========================
+   APP WRAPPER
+========================= */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+
+  /* מרכז מערכת אמיתי */
+  max-width: 1800px;
+  margin: 0 auto;
+
+  background: #e6f4ff;
+}
+
+/* =========================
+   SIDEBAR (PRO LEVEL)
+========================= */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+
+  background: #ffffff;
+
+  border-left: 1px solid #d7e8f5;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.06);
+
+  transition: width 0.25s ease, min-width 0.25s ease;
+}
+
+/* collapsed */
+.sidebar.collapsed {
+  width: 80px;
+  min-width: 80px;
+}
+
+/* logo */
+.logo {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1f3b57;
+
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+/* toggle */
+.toggle-btn {
+  border: 1px solid #cfd8dc;
+  background: #f5f9ff;
+
+  padding: 8px;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  margin-bottom: 12px;
+
+  transition: 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: #eaf3ff;
+}
+
+/* nav */
+.sidebar .nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* links */
+.sidebar a {
+  display: flex;
+  align-items: center;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  color: #2c3e50;
+
+  font-size: 14.5px;
+
+  transition: 0.25s ease;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* hover effect “מערכתי” */
+.sidebar a:hover {
+  background: #f0f7ff;
+  transform: translateX(-3px);
+}
+
+/* active route */
+.active-link {
+  background: #90caf9 !important;
+  color: #0d47a1 !important;
+  font-weight: 600;
+}
+
+/* =========================
+   MAIN AREA
+========================= */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+/* TOPBAR PRO */
+.topbar {
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 24px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #d7e8f5;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #1f3b57;
+
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+/* =========================
+   CONTENT AREA (PRO CENTER)
+========================= */
+.content {
+  flex: 1;
+
+  padding: 32px;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 20px;
+
+  min-width: 0;
+}
+
+/* מרכז תוכן אמיתי */
+.content > * {
+  width: 100%;
+  max-width: 1500px;
+}
+
+/* =========================
+   CARDS (GLOBAL ADMIN STYLE)
+========================= */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 18px;
+}
+
+.card {
+  background: #fff;
+
+  padding: 18px;
+
+  border-radius: 14px;
+
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+
+  text-align: center;
+
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   RESPONSIVE (MOBILE SAFE)
+========================= */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    right: 0;
+    z-index: 999;
+    height: 100%;
+  }
+
+  .main {
+    margin-right: 0;
+  }
+}
+
+/* =========================
+   ULTRA WIDE
+========================= */
+@media (min-width: 1600px) {
+  .content > * {
+    max-width: 1700px;
+  }
+
+  .sidebar {
+    width: 300px;
+    min-width: 300px;
+  }
+}
+.material-icons {
+  font-size: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}

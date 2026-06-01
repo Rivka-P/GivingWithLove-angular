@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+// import { Component, inject } from '@angular/core';
 import { VolunteerService } from '../../../Services/volunteer-service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,6 +16,7 @@ import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';
 import { VolunteerDetails } from '../volunteer-details/volunteer-details';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { Component, inject } from '@angular/core';
 @Component({
   selector: 'app-volunteer',
   standalone: true,
@@ -73,7 +74,10 @@ this.volunteeringService.setSelectedVolunteer(d.volunteerCodeNavigation?.eichudC
   this.router.navigate(['/v']);
 }
 
-
+goToEditVolunteer(d:any){
+  this.volunteerService.setSelectedVolunteer2(d)
+  this.router.navigate(['/volunteer/addvolunteer/edit', d.volunteerCode]);
+}
 
 
 goToVolunteerDetails(d: any) {
@@ -84,6 +88,7 @@ goToVolunteerDetails(d: any) {
 this.isD=true
     console.log(d.volunteerCode);
     this.volunteerService.setSelectedVolunteer(d.volunteerCode);
+    this.volunteerService.setSelectedVolunteer2(d)
 this.dialog.open(VolunteerDetails, {
       width: '800px',   // גודל הפופאפ
       height: '600px',
@@ -106,7 +111,7 @@ this.dialog.open(VolunteerDetails, {
     }
 
     this.filteredList = this.listV.filter(e =>
-      (`${e.volunteerCodeNavigation?.familyName} ${e.volunteerCodeNavigation?.firstName} ${e.volunteerCodeNavigation?.shtibel} ${e.volunteerCodeNavigation?.shver}`)
+      (`${e.volunteerCodeNavigation?.familyName} ${e.volunteerCodeNavigation?.firstName} ${e.volunteerCodeNavigation?.shtibel} ${e.volunteerCodeNavigation?.shver}${e.positionName}`)
         .toLowerCase()
         .includes(search)
     );

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+// import { Component, inject } from '@angular/core';
 // import { Component, inject } from '@angular/core';
 import { VolunteerService } from '../../../Services/volunteer-service';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -19,11 +19,13 @@ import { ProjectService } from '../../../Services/project-service';
 import { ProjectModule } from '../../../Models/project/project-module';
 import { Volunteer } from '../volunteer';
 import { T } from '@angular/cdk/keycodes';
+import { VolunteerModule } from '../../../Models/volunteer/volunteer-module';
+import { Component, inject, Input } from '@angular/core';
 
 // domainList
 @Component({
   selector: 'app-add-volunteer',
-  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule, VolunteerDomain,],
+  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, ScrollingModule, RouterModule, VolunteerDomain],
   templateUrl: './add-volunteer.html',
   styleUrls: ['./add-volunteer.scss']
 })
@@ -43,6 +45,9 @@ export class AddVolunteer {
   domainList: number[] = []
   domainList2: VolunteerDomainModule[] = []
   volunteerDomains: VolunteerDomainModule[] = [];
+  volun!:VolunteerModule
+  isE:boolean=false
+  // p!:VolunteerModule
   randomIntFromInterval: (min: number, max: number) => number = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -64,29 +69,118 @@ export class AddVolunteer {
     searchText: ['']
   });
   isLoading = true;
-
+  constructor(private route: ActivatedRoute) {}
   async ngOnInit() {
+    console.log(this.volunteerService.volunteerInS);
+    
+    const id = this.route.snapshot.paramMap.get('id');
+
+  if (id) {
+    // מצב עריכה
+    this.isE=true;
+    if(this.volunteerService.volunteerInS){
+    this.volun=this.volunteerService.volunteerInS
+  // this.p=this.volunteerService.volunteerInS
+}
+  } else {
+    // מצב הוספה
+    this.isE=false;
+  }
+  if (this.isE && this.volun) {
+
+  // POSITION - ערך ברירת מחדל
+  this.vlntrFrm.patchValue({
+    position: this.volun.positionCode
+  });
+ this.volunteerDomainService.setDomains(
+    this.volun.volunteerDomains?.map(d => d.projectCode) ?? []
+  );
+  // DOMAINS - ערכים ברירת מחדל (מספרים)
+  this.vlntrFrm.patchValue({
+    volunteerDomains: this.volun.volunteerDomains?.map(d => d.projectCode) ?? []
+  });
+}
     this.isLoading = true;
-    forkJoin({
-      eichudList: this.eichudService.getAllEichud(),
-      positionList: this.positionService.getAllPositions(),
-      projectList: this.projectService.getAllProjects()
-    }).subscribe({
-      next: ({ eichudList, positionList, projectList }) => {
-        this.listE = eichudList;
-        this.listP = positionList;
-        this.listProject = projectList;
-        this.filteredList = [...this.listE];
-        this.isLoading = false;
-      },
-      error: (err) => {
-        alert('שגיאה בטעינת נתונים');
-        this.isLoading = false;
+     await lastValueFrom(this.eichudService.getAllEichud()).then(res => { this.listE = res; this.eichudService.peopleInTheEichud = res });
+     await lastValueFrom(this.positionService.getAllPositions()).then(res => { this.listP = res; this.positionService.positions = res });
+    await lastValueFrom(this.projectService.getAllProjects()).then(res => { this.listProject = res; this.projectService.projects = res });
+    if(this.listE){
+      this.filteredList = [...this.listE];
+        this.isLoading = false;}
+    
+    // forkJoin({
+    //   eichudList: this.eichudService.getAllEichud(),
+    //   positionList: this.positionService.getAllPositions(),
+    //   projectList: this.projectService.getAllProjects()
+    // }).subscribe({
+    //   next: ({ eichudList, positionList, projectList }) => {
+    //     this.listE = eichudList;
+    //     this.listP = positionList;
+    //     this.listProject = projectList;
+    //     this.filteredList = [...this.listE];
+    //     this.isLoading = false;
+    //   },
+    //   error: (err) => {
+    //     alert('שגיאה בטעינת נתונים');
+    //     this.isLoading = false;
+    //   }
+    // });
+
+
+    // this.volunteerService.refreshData()
+
+  }
+  edit(){
+      // this.domainList2.push(this.vlntrDmnFrm.value.projectCode!);
+    // ניקוי רשימת התחומים: מסנן ריקים וכפילויות
+    const cleanDomains = this.volunteerDomainService.domains
+      .map(domain => domain)
+      .filter((domain, idx, arr) => domain && arr.indexOf(domain) === idx);
+      // alert("ggg")
+      console.log(cleanDomains);
+      
+
+//       for (let index = 0; index < cleanDomains.length; index++) {
+//         // const domainModule = new VolunteerDomainModule();
+//         const domain = new VolunteerDomainModule();
+//         domain = {
+//       projectCode: cleanDomains[index]!,
+//       volunteerCode: this.vlntrFrm.value.name!,
+//       volunteerDomainCode: index*10
+//        }
+// this.domainList2[index] = domain;
+
+for (let index = 0; index < cleanDomains.length; index++) {
+  const domain = new VolunteerDomainModule();
+  domain.projectCode = cleanDomains[index]!;
+  domain.volunteerCode = this.volun.volunteerCode;
+ // או כל לוגיקה אחרת ליצירת קוד ייחודי
+  this.domainList2[index] = domain;
+}
+// volunteerDomainsCode!:number
+
+// volunteerCode !:number
+
+// projectCode !:number
+
+//  volunteer = {
+//         volunteerCode: this.vlntrFrm.value.name!,
+//         positionCode: this.vlntrFrm.value.position!,
+//         volunteerDomains: this.domainList2
+//       }     
+      // }
+
+    
+      const volunteer = {
+        volunteerCode:this.volun.volunteerCode,
+        positionCode: this.vlntrFrm.value.position!,
+        volunteerDomains: this.domainList2
       }
-    });
+       console.log(this.volunteerService.updateVolunteer(volunteer));
+      this.router.navigate(['/volunteer']);
+        // this.volunteerService.addVolunteer(volunteer);
+   
 
-
-    this.volunteerService.refreshData()
 
   }
 
@@ -97,6 +191,8 @@ export class AddVolunteer {
     const cleanDomains = this.volunteerDomainService.domains
       .map(domain => domain)
       .filter((domain, idx, arr) => domain && arr.indexOf(domain) === idx);
+      //  alert("ggg")
+      console.log(cleanDomains);
 
 //       for (let index = 0; index < cleanDomains.length; index++) {
 //         // const domainModule = new VolunteerDomainModule();
@@ -112,7 +208,7 @@ for (let index = 0; index < cleanDomains.length; index++) {
   const domain = new VolunteerDomainModule();
   domain.projectCode = cleanDomains[index]!;
   domain.volunteerCode = this.vlntrFrm.value.name!;
-  domain.volunteerDomainsCode = this.randomIntFromInterval(1, 10000); // או כל לוגיקה אחרת ליצירת קוד ייחודי
+ // או כל לוגיקה אחרת ליצירת קוד ייחודי
   this.domainList2[index] = domain;
 }
 // volunteerDomainsCode!:number
@@ -134,8 +230,11 @@ for (let index = 0; index < cleanDomains.length; index++) {
         positionCode: this.vlntrFrm.value.position!,
         volunteerDomains: this.domainList2
       }
-      this.volunteerService.addVolunteer(volunteer);
+       console.log(this.volunteerService.addVolunteer(volunteer));
+      this.router.navigate(['/volunteer']);
+        // this.volunteerService.addVolunteer(volunteer);
     }
+
   }
   // addDomain(projectCode: string) {
   //     if (!this.domainsArray.value.includes(projectCode)) {
@@ -208,6 +307,8 @@ for (let index = 0; index < cleanDomains.length; index++) {
       this.filteredList = [...this.listE];
       return;
     }
+    console.log(this.filteredList);
+    
 
     this.filteredList = this.listE.filter(e =>
       (`${e.familyName} ${e.firstName} ${e.shtibel} ${e.shver}`)
@@ -221,6 +322,8 @@ for (let index = 0; index < cleanDomains.length; index++) {
       this.filteredList = [...this.listE]; // מציג את כל המתנדבים
       return;
     }
+    console.log(this.filteredList);
+    
     this.filteredList = this.listE.filter(e =>
       (`${e.familyName} ${e.firstName} ${e.shtibel} ${e.shver} ${e.firstName + ' ' + e.familyName}`)
         .toLowerCase()
@@ -282,3 +385,4 @@ for (let index = 0; index < cleanDomains.length; index++) {
 //     // this.onDomainChange();
 //   }
 }
+

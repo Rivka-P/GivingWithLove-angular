@@ -34,7 +34,7 @@ export class Volunteer {
 
 addVolunteer() {
    console.log("kkkk");  
-       this.router.navigate(['/volunteer/addvolunteer']);
+       this.router.navigate(['/volunteer/addvolunteer/add']);
   }
   allVolunteer() {
    console.log("kkkk");

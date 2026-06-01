@@ -21,6 +21,4 @@ export class VolunteerModule {
   positionName?: string
   volunteerCodeNavigation?: EichudModel
   volunteerDomains?: VolunteerDomainModule[];
-
-
 }

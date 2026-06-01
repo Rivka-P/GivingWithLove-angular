@@ -1,46 +1,189 @@
-<p>add-volunteer works!</p>
-<div *ngIf="isLoading">טוען נתונים...</div>
-<!-- <form *ngIf=\"!isLoading\" ...> -->
-<form  *ngIf="!isLoading" [formGroup]="vlntrFrm" dir="rtl">
-<label for="">שם המתנדב</label>
-<input type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl" placeholder="חפש...">
-<cdk-virtual-scroll-viewport [itemSize]="40" class="viewport" class="viewport border rounded mb-3" [style.height.px]="calculateViewportHeight()" style="height: 300px;">
-  <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"  class="dropdown-item selectable-item">
-    
-   <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+<!-- <!-- <div class="page">
+
+  <div class="title">הוספת מתנדב</div>
+
+  <div *ngIf="isLoading" class="loading">
+    טוען נתונים...
   </div>
-</cdk-virtual-scroll-viewport>
-  
- <label for="position">position</label> 
- <select class="form-control" formControlName="position" type="text" name="position" id="3">
-    @for(p of listP ; track p; let j = $index)
-    {
-    <option value="{{p.positionCode}}"> תפקיד  :{{p.positionName}}  </option>
-}
+
+  <form *ngIf="!isLoading" [formGroup]="vlntrFrm" class="form-card" dir="rtl">
+
+    <div class="form-group">
+      <label>שם המתנדב</label>
+      <input type="text"
+             class="input"
+             [formControl]="searchControl"
+             placeholder="חפש...">
+    </div>
+
+    <cdk-virtual-scroll-viewport
+      [itemSize]="40"
+      class="viewport">
+
+      <div *cdkVirtualFor="let e of filteredList"
+           class="dropdown-item"
+           (click)="selectVolunteer(e)">
+
+        <strong>{{e.familyName}} {{e.firstName}}</strong>
+        | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+
+      </div>
+
+    </cdk-virtual-scroll-viewport>
+
+    <div class="form-group">
+      <label>תפקיד</label>
+
+      <select class="input"
+              formControlName="position">
+
+        @for(p of listP; track p; let j = $index) {
+          <option [value]="p.positionCode">
+            תפקיד: {{p.positionName}}
+          </option>
+        }
+
+      </select>
+    </div>
+
+    <div class="section">
+      <app-volunteer-domain></app-volunteer-domain>
+    </div>
+
+    <button class="btn"
+            [disabled]="vlntrFrm.invalid"
+            (click)="addVolunteer()">
+      הוסף
+    </button>
+
+  </form>
+
+</div> -->
+<!-- <p>add-volunteer works!</p>
+<div *ngIf="isLoading">טוען נתונים...</div>
+<h1 *ngIf="!isE">מתנדב חדש</h1>
+<h1 *ngIf="isE"> עדכון פרטי המתנדב {{ `${volun?.volunteerCodeNavigation?.firstName ?? ''}
+  ${volun?.volunteerCodeNavigation?.familyName ?? ''}` }}</h1>
+<form *ngIf="!isLoading" [formGroup]="vlntrFrm" dir="rtl">
+  <label *ngIf="!isE" for="">שם המתנדב</label>
+  <input *ngIf="!isE" type="text" class="form-control mb-2" class="form-control" [formControl]="searchControl"
+    (input)="onSearchChange($any($event.target).value)" placeholder="חפש...">
+  <cdk-virtual-scroll-viewport *ngIf="!isE" [itemSize]="40" class="viewport" class="viewport border rounded mb-3"
+    [style.height.px]="calculateViewportHeight()" style="height: 300px;">
+    <div *cdkVirtualFor="let e of filteredList" class="dropdown-item" (click)="selectVolunteer(e)"
+      class="dropdown-item selectable-item">
+
+      <strong>{{e.familyName}} {{e.firstName}}</strong> | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+    </div>
+  </cdk-virtual-scroll-viewport>
+ 
+  <label for="position">position</label>
+
+  <select class="form-control" formControlName="position">
+  <option *ngFor="let p of listP" [value]="p.positionCode">
+    {{ p.positionName }}
+  </option>
 </select>
-<div>
-    <app-volunteer-domain></app-volunteer-domain></div>
-<tr *ngFor="let d of this.volunteerDomainService.domains; let j = index">
-    <app-volunteer-domain></app-volunteer-domain>
+  <div>
+    <h2>באילו תחומים עיקריים הוא מתנדב</h2>
     
-<!-- <form [formGroup]="vlntrDmnFrm" dir="rtl">
-<div class="volunteer-domains-section">
-  <label > תחום ההתנדבות:</label>
+    <app-volunteer-domain ></app-volunteer-domain>
+  </div>
+  <div *ngFor="let d of this.volunteerDomainService.domains; let j = index">
+    <app-volunteer-domain *ngIf="isE" [domain]="d" [hhh]="1"></app-volunteer-domain>
+    <app-volunteer-domain *ngIf="!isE" [hhh]="0"></app-volunteer-domain>
+
    
-  <select class="form-control" formControlName="domain" type="text" name="domain" id="1"  autocomplete="on">
-    <tr *ngFor="let p of listProject; let j = index">
-    <option value="{{p.projectCode}}">{{p.projectName}}</option></tr>
-  </select>
-</div>
+
+  </div>
+  <br>
+  
+
+  <button *ngIf="!isE" [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+  <button *ngIf="isE"  (click)="edit()">עידכון</button>
+
 </form> -->
 
-</tr>
-<!-- <button (click)="addDomain()">הוסף תחום התנדבות למתנדב זה</button> -->
-<br>
-<!-- 
-<input class="form-control" formControlName="position" type="number" name="position" id="3"> -->
-<button [disabled]="vlntrFrm.invalid" (click)="addVolunteer()">הוסף</button>
+<div class="page">
+<p>add-volunteer works!</p>
+
+<div *ngIf="isLoading" class="loading">טוען נתונים...</div>
+
+<h1 *ngIf="!isE" class="title">מתנדב חדש</h1>
+
+<h1 *ngIf="isE" class="title">
+  עדכון פרטי המתנדב
+  {{ `${volun?.volunteerCodeNavigation?.firstName ?? ''}
+  ${volun?.volunteerCodeNavigation?.familyName ?? ''}` }}
+</h1>
+
+<form *ngIf="!isLoading" [formGroup]="vlntrFrm" dir="rtl" class="form-card">
+
+  <label *ngIf="!isE" class="form-group">שם המתנדב</label>
+
+  <input
+    *ngIf="!isE"
+    type="text"
+    class="input"
+    [formControl]="searchControl"
+    (input)="onSearchChange($any($event.target).value)"
+    placeholder="חפש..."
+  >
+
+  <cdk-virtual-scroll-viewport
+    *ngIf="!isE"
+    [itemSize]="40"
+    class="viewport"
+    [style.height.px]="calculateViewportHeight()"
+    style="height: 300px;"
+  >
+    <div
+      *cdkVirtualFor="let e of filteredList"
+      class="dropdown-item"
+      (click)="selectVolunteer(e)"
+    >
+      <strong>{{e.familyName}} {{e.firstName}}</strong>
+      | שטיבל: {{e.shtibel}} | שם חותן: {{e.shver}}
+    </div>
+  </cdk-virtual-scroll-viewport>
+
+  <label for="position" class="form-group">position</label>
+
+  <select class="input" formControlName="position">
+    <option *ngFor="let p of listP" [value]="p.positionCode">
+      {{ p.positionName }}
+    </option>
+  </select>
+
+  <div class="section">
+    <h2 class="title">באילו תחומים עיקריים הוא מתנדב</h2>
+
+    <app-volunteer-domain></app-volunteer-domain>
+  </div>
+
+  <div *ngFor="let d of this.volunteerDomainService.domains; let j = index">
+    <div class="section">
+      <app-volunteer-domain *ngIf="isE" [domain]="d" [hhh]="1"></app-volunteer-domain>
+      <app-volunteer-domain *ngIf="!isE" [hhh]="0"></app-volunteer-domain>
+    </div>
+  </div>
+
+  <button
+    *ngIf="!isE"
+    [disabled]="vlntrFrm.invalid"
+    (click)="addVolunteer()"
+    class="btn"
+  >
+    הוסף
+  </button>
+
+  <button
+    *ngIf="isE"
+    (click)="edit()"
+    class="btn"
+  >
+    עידכון
+  </button>
 
 </form>
-
-
+</div>

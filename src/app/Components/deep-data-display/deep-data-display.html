@@ -1,0 +1,39 @@
+@if(project.subProjects?.length) {
+
+  <div class="section-title">תתי פרויקטים</div>
+
+  @for(p of project.subProjects; track p) {
+    <div class="project">
+      <div>{{ p?.subProjectName }}</div>
+    </div>
+  }
+
+}
+@else {
+  <div class="empty-state">אין תתי פרויקטים</div>
+}
+
+<!-- ===== כרטיסי דאשבורד ===== -->
+<div class="cards-container">
+
+  <div class="card">
+    <h2>מספר מתנדבים</h2>
+    <div class="value">{{ project.volunteerDomains?.length }}</div>
+  </div>
+
+  <div class="card">
+    <h2>מספר התנדבויות</h2>
+    <div class="value">{{ volunteeringArrToProject.length }}</div>
+  </div>
+
+  <div class="card">
+    <h2>שווי התנדבויות</h2>
+    <div class="value">₪ {{ estimatedCost }}</div>
+  </div>
+
+  <div class="card">
+    <h2>שעות התנדבות</h2>
+    <div class="value">{{ estimatedTime }}</div>
+  </div>
+
+</div>

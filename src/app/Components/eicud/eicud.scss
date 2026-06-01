@@ -1,95 +1,139 @@
- /* טבלה */
-.donors-table {
-    width: 100%;
-    border-collapse: collapse; /* קווים אחידים */
-    margin-bottom: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+/* דף ראשי */
+.page-container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-.donors-table th,
-.donors-table td {
-    border: 1px solid #ccc; /* קו אחיד לכל תא */
-    padding: 8px;
-    text-align: center;
+/* ===== טבלה ===== */
+.table-wrapper {
+  width: 100%;
+  max-width: 1100px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+
+.donors-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
 }
 
 .donors-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+  background: #f1f7ff;
+  color: #1f3b57;
+  font-weight: 600;
+  font-size: 13px;
+
+  padding: 12px;
+  border-bottom: 1px solid #d6e6f5;
+
+  text-align: right;
+  white-space: nowrap;
 }
 
-.donors-table tr:nth-child(even) {
-    background-color: #fafafa; /* צבע שורה לסירוגין */
+.donors-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef3f8;
+
+  font-size: 13px;
+  color: #2c3e50;
+
+  white-space: nowrap;
 }
 
-/* טופס */
-form .form-group {
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: column;
+.donors-table tr:hover {
+  background: #f7fbff;
+  transition: 0.2s ease;
 }
 
-form .label-form {
-    margin-bottom: 4px;
-    font-weight: 500;
-    font-size: 13px;
+/* ===== טופס ===== */
+.form-card {
+  width: 100%;
+  max-width: 900px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
 }
 
-form .form-control {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+/* גריד טופס */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* שדות */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label-form {
+  font-size: 12px;
+  color: #1f3b57;
+  font-weight: 600;
+}
+
+input {
+  padding: 10px 12px;
+
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+input:focus {
+  border-color: #64b5f6;
+  box-shadow: 0 0 0 3px rgba(100,181,246,0.2);
 }
 
 /* כפתור */
-form button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
 }
 
-form button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+
+  border: none;
+  background: #60a5fa;
+  color: #fff;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
 }
 
-form button:hover:not(:disabled) {
-    background-color: #0056b3;
+button:hover {
+  background: #3b82f6;
+  transform: translateY(-2px);
 }
 
-/* פריסה של הטופס */
-.col.col-3 {
-    width: 25%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-.donors-table {
-    width: 100%;
-    border-collapse: collapse; /* קווים אחידים */
-    direction: rtl; /* כיוון טקסט מימין לשמאל */
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    text-align: right; /* טקסט יתחיל מימין */
-}
-
-.donors-table th,
-.donors-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-}
-
-.donors-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.donors-table tr:nth-child(even) {
-    background-color: #fafafa;
+button:disabled {
+  background: #bcd3f5;
+  cursor: not-allowed;
+  transform: none;
 }

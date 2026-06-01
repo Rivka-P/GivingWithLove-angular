@@ -1,27 +1,30 @@
+<div class="page-container">
 
-
-<table class="donors-table">
-    <thead>
+  <!-- טבלה -->
+  <div class="table-wrapper">
+    <table class="donors-table">
+      <thead>
         <tr>
-            <th>קוד איחוד</th>
-            <th>תואר</th>
-            <th>שם משפחה</th>
-            <th>שם פרטי</th>
-            <th>סיום</th>
-            <th>שם האב</th>
-            <th>שטיבל</th>
-            <th>רחוב</th>
-            <th>מספר בניין</th>
-            <th>עיר</th>
-            <th>מיקוד</th>
-            <th>טלפון בבית</th>
-            <th>פלאפון</th>
-            <th>הורי האם</th>
+          <th>קוד איחוד</th>
+          <th>תואר</th>
+          <th>שם משפחה</th>
+          <th>שם פרטי</th>
+          <th>סיום</th>
+          <th>שם האב</th>
+          <th>שטיבל</th>
+          <th>רחוב</th>
+          <th>מספר בניין</th>
+          <th>עיר</th>
+          <th>מיקוד</th>
+          <th>טלפון בבית</th>
+          <th>פלאפון</th>
+          <th>הורי האם</th>
         </tr>
-    </thead>
-    <tbody>
-   
-    <tbody> @for(d of eichudService.peopleInTheEichud$ | async;track d.eichudCode;let i=$index){ <tr>
+      </thead>
+
+      <tbody>
+        @for(d of eichudService.peopleInTheEichud$ | async; track d.eichudCode; let i=$index){
+          <tr>
             <td>{{d.eichudCode}}</td>
             <td>{{d.tohar}}</td>
             <td>{{d.familyName}}</td>
@@ -36,68 +39,90 @@
             <td>{{d.housePhone}}</td>
             <td>{{d.cellPhone}}</td>
             <td>{{d.shver}}</td>
-        </tr> }
-    </tbody>
-</table>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
-<form [formGroup]="frmPerson">
-    <div class="col col-3">
+  <!-- טופס -->
+  <div class="form-card">
+    <form [formGroup]="frmPerson">
+
+      <div class="form-grid">
+
         <div class="form-group">
-            <div class="label-form">קוד איחוד</div>
-            <input type="number" class="form-control" formControlName="eichudCode" />
+          <div class="label-form">קוד איחוד</div>
+          <input type="number" formControlName="eichudCode" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">תואר</div>
-            <input type="text" class="form-control" formControlName="tohar" />
+          <div class="label-form">תואר</div>
+          <input type="text" formControlName="tohar" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">שם משפחה</div>
-            <input type="text" class="form-control" formControlName="familyName" />
+          <div class="label-form">שם משפחה</div>
+          <input type="text" formControlName="familyName" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">שם פרטי</div>
-            <input type="text" class="form-control" formControlName="firstName" />
+          <div class="label-form">שם פרטי</div>
+          <input type="text" formControlName="firstName" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">סיום</div>
-            <input type="text" class="form-control" formControlName="ending" />
+          <div class="label-form">סיום</div>
+          <input type="text" formControlName="ending" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">שטיבל</div>
-            <input type="text" class="form-control" formControlName="shtibel" />
+          <div class="label-form">שטיבל</div>
+          <input type="text" formControlName="shtibel" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">רחוב</div>
-            <input type="text" class="form-control" formControlName="street" />
+          <div class="label-form">רחוב</div>
+          <input type="text" formControlName="street" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">מספר בנין</div>
-            <input type="text" class="form-control" formControlName="house" />
+          <div class="label-form">מספר בנין</div>
+          <input type="text" formControlName="house" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">עיר</div>
-            <input type="text" class="form-control" formControlName="city" />
+          <div class="label-form">עיר</div>
+          <input type="text" formControlName="city" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">מיקוד</div>
-            <input type="text" class="form-control" formControlName="zipCode" />
+          <div class="label-form">מיקוד</div>
+          <input type="text" formControlName="zipCode" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">מספר טלפון בבית</div>
-            <input type="text" class="form-control" formControlName="shtibel" />
+          <div class="label-form">טלפון בבית</div>
+          <input type="text" formControlName="housePhone" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">פלאפון</div>
-            <input type="text" class="form-control" formControlName="cellPhone" />
+          <div class="label-form">פלאפון</div>
+          <input type="text" formControlName="cellPhone" />
         </div>
+
         <div class="form-group">
-            <div class="label-form">הורי האם</div>
-            <input type="text" class="form-control" formControlName="shver" />
+          <div class="label-form">הורי האם</div>
+          <input type="text" formControlName="shver" />
         </div>
-        <div class="row">
-            <div class="col col-3">
-                <button [disabled]="frmPerson.invalid" (click)="save()">שמירה</button>
-            </div>
-        </div>
-    </div>
-</form>
+
+      </div>
+
+      <div class="actions">
+        <button [disabled]="frmPerson.invalid" (click)="save()">שמירה</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

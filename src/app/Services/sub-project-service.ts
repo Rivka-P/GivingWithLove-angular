@@ -12,8 +12,9 @@ BASE_URL: string = 'https://localhost:7016/api/SubProject';
 Projects$: Observable<SubProjectModule[]>= this.getAllProjects();
 Projects:SubProjectModule[]=[];
   constructor() { 
-    this.Projects$=this.getAllProjects()
-    this.Projects$.subscribe(x => this.Projects = x);
+    this.refreshData()
+    // this.Projects$=this.getAllProjects()
+    // this.Projects$.subscribe(x => this.Projects = x);
   }
 // --- מתודות CRUD ---
   getAllProjects(): Observable<SubProjectModule[]> {

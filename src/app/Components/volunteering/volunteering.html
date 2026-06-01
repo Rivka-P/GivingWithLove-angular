@@ -1,74 +1,103 @@
-<<<<<<< HEAD
+<div class="page">
 
-<h1>הכנס פרטי התנדבות החדש</h1>
-<!-- @for(vol of volunteeringService.volunteerings$ | async; track vol; let j = $index)
-{
-<p> {{vol.volunteeringCode}}קוד התנדבות </p>
-<p> {{vol.volunteerCode}}קוד מתנדב</p>
+  <div class="title">הכנס פרטי התנדבות חדש</div>
 
+  <form [formGroup]="vlntrFrm" class="form-card">
 
-} -->
-<form [formGroup]="vlntrFrm">
+    <!-- תאריך התנדבות -->
+    <div class="form-group">
+      <label>תאריך התנדבות (עברית)</label>
+      <div class="date-selects" style="display:flex; gap:8px; align-items:center;">
+        <select class="input" formControlName="hebDay" (change)="convertHebToIso()">
+          <option [value]="null">יום</option>
+          <option *ngFor="let d of hebDayOptions" [value]="d.value">{{d.label}}</option>
+        </select>
 
+        <select class="input" formControlName="hebMonth" (change)="convertHebToIso()">
+          <option [value]="null">חודש</option>
+          <option *ngFor="let m of hebMonths" [value]="m.en">{{m.he}}</option>
+        </select>
 
-  <label for="dateOfVolunteering"> dateOfVolunteering</label>
-=======
+        <select class="input" formControlName="hebYear" (change)="convertHebToIso()">
+          <option [value]="null">שנה</option>
+          <option *ngFor="let y of hebYearOptions" [value]="y.value">{{y.label}}</option>
+        </select>
+      </div>
 
-<h1>הכנס פרטי התנדבות חדש</h1>
-<form [formGroup]="vlntrFrm">
+      <div *ngIf="convertedIso" class="helper">תאריך גרגוריאני: {{convertedIso}}</div>
+      <div *ngIf="convertError" class="error">{{convertError}}</div>
 
-  <label for="dateOfVolunteering">תאריך התנדבות</label>
->>>>>>> bfc63a53c2ea9160ba244ed14888be802bfcf60b
-  <input class="form-control" formControlName="dateOfVolunteering" type="date" name="dateOfVolunteering">
+      <!-- Hidden ISO field so existing form submission logic remains unchanged -->
+      <input type="hidden" formControlName="dateOfVolunteering">
+    </div>
 
-  <label for="volunteerCode">קוד מתנדב</label>
-  <select class="form-control" formControlName="volunteerCode" autocomplete="on">
-    <option *ngFor="let volun of volunteerService.volunteers; track volun" [value]="volun.volunteerCode">
-      {{ volun.volunteerCodeNavigation?.firstName }}
-    </option>
-  </select>
+    <!-- מתנדב -->
+    <div class="form-group">
+      <label>קוד מתנדב</label>
+      <select class="input" formControlName="volunteerCode">
+        <option *ngFor="let volun of volunteerService.volunteers; track volun"
+                [value]="volun.volunteerCode">
+          {{ volun.volunteerCodeNavigation?.firstName }}
+        </option>
+      </select>
+    </div>
 
+    <!-- אדם עני -->
+    <div class="form-group">
+      <label>קוד אדם עני</label>
+      <select class="input" formControlName="poorManCode">
+        <option *ngFor="let p of ecdService.peopleInTheEichud; track p"
+                [value]="p.eichudCode">
+          {{ p.firstName }}
+        </option>
+      </select>
+    </div>
 
-  <label for="poorManCode">קוד אדם עני</label>
+    <!-- מתאם -->
+    <div class="form-group">
+      <label>קוד מתאם</label>
+      <select class="input" formControlName="matcherCode">
+        <option *ngFor="let volun of volunteerService.volunteers; track volun"
+                [value]="volun.volunteerCode">
+          {{ volun.volunteerCodeNavigation?.firstName }}
+        </option>
+      </select>
+    </div>
 
-  <select class="form-control" formControlName="poorManCode" autocomplete="on">
-    <option *ngFor="let p of ecdService.peopleInTheEichud; track p" [value]="p.eichudCode">
-      {{ p.firstName }}
-    </option>
-  </select>
-<!-- {{volunteeringService.matcherCodeInS}} -->
+    <!-- פרויקט -->
+    <div class="form-group">
+      <label>פרויקט</label>
+      <select class="input"
+              formControlName="projectCode"
+              (change)="onProjectChange($event)">
 
-  <label for="matcherCode">קוד מתאם</label>
-  <select class="form-control" formControlName="matcherCode" autocomplete="on">
+        <ng-container *ngFor="let pro of projectsArr; track pro">
+          <option *ngIf="pro.projectCode !== pro.domainCode"
+                  [value]="pro.projectCode">
+            {{ pro.projectName }}
+          </option>
+        </ng-container>
 
-    <option *ngFor="let volun of volunteerService.volunteers; track volun" [value]="volun.volunteerCode">
-      {{ volun.volunteerCodeNavigation?.firstName }}
-    </option>
-  </select>
-<<<<<<< HEAD
-{{volunteeringService.projectCodeInS}}
+      </select>
+    </div>
 
-=======
-<!-- {{volunteeringService.projectCodeInS}} -->
->>>>>>> e37c338 (Rivkys angular async)
-  <select class="form-control" formControlName="projectCode" (change)="onProjectChange($event)">
-  <ng-container *ngFor="let pro of projectsArr; track pro">
-    <option *ngIf="pro.projectCode !== pro.domainCode" [value]="pro.projectCode" >
-      {{ pro.projectName }}
-    </option>
-  </ng-container>
-</select>
-<!-- {{volunteeringService.subProjectCodeInS}} -->
+    <!-- תת פרויקט -->
+    <div class="form-group">
+      <label>תת פרויקט</label>
+      <select class="input" formControlName="subProjectCode">
+        <option *ngFor="let subPro of filteredSubProjects; track subPro"
+                [value]="subPro.projectCode">
+          {{ subPro.subProjectName }}
+        </option>
+      </select>
+    </div>
 
-  <label for="subProjectCode">קוד תת פרויקט</label>
-  <select class="form-control" formControlName="subProjectCode" autocomplete="on" >
-    <option *ngFor="let subPro of filteredSubProjects; track subPro" [value]="subPro.projectCode">
-      {{ subPro.subProjectName }}
-    </option>
-  </select>
+    <button class="btn"
+            [disabled]="vlntrFrm.invalid"
+            (click)="addVolunteering()">
+      הוסף
+    </button>
 
+  </form>
 
-  <button [disabled]="vlntrFrm.invalid" (click)="addVolunteering()">הוסף</button>
-
-</form>
-
+</div>

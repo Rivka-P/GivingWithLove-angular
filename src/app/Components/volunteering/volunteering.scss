@@ -1,59 +1,115 @@
-/* כלל בסיסי לטופס */
-form {
-    max-width: 600px; /* רוחב מרבי לטופס */
-    margin: 20px auto;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fafafa;
-    font-family: Arial, sans-serif;
-    direction: rtl; /* כיוון עברית */
-    text-align: right;
+.page {
+  min-height: 100vh;
+direction: rtl;
+text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-/* תוויות */
-form label {
-    display: block;
-    margin-bottom: 4px;
-    font-weight: 500;
-    font-size: 13px;
+/* כותרת */
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f3b57;
+
+  margin-bottom: 16px;
+  text-align: center;
 }
 
-/* שדות קלט */
-form .form-control {
-    width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
+/* טופס */
+.form-card {
+  width: 100%;
+  max-width: 520px;
+
+  background: #fff;
+  border-radius: 14px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  padding: 22px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  animation: fadeIn 0.35s ease-in-out;
+}
+
+/* שדות */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1f3b57;
+}
+
+.input {
+  padding: 10px 12px;
+
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+
+  outline: none;
+
+  transition: 0.2s ease;
+  background: #fff;
+}
+
+.input:focus {
+  border-color: #64b5f6;
+  box-shadow: 0 0 0 3px rgba(100,181,246,0.2);
 }
 
 /* כפתור */
-form button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    font-weight: 500;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.btn {
+  padding: 10px 14px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: #60a5fa;
+  color: #fff;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
 }
 
-form button:hover:not(:disabled) {
-    background-color: #0056b3;
+.btn:hover {
+  background: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
-form button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
+.btn:disabled {
+  background: #bcd3f5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* כותרת הטופס */
-h1 {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 20px;
+/* אנימציה */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

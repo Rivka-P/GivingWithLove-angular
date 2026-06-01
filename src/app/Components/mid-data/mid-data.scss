@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(135deg, #e6f4ff, #d9efff);
+
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ===== כותרת ===== */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f3b57;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #5b6b7a;
+  margin-top: 4px;
+}
+
+/* ===== קישורי תתי פרויקטים ===== */
+.sub-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.sub-project {
+  padding: 8px 12px;
+
+  background: #ffffff;
+  border: 1px solid #cfd8dc;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+  color: #2c3e50;
+
+  font-size: 13px;
+
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.sub-project:hover {
+  transform: translateY(-2px);
+  background: #f5f9ff;
+  border-color: #90a4ae;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* ===== דאשבורד כרטיסים ===== */
+.cards-container {
+  width: 100%;
+  max-width: 1000px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* כרטיס */
+.card {
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+
+  transition: all 0.25s ease;
+
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.card h2 {
+  font-size: 14px;
+  color: #5b6b7a;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f3b57;
+}
+
+/* אנימציה כללית */
+.page, .card, .sub-project {
+  animation: fadeIn 0.35s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
