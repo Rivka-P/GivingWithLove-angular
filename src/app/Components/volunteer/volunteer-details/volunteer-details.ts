@@ -12,6 +12,7 @@
 // import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // import { MatIconModule } from '@angular/material/icon';
 // import { lastValueFrom } from 'rxjs';
+// import { HebcalService } from '../../../Services/hebcal.service';
 
 // import { I } from '@angular/cdk/keycodes';
 // @Component({
@@ -253,6 +254,7 @@ import { ChartModule } from 'primeng/chart';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { lastValueFrom } from 'rxjs';
+import { HebcalService } from '../../../Services/hebcal.service';
 
 @Component({
   selector: 'app-volunteer-details',
@@ -275,6 +277,7 @@ export class VolunteerDetails implements OnInit {
   private volunteeringService = inject(VolunteeringService);
   private dialogRef = inject(MatDialogRef<VolunteerDetails>);
   data = inject(MAT_DIALOG_DATA) as { volunteerCode: string };
+  private hebcalService = inject(HebcalService);
 
   // ===== data =====
   volunteer!: VolunteerModule;
@@ -331,7 +334,7 @@ export class VolunteerDetails implements OnInit {
     }
 
     this.processPieChart();
-    this.processBarChart();
+    await this.processBarChart();
   }
 
   // ===== close dialog =====
@@ -373,22 +376,38 @@ export class VolunteerDetails implements OnInit {
   }
 
   // ===== bar chart =====
-  processBarChart() {
-    const monthMap: { [key: string]: number } = {};
+  async processBarChart() {
+    // Count by YYYY-MM key to avoid JS locale differences
+    const monthCount = new Map<string, number>();
+    for (const v of this.volunteerings) {
+      const iso = v?.dateOfVolunteering ?? '';
+      const key = iso.length >= 7 ? iso.slice(0, 7) : iso; // 'YYYY-MM'
+      monthCount.set(key, (monthCount.get(key) || 0) + 1);
+    }
 
-    this.volunteerings.forEach(v => {
-      const month = new Date(v.dateOfVolunteering)
-        .toLocaleString('default', { month: 'short', year: 'numeric' });
+    const entries = Array.from(monthCount.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
-      monthMap[month] = (monthMap[month] || 0) + 1;
-    });
+    const labels: string[] = [];
+    const data: number[] = [];
+
+    for (const [key, cnt] of entries) {
+      let label = key;
+      try {
+        const isoForApi = key.length === 7 ? `${key}-01` : key;
+        label = await lastValueFrom(this.hebcalService.getHebrewMonthForIso(isoForApi));
+      } catch (e) {
+        label = key; // fallback
+      }
+      labels.push(label);
+      data.push(cnt);
+    }
 
     this.barChartDataForPrime = {
-      labels: Object.keys(monthMap),
+      labels,
       datasets: [
         {
-          label: 'התנדבויות לפי חודשים',
-          data: Object.values(monthMap),
+          label: 'התנדבויות לפי חודשים (עברית)',
+          data,
           backgroundColor: '#42A5F5'
         }
       ]
